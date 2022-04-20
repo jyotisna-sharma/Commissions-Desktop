@@ -1,0 +1,112 @@
+/******Batches***/
+Select * from batches_Audit where BatchId in (Select batchID from Statements)
+
+/*****Statements *****/
+select s.StatementNumber, InsertDateTime   from 
+Statements_Audit  s 
+ where --b.InsertDateTime > '03/20/2017' and 
+ StatementId in
+ (Select p.StatementId from  PolicyPaymentEntries p   )
+ 
+ select * from Statements_Audit  where StatementNumber = 36
+ select * from Statements where BatchId='5E72737E-16CD-4412-A8B3-ECA6D1709264'
+ select * from Batches where BatchId='5E72737E-16CD-4412-A8B3-ECA6D1709264'
+ 
+ /****POlicies *****/
+select * from Policies_Audit where InsertDateTime > '05/21/2017' and PolicyStatusId  = 0 and IsdeletedFlagAltered=0
+ and PolicyId not in (select PolicyId from Policies)
+ Select * from Policies_Audit where PolicyId in (Select distinct PolicyId from PolicyPaymentEntries)
+ and InsertDateTime > '05/21/2017' and IsdeletedFlagAltered=0
+  and PolicyId not in (select PolicyId from Policies)
+
+/***Clients****/
+select * from Entriesbydeu where ClientID   in (
+Select  a.ClientId   from Clients_Audit a inner join Policies p on a.ClientId  = p.PolicyClientId 
+where InsertDateTime>'05/21/2017' and (IsdeletedFlagAltered is null or IsdeletedFlagAltered = 0)
+and a.ClientId not in (select ClientId from Clients))
+
+/** Outgoing Schedules**/
+select * from PolicyOutgoingSchedules_Audit a inner join Policies p on a.PolicyId = p.PolicyId 
+ where InsertDateTime > '05/21/2017'
+and OutgoingScheduleId not in 
+(Select OutgoingScheduleId from PolicyOutgoingSchedules)
+order by InsertDateTime 
+
+/****Payment Entries *****/
+
+
+Select s.StatementId,CheckAmount,SUM(totalpayment), s.StatementStatusId, s.BalAdj from PolicyPaymentEntries pe inner join Statements s on pe.StatementId  = s.StatementId
+where s.StatementId in (
+Select distinct  pe.StatementId   from PolicyPaymentEntries_Audit  pe 
+inner join policies p on pe.PolicyId = p.PolicyId 
+where InsertDateTime > '05/23/2017')
+group by s.StatementId, CheckAmount, StatementStatusId, s.BalAdj
+having (CAST(SUM(totalpayment) as decimal(10,2)) + BalAdj ) <> CheckAmount
+
+--
+
+/** Outgoing Payments **/
+
+select distinct PaymentEntryId  from PolicyOutgoingPayments_Audit po where PaymentEntryId in 
+(Select PaymentEntryId from PolicyPaymentEntries)
+ and po.insertDateTime > '04/21/2017'
+
+Select pe.policyId , SUM(paidAmount), totalpayment, pe.CreatedOn, pe.PaymentEntryId from PolicyPaymentEntries pe left join PolicyOutgoingPayments po
+on pe.PaymentEntryId  = po.paymentEntryID
+where pe.PaymentEntryId  in 
+(
+select distinct PaymentEntryId from PolicyOutgoingPayments_Audit where insertDateTime > '05/24/2017'
+)
+--inner join PolicyOutgoingSchedules s on pe.PolicyId = s.PolicyId
+--inner join Policies p on pe.PolicyId = p.policyid 
+--inner join Licensees l on p.PolicyLicenseeId = l.LicenseeId 
+--where s.ScheduleTypeId  = 2 and l.LicenseStatusId = 0 and PolicyStatusId = 0
+group by pe.PolicyId, TotalPayment, pe.CreatedOn , pe.PaymentEntryId
+having SUM(paidAmount) <> TotalPayment
+
+/*********old web service ref check***/
+select distinct program_name, InsertDatetime  from EntriesByDEU_Audit   
+where program_name like 'CommisionDeptWebService308%'   
+
+select Max(InsertDateTime) from Policies_Audit  where  program_name like 'CommisionDeptWebService3092%' 
+
+/***********soft deletion check******/
+
+select * from Policies_Audit where InsertDateTime > '05/25/2017' and IsdeletedFlagAltered=1
+select * from Clients_Audit where InsertDateTime > '05/25/2017' and IsdeletedFlagAltered=1
+
+/**************Smart fields check**********************/
+
+select --distinct PolicyNumber 
+distinct p.PolicyId
+--, CreatedOn, PolicyStatusId, CreatedBy,PolicyType   
+from Policies p
+inner join Licensees l on PolicyLicenseeId  = l.LicenseeId
+where PolicyId not in
+(select PolicyId from PolicyLearnedFields)
+and p.IsDeleted = 0 and l.IsDeleted = 0
+and l.LicenseStatusId = 0
+
+/*********************Check incoming/outgoing payments ******************/
+
+Select po.paymententryID, SUM(PaidAmount),TotalPayment from PolicyOutgoingPayments po
+inner join PolicyPaymentEntries  pe on po.PaymentEntryId = pe.PaymentEntryId
+
+where po.PaymentEntryId in(
+select distinct PaymentEntryId from PolicyOutgoingPayments_Audit 
+where OutgoingPaymentId in ('032a72a0-d993-4c06-84d3-4a2d61727061','2360c97f-1938-4529-a7b9-aefc8ea8fc66',
+'e7bd0816-c883-4230-8b0b-8b667a4b8631',
+'9ced0916-b296-4b03-af62-8e333875fb44',
+'734cd1f7-8040-4b3b-b492-c88202331c6a',
+'c5e1db78-b905-4b74-abeb-c7e5a5367af2',
+'8137eadc-b1db-475f-b5b0-11cf3b49f235',
+'abe9ce29-0e97-4407-982a-3bed9e87a616',
+'ca6a1a8f-54e0-4ca7-870d-0d97da6f3edd',
+'9dd22304-8b0a-46c6-a4c5-817e07a9f7e7',
+'3e01fede-6138-4f2a-98f2-68b1dca36cbd',
+'7a6ef546-d9ed-4185-bccc-95796cf94663',
+'231e0791-e9be-4fa8-909d-308c99b906b1',
+'16f0ee7c-ae8a-4996-881b-b9c5ad4a66fb',
+'32d8b2fc-4eee-41e0-92d2-078bf8645fe4',
+'c57ed373-36cd-452b-866b-d114e3a5a6f3'))
+group by po.PaymentEntryId, TotalPayment

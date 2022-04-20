@@ -1,0 +1,298 @@
+/***********Recover is deleted policies/clientd  
+
+update Policies Set IsDeleted  = 0 where PolicyId in (
+
+Select distinct p.PolicyId  from PolicyPaymentEntries pe
+inner join Policies p on pe.PolicyId = p.PolicyId 
+--inner join Clients c on p.PolicyClientId = c.ClientId 
+where PolicyLicenseeId  = 'F2BC598B-3AFD-4C57-9E90-C5112F03EF54' --'D29B4BFC-34ED-47A5-A681-A24647953943' --
+and p.IsDeleted  = 1 --or c.IsDeleted  = 1)
+
+)
+
+update Clients Set IsDeleted = 0 where ClientId in 
+(
+select distinct pl.PolicyClientId  from PolicyPaymentEntries p 
+inner join Policies pl on p.PolicyId = pl.PolicyId  where PolicyClientId in (
+Select ClientId from Clients c --on pl.PolicyClientId   = c.ClientId 
+ where LicenseeId = 'F2BC598B-3AFD-4C57-9E90-C5112F03EF54' -- '0287E027-BE7A-4F37-B32A-75B8C478C772' 
+ and c.IsDeleted = 1 ))
+
+
+
+
+/********Add Data
+INSERT INTO [Policies]
+           ([PolicyId]
+           ,[PolicyNumber]
+           ,[PolicyStatusId]
+           ,[PolicyType]
+           ,[PolicyClientId]
+           ,[PolicyLicenseeId]
+           ,[OriginalEffectiveDate]
+           ,[TrackFromDate]
+           ,[PolicyModeId]
+           ,[MonthlyPremium]
+           ,[CoverageId]
+           ,[SubmittedThrough]
+           ,[Enrolled]
+           ,[Eligible]
+           ,[PolicyTerminationDate]
+           ,[TerminationReasonId]
+           ,[IsTrackMissingMonth]
+           ,[IsTrackIncomingPercentage]
+           ,[IsTrackPayment]
+           ,[IncomingPaymentTypeId]
+           ,[IsDeleted]
+           ,[ReplacedBy]
+           ,[PayorId]
+           ,[DuplicateFrom]
+           ,[CreatedBy]
+           ,[CreatedOn]
+           ,[IsIncomingBasicSchedule]
+           ,[IsOutGoingBasicSchedule]
+           ,[CarrierId]
+           ,[SplitPercentage]
+           ,[Insured]
+           ,[ActivatedOn]
+           ,[IsLocked]
+           ,[LastFollowUpRuns]
+           ,[Advance]
+           ,[ProductType]
+           ,[UserCredentialId]
+           ,[AccoutExec]
+           ,[LastNoMissIssueDate]
+           ,[LastNoVarIssueDate])
+     
+Select [PolicyId]
+           ,[PolicyNumber]
+           ,[PolicyStatusId]
+           ,[PolicyType]
+           ,[PolicyClientId]
+           ,[PolicyLicenseeId]
+           ,[OriginalEffectiveDate]
+           ,[TrackFromDate]
+           ,[PolicyModeId]
+           ,[MonthlyPremium]
+           ,[CoverageId]
+           ,[SubmittedThrough]
+           ,[Enrolled]
+           ,[Eligible]
+           ,[PolicyTerminationDate]
+           ,[TerminationReasonId]
+           ,[IsTrackMissingMonth]
+           ,[IsTrackIncomingPercentage]
+           ,[IsTrackPayment]
+           ,[IncomingPaymentTypeId]
+           ,[IsDeleted]
+           ,[ReplacedBy]
+           ,[PayorId]
+           ,[DuplicateFrom]
+           ,[CreatedBy]
+           ,[CreatedOn]
+           ,[IsIncomingBasicSchedule]
+           ,[IsOutGoingBasicSchedule]
+           ,[CarrierId]
+           ,[SplitPercentage]
+           ,[Insured]
+           ,[ActivatedOn]
+           ,[IsLocked]
+           ,[LastFollowUpRuns]
+           ,[Advance]
+           ,[ProductType]
+           ,[UserCredentialId]
+           ,[AccoutExec]
+           ,[LastNoMissIssueDate]
+           ,[LastNoVarIssueDate] from Policies_Audit 
+where sqlbuffer like 'Delete%'
+and PolicyId not in (select PolicyId from Policies )
+
+/*********************************Clients
+INSERT INTO [CommisionDepartmentEricDB].[dbo].[Clients]
+           ([ClientId]
+           ,[LicenseeId]
+           ,[Name]
+           ,[Address]
+           ,[Zip]
+           ,[City]
+           ,[State]
+           ,[Email]
+           ,[IsDeleted])
+           Select 
+           [ClientId]
+           ,[LicenseeId]
+           ,[Name]
+           ,[Address]
+           ,[Zip]
+           ,[City]
+           ,[State]
+           ,[Email]
+           ,[IsDeleted]--,sqlbuffer, InsertDateTime
+           From Clients_Audit where sqlbuffer like 'delete top%'
+           and ClientId not in (select clientID from clients)
+
+/*******************
+INSERT INTO [EntriesByDEU]
+           ([DEUEntryID]
+           ,[OriginalEffectiveDate]
+           ,[PaymentReceived]
+           ,[CommissionPercentage]
+           ,[OtherData]
+           ,[Insured]
+           ,[PolicyNumber]
+           ,[Enrolled]
+           ,[Eligible]
+           ,[Link1]
+           ,[SplitPer]
+           ,[PolicyModeID]
+           ,[PolicyModeValue]
+           ,[TrackFromDate]
+           ,[CompTypeID]
+           ,[ClientID]
+           ,[StatementID]
+           ,[PostStatusID]
+           ,[PolicyID]
+           ,[InvoiceDate]
+           ,[PayorId]
+           ,[NumberOfUnits]
+           ,[DollerPerUnit]
+           ,[Fee]
+           ,[Bonus]
+           ,[CommissionTotal]
+           ,[PayorSysID]
+           ,[Renewal]
+           ,[CarrierId]
+           ,[CoverageId]
+           ,[IsEntrybyCommissiondashBoard]
+           ,[CreatedBy]
+           ,[PostCompleteStatus]
+           ,[ModalAvgPremium]
+           ,[CompScheduleType]
+           ,[ClientValue]
+           ,[CarrierName]
+           ,[ProductName]
+           ,[EntryDate]
+           ,[UnlinkClientName]
+           ,[CoverageNickName]
+           ,[CarrierNickName])
+     Select 
+     [DEUEntryID]
+           ,[OriginalEffectiveDate]
+           ,[PaymentReceived]
+           ,[CommissionPercentage]
+           ,[OtherData]
+           ,[Insured]
+           ,[PolicyNumber]
+           ,[Enrolled]
+           ,[Eligible]
+           ,[Link1]
+           ,[SplitPer]
+           ,[PolicyModeID]
+           ,[PolicyModeValue]
+           ,[TrackFromDate]
+           ,[CompTypeID]
+           ,[ClientID]
+           ,[StatementID]
+           ,[PostStatusID]
+           ,[PolicyID]
+           ,[InvoiceDate]
+           ,[PayorId]
+           ,[NumberOfUnits]
+           ,[DollerPerUnit]
+           ,[Fee]
+           ,[Bonus]
+           ,[CommissionTotal]
+           ,[PayorSysID]
+           ,[Renewal]
+           ,[CarrierId]
+           ,[CoverageId]
+           ,[IsEntrybyCommissiondashBoard]
+           ,[CreatedBy]
+           ,[PostCompleteStatus]
+           ,[ModalAvgPremium]
+           ,[CompScheduleType]
+           ,[ClientValue]
+           ,[CarrierName]
+           ,[ProductName]
+           ,[EntryDate]
+           ,[UnlinkClientName]
+           ,[CoverageNickName]
+           ,[CarrierNickName]
+           from EntriesByDEU_Audit 
+           where sqlbuffer like 'delete t%'
+           and DEUEntryID not in (select DEUEntryID from EntriesByDEU)
+/***************************************
+
+INSERT INTO [CommisionDepartmentEricDB].[dbo].[PolicyPaymentEntries]
+           ([PaymentEntryId]
+           ,[StatementId]
+           ,[PolicyId]
+           ,[InvoiceDate]
+           ,[PaymentRecived]
+           ,[CommissionPercentage]
+           ,[NumberOfUnits]
+           ,[Fee]
+           ,[SplitPercentage]
+           ,[TotalPayment]
+           ,[CreatedOn]
+           ,[CreatedBy]
+           ,[PostStatusID]
+           ,[Bonus]
+           ,[DollerPerUnit]
+           ,[DEUEntryId]
+           ,[ExpectedPayment]
+           ,[FollowUpVarIssueId]
+           ,[FollowUpIssueResolveOrClosed]
+           ,[IsLinkPayment])
+           Select 
+           [PaymentEntryId]
+           ,[StatementId]
+           ,[PolicyId]
+           ,[InvoiceDate]
+           ,[PaymentRecived]
+           ,[CommissionPercentage]
+           ,[NumberOfUnits]
+           ,[Fee]
+           ,[SplitPercentage]
+           ,[TotalPayment]
+           ,[CreatedOn]
+           ,[CreatedBy]
+           ,[PostStatusID]
+           ,[Bonus]
+           ,[DollerPerUnit]
+           ,[DEUEntryId]
+           ,[ExpectedPayment]
+           ,[FollowUpVarIssueId]
+           ,[FollowUpIssueResolveOrClosed]
+           ,[IsLinkPayment]
+           From PolicyPaymentEntries_Audit where sqlbuffer  like 'delete%'
+and PaymentEntryId  not in (select PaymentEntryId from PolicyPaymentEntries)
+
+/***********************POlicy outgoing payments 
+INSERT INTO [CommisionDepartmentEricDB].[dbo].[PolicyOutgoingPayments]
+           ([OutgoingPaymentId]
+           ,[PaymentEntryId]
+           ,[RecipientUserCredentialId]
+           ,[PaidAmount]
+           ,[CreatedOn]
+           ,[IsPaid]
+           ,[Premium]
+           ,[OutgoingPerUnit]
+           ,[Payment]
+           ,[ReverseOutgoingPaymentID])
+           Select 
+           [OutgoingPaymentId]
+           ,[PaymentEntryId]
+           ,[RecipientUserCredentialId]
+           ,[PaidAmount]
+           ,[CreatedOn]
+           ,[IsPaid]
+           ,[Premium]
+           ,[OutgoingPerUnit]
+           ,[Payment]
+           ,[ReverseOutgoingPaymentID],*
+           From PolicyOutgoingPayments_Audit where sqlbuffer like 'DELETE%'
+           and OutgoingPaymentId not in (select OutgoingPaymentId from PolicyOutgoingPayments)
+           
+           
+           --select * from PolicyOutgoingPayments_Audit  where PaymentEntryId ='A4CB4C19-7DD3-44AF-B158-001B3FE188A1'

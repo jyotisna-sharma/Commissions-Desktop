@@ -1,0 +1,46 @@
+agent name  + nickname
+term date ignore for active/pending
+special char skip in agent name 
+
+
+learned fields data update 
+check scenario
+
+
+
+Declare @temp table(policyID uniqueidentifier)
+
+Insert into @temp(policyID)
+select p.PolicyId from Policies p
+inner join Licensees l on PolicyLicenseeId  = l.LicenseeId
+where PolicyId not in
+(select PolicyId from PolicyLearnedFields)
+and p.IsDeleted = 0 and l.IsDeleted = 0
+and l.LicenseStatusId = 0
+
+
+While exists(Select * from @temp)
+BEGIN
+
+declare @pid uniqueidentifier
+Select top 1 @pid = policyid from @temp 
+print @pid
+
+Insert into PolicyLearnedFields 
+(PolicyId,Insured,PolicyNumber,Effective,TrackFrom,PolicyModeId,
+Enrolled,Eligible ,AutoTerminationDate,ClientID,
+CarrierId,CoverageId,PayorId,UserCredentialId ,AccoutExec,ProductType,Advance,SplitPercentage,ModalAvgPremium,
+CompTypeID )
+Select 
+PolicyId,Insured,PolicyNumber,OriginalEffectiveDate,TrackFromDate,PolicyModeId,
+Enrolled,Eligible ,PolicyTerminationDate,PolicyClientId,
+CarrierId,CoverageId,PayorId,UserCredentialId ,AccoutExec,ProductType,Advance,SplitPercentage ,
+MonthlyPremium,IncomingPaymentTypeId
+from Policies where PolicyId = @pid
+
+delete from @temp where policyID = @pid
+
+END
+
+
+	
