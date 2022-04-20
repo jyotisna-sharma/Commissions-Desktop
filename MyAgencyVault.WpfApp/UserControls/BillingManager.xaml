@@ -1,0 +1,992 @@
+﻿<UserControl x:Class="MyAgencyVault.WinApp.UserControls.BillingManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+             xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+             xmlns:behaviour="clr-namespace:MyAgencyVault.ViewModel.Behaviour;assembly=MyAgencyVault.VM"
+             xmlns:conv="clr-namespace:MyAgencyVault.ViewModel.Converters;assembly=MyAgencyVault.VM"
+             xmlns:rate="clr-namespace:MyAgencyVault.ViewModel.Converters;assembly=MyAgencyVault.VM"
+             xmlns:vm="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+             xmlns:vmlib="clr-namespace:MyAgencyVault.ViewModel.VMLib;assembly=MyAgencyVault.VM"
+             xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+             xmlns:validation="clr-namespace:MyAgencyVault.WinApp.Validation"
+        xmlns:toolkitExt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+    Width="793" Height="702.92" HorizontalAlignment="Left"> 
+    <UserControl.Resources>
+        <conv:NullToBooleanCoverter x:Key="nullToBoolConv"/>
+        <conv:EmptyToNullCoverter x:Key="emptyToNullConv"/>       
+        <conv:Int2StringConverter x:Key="NumberToStringConv"/>
+        <conv:YesNoToBoolConverter x:Key="ynToBoolConverter"></conv:YesNoToBoolConverter>
+        <conv:PercentageConverter x:Key="percentageConv"/>
+        <conv:RateCoverter x:Key="rateCoverter"></conv:RateCoverter>
+        <ObjectDataProvider ObjectType="{x:Type vmlib:ServiceChargesType}" x:Key="serCharges">
+         </ObjectDataProvider>
+        <vmlib:Products x:Key="pds"></vmlib:Products>
+    </UserControl.Resources>
+    <Grid>        
+        <TabControl Name="tbBillingManagerMain" Grid.Row="0">
+            <!--for tab control no margin required here. and width need to be set as it was not getting along all the available space-->
+            <TabItem Name="tbLicensees" Header="Licensees" local:EyeCandy.Image="..\Images/Icons/folder_information.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                
+                <TabItem.Content>
+                    <Grid HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="5" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0"></RowDefinition>
+                            <RowDefinition Height="4"></RowDefinition>
+                            <RowDefinition Height="180"></RowDefinition>
+                            <RowDefinition Height="4"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--<Border BorderBrush="#577FB2" BorderThickness="1" Grid.ColumnSpan="3" Grid.Row="0"></Border>-->
+                        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" ></Border>
+                        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="4" Grid.ColumnSpan="3" ></Border>
+                        <Grid Grid.Row="2" Grid.Column="1" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="770"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            
+                            <WrapPanel Grid.Column="0" VerticalAlignment="Center">
+                                <Label Content="Show Licensees" Name="label1" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <Separator Visibility="Hidden" Width="20" VerticalAlignment="Center"></Separator> 
+                                <RadioButton Content="Active" IsChecked="True" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="60" Command="{Binding ActiveCheck}"></RadioButton>
+                                <RadioButton Content="Inactive" Command="{Binding InActiveCheck}"  VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Left"  Width="73"></RadioButton>
+                                <RadioButton Content="Pending" Command="{Binding Pending}"  VerticalAlignment="Center" HorizontalAlignment="Left"  Width="81" ></RadioButton>
+                                <RadioButton Content="Balance" Command="{Binding Balance}" Name="rdbActive3" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="68" ></RadioButton>
+                                <RadioButton Content="All" Command="{Binding All}"  VerticalAlignment="Center" HorizontalAlignment="Left"  Width="60" ></RadioButton>
+                            </WrapPanel>
+                            <toolkit:DataGrid IsReadOnly ="True" ColumnWidth="87" AutoGenerateColumns="False" CanUserAddRows="True" ItemsSource="{Binding Licensees}" SelectedItem="{Binding SelectedLicensee}"  Grid.Row="1" Grid.ColumnSpan="2"   GridLinesVisibility="None"  Background="White" HorizontalScrollBarVisibility="Hidden">
+                                <toolkit:DataGrid.Columns>
+                                <toolkit:DataGridTextColumn  Header="Company" Binding="{Binding Company}" Width="160">                                
+                                </toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Header="First Name" Binding="{Binding ContactFirst}" Width="160"></toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Header="Last Name" Binding="{Binding ContactLast}" Width="160"></toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Header="            Balance" Binding="{Binding DueBalance,StringFormat=c}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Header="Status" Binding="{Binding Path=LicenseeStatus,Converter={StaticResource NumberToStringConv},ConverterParameter=LicenseeStatus,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></toolkit:DataGridTextColumn>
+                                </toolkit:DataGrid.Columns>
+
+                            </toolkit:DataGrid>
+                            <WrapPanel  Name="stcButtons" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Center" >
+                                <Button Name="btnAdd" Content="New"  Height="22"  Style="{StaticResource NewCommonButton}" VerticalAlignment="Center" Command="{Binding LicenseDetailNewCmd}" vm:EventFocusAttachment.ElementToFocus="{Binding ElementName=txtCompanyName}" ></Button>
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <Button Content="Delete" Grid.Row="3" VerticalAlignment="Center" Grid.Column="2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\businessman_delete.png" Command="{Binding LicensesDelete}"></Button>
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <Button Content="Send Alert" Grid.Row="3" ToolTip="Send alert mail" VerticalAlignment="Center" Grid.Column="2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\mail_forward.png" Command="{Binding SendAletMail}"></Button>
+                             </WrapPanel>
+                        </Grid>                        
+                        <Grid Grid.Row="5" Grid.Column="1" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="4"></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition Height="4"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2"></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition> 
+                                <ColumnDefinition Width="2"></ColumnDefinition> 
+                            </Grid.ColumnDefinitions>
+                            <TabControl Name="tbBillingManager" Grid.Row="1" Grid.Column="1">
+                                <!--for tab control no margin required here. and width need to be set as it was not getting along all the available space-->
+                                <TabItem Header="Licensees Detail" Name="tbLicenseeDetail" local:EyeCandy.Image="../Images/Logo/businessman_view.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                                   
+                                    <TabItem.Content>
+                                        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Width="760">
+                                            <Grid.RowDefinitions>
+                                                
+                                                <RowDefinition Height="189"></RowDefinition>
+                                                <RowDefinition Height="27" ></RowDefinition>
+                                                <RowDefinition Height="84"></RowDefinition>
+                                                <RowDefinition Height="30"></RowDefinition>
+                                                <RowDefinition Height="20"></RowDefinition>
+                                                <RowDefinition Height="93"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <!--<Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="4"></Border>
+                                            <Border BorderBrush="#577FB2" Margin="0,5,0,7.6" BorderThickness="1" Grid.Row="4" Grid.ColumnSpan="3" Grid.RowSpan="2"></Border>-->
+
+                                            <Grid  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition ></ColumnDefinition>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="21" MinHeight="20"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="21" MinHeight="18.75"></RowDefinition>
+                                                    <RowDefinition Height="2" />
+                                                </Grid.RowDefinitions>
+                                                <Label Grid.Column="2" Grid.Row="0" Content="Status" VerticalAlignment="Center" ></Label>
+                                                <Label Grid.Column="0" Grid.Row="0" Content="Company" VerticalAlignment="Center" ></Label>
+                                                <!--<TextBox validation:FieldDescriptor.GroupName="Company" validation:FieldDescriptor.Name="Company" validation:FieldDescriptor.IsRequired="True" x:Name="txtCompanyName" Margin="0,0,20,0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.Company,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
+                                                <TextBox x:Name="txtCompanyName" Margin="0,0,20,0" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.Company,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="0" Grid.Row="1" Content="Contact First" VerticalAlignment="Center" ></Label>
+                                                <TextBox Margin="0,0,20,0" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.ContactFirst,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="0" Grid.Row="2" Content="Contact Last" VerticalAlignment="Center" ></Label>
+                                                <TextBox Margin="0,0,20,0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.ContactLast,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="0" Grid.Row="3" Content="Address 1" VerticalAlignment="Center" ></Label>
+                                                <TextBox validation:FieldDescriptor.GroupName="Address" validation:FieldDescriptor.Name="Address 1" Grid.Column="1" Margin="0,0,20,0" Grid.Row="3" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.Address1,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="0" Grid.Row="4" Content="Address 2" VerticalAlignment="Center" ></Label>
+                                                <TextBox validation:FieldDescriptor.GroupName="Address" validation:FieldDescriptor.Name="Address 2" Grid.Column="1" Margin="0,0,20,0" Grid.Row="4" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.Address2,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="0" Grid.Row="5" Content="Zip Code" VerticalAlignment="Center" ></Label>
+                                                
+                                                <toolkitExt:MaskedTextBox  Mask="00000" behaviour:FocusLostBehaviour.FocusLost="{Binding ZipLostFocus}" Grid.Column="1" Grid.Row="5" Margin="0,0,20,0" Value="{Binding Path=SelectedLicensee.ZipCode}"></toolkitExt:MaskedTextBox>
+                                                <!--<toolkitExt:MaskedTextBox   Grid.Column="1" Grid.Row="5" Margin="0,0,20,0" Value="{Binding Path=SelectedLicensee.ZipCode}"></toolkitExt:MaskedTextBox>-->
+                                                <Label Grid.Column="0" Grid.Row="6" Content="City" VerticalAlignment="Center" ></Label>
+                                                <TextBox validation:FieldDescriptor.GroupName="City" validation:FieldDescriptor.Name="City" Grid.Column="1" Grid.Row="6" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.City,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="0" Grid.Row="7" Content="State" VerticalAlignment="Center" ></Label>
+                                                <TextBox validation:FieldDescriptor.GroupName="State" validation:FieldDescriptor.Name="State" Grid.Column="1" Grid.Row="7" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.State,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="0" Grid.Row="8" Content="Display client" VerticalAlignment="Center" ></Label>
+                                                <CheckBox Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" IsChecked="{Binding SelectedLicensee.IsClientEnable}" ></CheckBox>
+                                                <!--<WindowsFormsHost Grid.Column="1" Grid.Row="7" Margin="0,0,20,0">
+                                                    <vm:MaskingHelper Mask="##,###,##" ></vm:MaskingHelper>
+                                                </WindowsFormsHost>-->
+                                                <ComboBox Margin="0,0,20,0" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" ItemsSource="{Binding Status}" SelectedItem="{Binding Path=SelectedLicensee.LicenseeStatus,Converter={StaticResource NumberToStringConv},ConverterParameter=LicenseeStatus,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=SelectedLicensee.LicenseeStatus,Converter={StaticResource NumberToStringConv},ConverterParameter=LicenseeStatus,Mode=TwoWay}">
+                                                </ComboBox>
+                                                <!--<TextBox Grid.Column="1" Grid.Row="7" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=ZipCode,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged,ElementName=MaskText}"></TextBox>-->
+                                                <Label Grid.Column="2" Grid.Row="1" Content="Phone"  VerticalAlignment="Center" ></Label>
+                                                <!--<vm:MaskingHelper InputMask="(iii) iii-iiii"   Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"  Margin="0,0,20,0" Text="{Binding Path=SelectedLicensee.Phone,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></vm:MaskingHelper>-->
+                                                <!--<toolkitExt:MaskedTextBox  Mask="(000) 000-0000" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"  Margin="0,0,20,0" Value="{Binding Path=SelectedLicensee.Phone,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></toolkitExt:MaskedTextBox>-->
+                                                <toolkitExt:MaskedTextBox  Mask="(000) 000-0000" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center"  Margin="0,0,20,0" Value="{Binding Path=SelectedLicensee.Phone,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></toolkitExt:MaskedTextBox>
+                                                <!--<TextBox Grid.Column="3" Grid.Row="1" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicense.Phone,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>-->
+                                                <Label Grid.Column="2" Grid.Row="2" Content="Fax" VerticalAlignment="Center" ></Label>
+                                                <toolkitExt:MaskedTextBox  Mask="(000) 000-0000" Grid.Column="3" Grid.Row="2" Margin="0,0,20,0" VerticalAlignment="Center" Value="{Binding Path=SelectedLicensee.Fax,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></toolkitExt:MaskedTextBox>
+                                                <!--<toolkitExt:MaskedTextBox  Mask="(000) 000-0000" Grid.Column="3" Grid.Row="2" Margin="0,0,20,0" VerticalAlignment="Center" Value="{Binding Path=SelectedLicensee.Fax,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></toolkitExt:MaskedTextBox>-->
+                                                <Label Grid.Column="2" Grid.Row="3" Content="Email" VerticalAlignment="Center" ></Label>
+                                                <TextBox validation:FieldDescriptor.GroupName="E-mail" validation:FieldDescriptor.Name="E-mail" Grid.Column="3" Grid.Row="3" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.Email,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="2" Grid.Row="4" Content="Payment Type" VerticalAlignment="Center" ></Label>
+                                                <!--<ComboBox Margin="0,0,20,0" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" ItemsSource="{Binding Status}" SelectedItem="{Binding Path=SelectedLicensee.LicenseeStatus,Converter={StaticResource NumberToStringConv},ConverterParameter=LicenseeStatus,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=SelectedLicensee.LicenseeStatus,Converter={StaticResource NumberToStringConv},ConverterParameter=LicenseeStatus,Mode=TwoWay}">
+                                                </ComboBox>-->
+                                                <ComboBox SelectedItem="{Binding Path=SelectedLicensee.LicensePaymentModeId,Converter={StaticResource NumberToStringConv},ConverterParameter=LicenseePaymentMode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=SelectedLicensee.LicensePaymentModeId,Converter={StaticResource NumberToStringConv},ConverterParameter=LicenseePaymentMode}" ItemsSource="{Binding Path=PaymentTypes}"  Grid.Column="3" Grid.Row="4" Margin="0,0,20,0" VerticalAlignment="Center">
+                                                </ComboBox>
+                                                <Label Grid.Column="2" Grid.Row="5" Content="{Binding Path=lblAccCode}" VerticalAlignment="Center" ></Label>
+                                                <TextBox Grid.Column="3" Grid.Row="5" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.AccountCode}"></TextBox>
+                                                <Label Grid.Column="2" Grid.Row="6" Content="Licensee Source" VerticalAlignment="Center" ></Label>
+                                                <TextBox Grid.Column="3" Grid.Row="6" Margin="0,0,20,0" VerticalAlignment="Center"  Text="{Binding Path=SelectedLicensee.LicenseeSource}"></TextBox>
+                                                <!--<ComboBox  Grid.Column="3" Grid.Row="6" Margin="0,0,20,0" VerticalAlignment="Center">
+                                                    <ComboBoxItem>abc </ComboBoxItem>
+                                                    <ComboBoxItem>xyz </ComboBoxItem>
+                                                    <ComboBoxItem>def </ComboBoxItem>
+                                                </ComboBox>-->
+                                                <Label Grid.Column="2" Grid.Row="7" Content="Commissionable" VerticalAlignment="Center" ></Label>
+                                                <ComboBox SelectedItem="{Binding Path=SelectedLicensee.Commissionable,Converter={StaticResource ynToBoolConverter},Mode=TwoWay}" Text="{Binding Path=SelectedLicensee.Commissionable,Converter={StaticResource ynToBoolConverter},Mode=TwoWay}" Grid.Column="3" Grid.Row="7" Margin="0,0,20,0" VerticalAlignment="Center">
+                                                    <ComboBoxItem>Yes</ComboBoxItem>
+                                                    <ComboBoxItem>No</ComboBoxItem>
+                                                </ComboBox>
+                                                <Label Grid.Column="4" Grid.Row="0" Content="Track Date Default" VerticalAlignment="Center" ></Label>
+                                                <toolkit:DatePicker Grid.Column="5" Grid.Row="0" Margin="0,0,20,0" VerticalAlignment="Center" SelectedDate="{Binding Path=SelectedLicensee.TrackDateDefault,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}">
+                                                    
+                                                </toolkit:DatePicker>                                                
+                                                <Label Grid.Column="4" Grid.Row="1" Content="Tax Rate" VerticalAlignment="Center" ></Label>
+                                                
+                                                    <!--<vm:MaskingHelper BorderThickness="1,1,0,1" InputMask="DDDDDDD" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left"  Text="{Binding Path=SelectedLicense.TaxRate}"></vm:MaskingHelper>-->
+                                                <!--<TextBox vm:TextBoxMaskBehavior.Mask="Decimal" Margin="0,0,20,0" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.TaxRate,Converter={StaticResource percentageConv},StringFormat=p4}"></TextBox>-->
+
+                                                <TextBox  Margin="0,0,20,0" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.TaxRate,Converter={StaticResource percentageConv},StringFormat=p4}"></TextBox>
+
+                                                <Label Grid.Column="4" Grid.Row="2" Content="Cut Off Day 1" VerticalAlignment="Center" ></Label>
+                                                <TextBox Name="txtCutofDay1" Grid.Column="5" Grid.Row="2" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.CutOffDay1,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="txtCutofDay1_PreviewTextInput" ></TextBox>
+                                                <Label Grid.Column="4" Grid.Row="3" Content="{Binding Path=lblCutOff}" VerticalAlignment="Center" ></Label>
+                                                <TextBox Grid.Column="5" Grid.Row="3" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.CutOffDay2,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="4" Grid.Row="4" Content="Last Login" VerticalAlignment="Center" ></Label>
+                                                <!--<toolkit:DatePicker Grid.Column="5" Grid.Row="4" Margin="0,0,20,0" VerticalAlignment="Center" SelectedDate="{Binding Path=SelectedLicense.LastLogin,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}">
+
+                                                </toolkit:DatePicker>-->
+
+                                                <TextBox Grid.Column="5" IsReadOnly="True" Grid.Row="4" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.LastLogin,StringFormat=MM/dd/yyyy,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="4" Grid.Row="5" Content="Last Upload" VerticalAlignment="Center" ></Label>
+                                                <!--<toolkit:DatePicker Grid.Column="5" Grid.Row="5" Margin="0,0,20,0" VerticalAlignment="Center" SelectedDate="{Binding Path=SelectedLicense.LastUpload,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}">
+
+                                                </toolkit:DatePicker>-->
+
+                                                <TextBox IsReadOnly="True" Grid.Column="5" Grid.Row="5" Margin="0,0,20,0" VerticalAlignment="Center"  Text="{Binding Path=SelectedLicensee.LastUpload,StringFormat=MM/dd/yyyy, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="4" Grid.Row="6" Content="User Name" VerticalAlignment="Center" ></Label>
+                                                <TextBox validation:FieldDescriptor.GroupName="UserName" validation:FieldDescriptor.Name="UserName" Grid.Column="5" Grid.Row="6" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.UserName,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <Label Grid.Column="4" Grid.Row="7" Content="Password" VerticalAlignment="Center" ></Label>
+                                                <TextBox validation:FieldDescriptor.GroupName="Password" validation:FieldDescriptor.Name="Password" Grid.Column="5" Grid.Row="7" Margin="0,0,20,0" VerticalAlignment="Center" Text="{Binding Path=SelectedLicensee.Password,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <!--<PasswordBox  PasswordChar="*" Grid.Column="5" Grid.Row="7" Margin="0,0,40,0" VerticalAlignment="Center"  ></PasswordBox>-->
+                                            </Grid>
+                                            <Label Content="Product/Charges:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,529,0"></Label>
+                                            <toolkit:DataGrid  Name="dgProductAndCharges" Width="Auto" HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding ServiceLine}" ItemsSource="{Binding ServLines}" Grid.Row="2" Grid.Column="1" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CanUserSortColumns="False" IsReadOnly="False">
+                                                <toolkit:DataGrid.Columns>
+                                                    <!--<toolkit:DataGridTextColumn Binding="{Binding ServiceName}" Header="Product"></toolkit:DataGridTextColumn>-->
+                                                    <!--<toolkit:DataGridTemplateColumn Header="Product" IsReadOnly="True">
+                                                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox IsReadOnly="False" VerticalAlignment="Center" DisplayMemberPath="ServiceName" SelectedValuePath="ServiceID" SelectedItem="{Binding Path=Service}" ItemsSource="{Binding Source={StaticResource pds}}">
+                                                                </ComboBox>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                                                    </toolkit:DataGridTemplateColumn>-->
+
+                                                    <!--<toolkit:DataGridTemplateColumn Header="ChargeType" IsReadOnly="True">
+                                                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox IsReadOnly="True" VerticalAlignment="Center" DisplayMemberPath="ServiceChargeName" SelectedValuePath="ServiceChargeTypeID" SelectedItem="{Binding Path=ServiceChargeType}" ItemsSource="{Binding Source={StaticResource serCharges}}">
+                                                                </ComboBox>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                                                    </toolkit:DataGridTemplateColumn>-->
+
+                                                    <!--<toolkit:DataGridComboBoxColumn IsReadOnly="False" Header="Product" SelectedItemBinding="{Binding Path=Service}" DisplayMemberPath="ServiceName" SelectedValuePath="ServiceID" ItemsSource="{Binding Source={StaticResource pds}}">
+                                                        <toolkit:DataGridComboBoxColumn.EditingElementStyle>
+                                                            <Style TargetType="ComboBox">
+                                                                <Setter Property="IsEditable" Value="True" />
+                                                            </Style>
+                                                        </toolkit:DataGridComboBoxColumn.EditingElementStyle>
+                                                    </toolkit:DataGridComboBoxColumn>-->
+
+                                                    <!--<toolkit:DataGridComboBoxColumn IsReadOnly="False" Header="ChargeType" SelectedItemBinding="{Binding Path=ServiceChargeType}" DisplayMemberPath="ServiceChargeName" SelectedValuePath="ServiceChargeTypeID" ItemsSource="{Binding Source={StaticResource serCharges}}">
+                                                    </toolkit:DataGridComboBoxColumn>-->
+
+                                                    <toolkit:DataGridTemplateColumn Header="Product">
+                                                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox Text="{Binding Path=ServiceName}" IsEditable="True" VerticalAlignment="Center" SelectedItem="{Binding Path=Service}" ItemsSource="{Binding Source={StaticResource pds}}">
+                                                                    <ComboBox.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <TextBlock Text="{Binding ServiceName}"/>
+                                                                        </DataTemplate>
+                                                                    </ComboBox.ItemTemplate>
+                                                                </ComboBox>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                                                    </toolkit:DataGridTemplateColumn>
+
+                                                    <!--<toolkit:DataGridComboBoxColumn IsReadOnly="False" Header="ChargeType" DisplayMemberPath="ServiceChargeName">
+                                                        <dg:DataGridComboBoxColumn.ElementStyle>
+                                                            <Style TargetType="ComboBox">
+                                                                <Setter Property="ItemsSource" Value="{Binding Path=ServiceChargeType}" />
+                                                            </Style>
+                                                        </dg:DataGridComboBoxColumn.ElementStyle>
+                                                        <dg:DataGridComboBoxColumn.EditingElementStyle>
+                                                            <Style TargetType="ComboBox">
+                                                                <Setter Property="ItemsSource" Value="{Binding Path=ServiceChargeType}" />
+                                                            </Style>
+                                                        </dg:DataGridComboBoxColumn.EditingElementStyle>
+                                                    </toolkit:DataGridComboBoxColumn>-->
+                                                    
+                                                    <toolkit:DataGridTemplateColumn Header="ChargeType">
+                                                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox Selector.IsSelected="True" IsEditable="False" VerticalAlignment="Center" SelectedItem="{Binding Path=ServiceChargeType}" ItemsSource="{Binding Source={StaticResource serCharges}}">
+                                                                    <ComboBox.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                        <TextBlock Text="{Binding ServiceChargeName}"/>
+                                                                        </DataTemplate>
+                                                                    </ComboBox.ItemTemplate>
+                                                                </ComboBox>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                                                    </toolkit:DataGridTemplateColumn>
+
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Min,StringFormat=c,Converter={StaticResource emptyToNullConv}}" Header="Min"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Range1,Converter={StaticResource emptyToNullConv}}" Header="Range1"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Range2,Converter={StaticResource emptyToNullConv}}" Header="Range2"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+
+                                                    <!--<toolkit:DataGridTextColumn Binding="{Binding Rate,StringFormat=c,Converter={StaticResource rateCoverter}}" Header="Rate"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>-->
+
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Rate,StringFormat=c,Converter={StaticResource rateCoverter}}" Header="Rate"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Discount,Converter={StaticResource percentageConv},StringFormat=p}" Header="Discount"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <!--<toolkit:DataGridTextColumn Binding="{Binding StartDate,StringFormat=MM/dd/yyyy}" Header="Start Date"></toolkit:DataGridTextColumn>-->
+
+                                                    <toolkit:DataGridTemplateColumn Header="Start Date">
+                                                        <toolkit:DataGridTemplateColumn.CellEditingTemplate>
+                                                            <DataTemplate>
+                                                                <toolkit:DatePicker SelectedDate="{Binding StartDate,StringFormat=MM/dd/yyyy}"></toolkit:DatePicker>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellEditingTemplate>
+                                                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding StartDate,StringFormat=MM/dd/yyyy}"></TextBlock>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                                                    </toolkit:DataGridTemplateColumn>
+
+                                                    <!--<toolkit:DataGridTextColumn Binding="{Binding EndDate,StringFormat=MM/dd/yyyy}" Header="End Date"></toolkit:DataGridTextColumn>-->
+
+                                                    <toolkit:DataGridTemplateColumn Header="End Date">
+                                                        <toolkit:DataGridTemplateColumn.CellEditingTemplate>
+                                                            <DataTemplate>
+                                                                <toolkit:DatePicker SelectedDate="{Binding EndDate,StringFormat=MM/dd/yyyy}"></toolkit:DatePicker>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellEditingTemplate>
+                                                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding EndDate,StringFormat=MM/dd/yyyy}"></TextBlock>
+                                                            </DataTemplate>
+                                                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                                                    </toolkit:DataGridTemplateColumn>
+
+                                                    <toolkit:DataGridCheckBoxColumn Binding="{Binding IsTaxable}" Header="Tax"></toolkit:DataGridCheckBoxColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding EstimatedCharge,StringFormat=c,Converter={StaticResource emptyToNullConv}}" Header="Current Estimate"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}">
+                                                        
+                                                    </toolkit:DataGridTextColumn>
+                                                </toolkit:DataGrid.Columns>
+                                            </toolkit:DataGrid>
+                                            <WrapPanel  Name="stcLicenseeButtons"  Grid.Row="3" HorizontalAlignment="left"  Grid.Column="1"  VerticalAlignment="Center"   >
+                                                <Button Name="btnProductAdd"  Command="{Binding AddServiceLine}" Content="Add" Style="{StaticResource NewCommonButton}" VerticalAlignment="Center"></Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Name="btnProductDelete" Command="{Binding DeleteServiceLine}" Content="Delete" VerticalAlignment="Center" Style="{StaticResource DeleteButton}"></Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Name="btnSave" Content="Save" VerticalAlignment="Center" Style="{StaticResource SaveButton}" Command="{Binding LicenseSaveCommand,UpdateSourceTrigger=PropertyChanged}"></Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Name="btnCancel" Content="Cancel" VerticalAlignment="Center" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_cross.png" Command="{Binding LicenseDetailCancel}" IsEnabled="{Binding SelectedLicensee,Converter={StaticResource nullToBoolConv }}"></Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Name="btnReport" Content="Report" VerticalAlignment="Center" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\document_view.png"></Button>
+                                            </WrapPanel>
+                                            <Label Content="Variables:" Grid.Column="1" Name="lblVariables" Grid.Row="3" VerticalAlignment="Center"   HorizontalAlignment="Left" Margin="0,26,0,4" Grid.RowSpan="2" />
+                                            <Grid Grid.Row="4" Grid.Column="1" Margin="0,18,0,2" Grid.RowSpan="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0"></ColumnDefinition>
+                                                    <ColumnDefinition Width="640"></ColumnDefinition>
+                                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                                    <ColumnDefinition Width="0"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <ItemsControl Grid.Row="0" Grid.Column="1"  Height="90" Name="icVariables" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"  HorizontalAlignment="Stretch" VerticalAlignment="Top" IsTabStop="False" Focusable="False">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <WrapPanel Orientation="Vertical" ScrollViewer.CanContentScroll="True"  HorizontalAlignment="Stretch"  ScrollViewer.VerticalScrollBarVisibility="Visible"  IsItemsHost="True" ></WrapPanel>
+                                                            <!--<UniformGrid IsItemsHost="True"/>-->
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Unbilled Trackable Months"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.UnbilledTrackableMonthCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="# Of Trackable Months"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.TrackableMonthCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="# Of Users"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.UsersCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="# Of Payees"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.PayorsCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="# Of Policies"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.PolicyCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Entries(Unbilled)"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.UnbilledEntrieCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Adjustments(Unbilled)"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.UnbilledAdjustmentCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Web Statements(Unbilled)"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.UnbilledWebStatementCount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                    <WrapPanel Width="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                                        <Label Width="140" HorizontalAlignment="Left" VerticalAlignment="Center" Content="EDI(Unbilled)"></Label>
+                                                        <Separator Width="2" Visibility="Hidden"></Separator>
+                                                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" Text="{Binding SelectedVariableCollection.UnbilledEDICount}" IsTabStop="False"></TextBox>
+                                                        <Separator Width="8" Visibility="Hidden"></Separator>
+                                                    </WrapPanel>
+                                                </ItemsControl>
+                                                <Button Command="{Binding RefreshVariableList}" Name="btnRefresh" Content="Refresh" VerticalAlignment="Center"  HorizontalAlignment="Right" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\nav_refresh_blue.png"></Button>
+                                            </Grid>
+                                        </Grid>
+                                    </TabItem.Content>
+                                </TabItem>
+                                <TabItem Name="tbJournal" Header="Journal" local:EyeCandy.Image="../Images/Icons/scroll_edit.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                                   
+                                    <TabItem.Content>
+                                        <Grid VerticalAlignment="Top">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="360"></RowDefinition>
+                                                <RowDefinition Height="35"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="115" ></ColumnDefinition>
+                                                <ColumnDefinition Width="643"></ColumnDefinition>                                                
+                                            </Grid.ColumnDefinitions>
+                                            <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="3" ></Border>                                            
+                                            <!--<Border BorderBrush="#577FB2" Margin="0,5,0,0" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="3" ></Border>-->
+                                            <Label Margin="5,0,0,0" Content="Show Journals:" Name="lblShowJournals" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"     HorizontalAlignment="Left" />
+                                            <WrapPanel  Margin="0,0,0,0" Name="wpJournalFilterOptions" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center"  >
+                                                <Label Content="From Date:" Name="lblFromDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <toolkit:DatePicker Name="dtJournalFrom" SelectedDate="{Binding JournalDate1}" Width="120"></toolkit:DatePicker>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Label Content="To Date:" Name="lblToDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <toolkit:DatePicker Name="dtJornalTo" SelectedDate="{Binding JournalDate2}" Width="120" ></toolkit:DatePicker>
+                                            </WrapPanel>
+                                            
+                                            <!--<toolkit:DataGrid Name="dgJournals" Grid.Row="1" Grid.ColumnSpan="3" CanUserAddRows="False" CanUserDeleteRows="False" Margin=" 0,5,0,0" MouseDoubleClick="DataGrid_MouseDoubleClick">
+                                            </toolkit:DataGrid>-->
+
+                                            <toolkit:DataGrid ItemsSource="{Binding DisplayedInvoiceJournalLines}" Name="dgJournals" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,5,0,0" Width="Auto" HorizontalScrollBarVisibility="Disabled" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CanUserSortColumns="True" IsReadOnly="True">
+                                                <toolkit:DataGrid.Columns>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding InvoiceID}" Header="Invoice ID"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding PolicyID}" Header="Policy"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding BillingDate,StringFormat=MM/dd/yyyy}" Header="Billing Date"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding ServiceName}" Header="Service"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding ServiceChargeType}" Header="Service Charge Type"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding ConsumedUnit}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}" Header="Units"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Rate,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}" Header="Rate"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Discount,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}" Header="Discount"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding SubTotal,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}" Header="SubTotal"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Tax,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}" Header="Tax"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Binding="{Binding Total,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}" Header="Total"></toolkit:DataGridTextColumn>
+                                                </toolkit:DataGrid.Columns>
+                                            </toolkit:DataGrid>
+                                            
+                                        </Grid>
+                                    </TabItem.Content>
+                                </TabItem>
+                                <TabItem Name="tbInvoice" Header="Invoices" local:EyeCandy.Image="../Images/Icons/money_envelope.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}" VerticalAlignment="Top">
+                                   
+                                    <TabItem.Content>
+                                        <Grid VerticalAlignment="Top">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="360"></RowDefinition>
+                                                <RowDefinition Height="35"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="115" ></ColumnDefinition>
+                                                <ColumnDefinition Width="643"></ColumnDefinition>                                                
+                                            </Grid.ColumnDefinitions>
+                                            <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0"></Border>
+                                            <Label Margin="5,0,0,0" Content="Show Invoices:" Name="lblShowInvoices" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                            <WrapPanel  Name="wpInvoicesFilterOptions" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                                                <Label Content="From Date:" Name="lblInvoiceFromDate" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <toolkit:DatePicker SelectedDate="{Binding StartInvoiceDate}" Name="dtInvoiceFrom" Width="120"></toolkit:DatePicker>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Label Content="To Date:" Name="lblInvoiceToDate" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <toolkit:DatePicker SelectedDate="{Binding EndInvoiceDate}" Name="dtInvoiceTo" Width="120" ></toolkit:DatePicker>
+                                                <Separator Width="20" Visibility="Hidden"></Separator>
+                                                <!--<Button Name="btnInvoiceRefresh" Content="Refresh" Height="22"  Width="120" VerticalAlignment="Center"></Button>-->
+                                            </WrapPanel>
+                                            
+                                            <!--<dg:DataGrid Name="grdBilling" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,5,0,0" MouseDoubleClick="grdBilling_MouseDoubleClick">
+                                            </dg:DataGrid>-->
+                                            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <toolkit:DataGrid Grid.Row="0" Name="grdBilling"  Margin="5" Width="Auto" HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedLicenseeInvoice}" ItemsSource="{Binding LicenseeInvoices}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CanUserSortColumns="True" IsReadOnly="True">
+                                                    <toolkit:DataGrid.Columns>
+                                                        <toolkit:DataGridTextColumn Binding="{Binding InvoiceId}" Header="Invoice ID"></toolkit:DataGridTextColumn>
+                                                        <toolkit:DataGridTextColumn Binding="{Binding BillingDate,StringFormat=MM/dd/yyyy}" Header="Billing Date"></toolkit:DataGridTextColumn>
+                                                        <toolkit:DataGridTextColumn Binding="{Binding InvoiceAmount,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}" Header="Invoice Amount"></toolkit:DataGridTextColumn>
+                                                        <toolkit:DataGridTextColumn Binding="{Binding InvoiceGeneratedOn,StringFormat=MM/dd/yyyy}" Header="Created On"></toolkit:DataGridTextColumn>
+                                                    </toolkit:DataGrid.Columns>
+                                                </toolkit:DataGrid>
+
+                                                <toolkit:DataGrid Name="journalGrid"  Grid.Row="1" Margin="5" ItemsSource="{Binding Path=Journals}" SelectedItem="{Binding Path=SelectedJournal, Mode=TwoWay}" CanUserAddRows="False" CanUserSortColumns="True" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                                                    <toolkit:DataGrid.Columns>
+                                                        <toolkit:DataGridTextColumn Header="Invoice ID" Binding="{Binding lnvoiceId}"/>
+                                                        <toolkit:DataGridTextColumn Header="Received Amount" Binding="{Binding JournalAmount,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}"/>
+                                                        <toolkit:DataGridTextColumn Header="Payment Status" Binding="{Binding PaymentType}"/>
+                                                        <toolkit:DataGridTextColumn Header="Received Date" Binding="{Binding ReceivedDate,StringFormat=MM/dd/yyyy}"/>
+                                                        <toolkit:DataGridTextColumn Header="Transaction ID" Binding="{Binding TransactionID}"/>
+                                                    </toolkit:DataGrid.Columns>
+                                                </toolkit:DataGrid>
+                                            </Grid>
+                                            <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" Name="wpJournalButtons" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,3,10,-3">
+                                                <Button Name="btnJournalAdd" Content="Add" Style="{StaticResource NewCommonButton}" VerticalAlignment="Center" Click="btnJournalAdd_Click"></Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Name="btnJournalEdit" IsEnabled="{Binding ElementName=journalGrid, Path=SelectedValue.IsManualEntry}" Content="Update" VerticalAlignment="Center" Click="btnJournalEdit_Click"></Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Command="{Binding DeleteJournal}" IsEnabled="{Binding ElementName=journalGrid, Path=SelectedValue.IsManualEntry}" Name="btnDelete" Content="Delete" VerticalAlignment="Center" Style="{StaticResource DeleteButton}"></Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Name="btnInvoiceView" Content="View" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" Click="btnInvoiceView_Click"></Button>
+                                          </WrapPanel>
+                                        </Grid>
+                                    </TabItem.Content>
+                                </TabItem>
+                                <TabItem Name="tbNotes" Header="Notes" local:EyeCandy.Image="../Images/Icons/folder_edit.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                                   
+                                    <TabItem.Content>
+                                        <Grid VerticalAlignment="Top">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="250"></RowDefinition>
+                                                <RowDefinition Height="140"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <toolkit:DataGrid Margin="0,5,0,5" IsReadOnly="True" Grid.Row="0" AutoGenerateColumns="False" ItemsSource="{Binding NotesD}"  SelectedItem="{Binding Path=SelectedNote}" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden">
+                                                <toolkit:DataGrid.Columns>
+                                                    <toolkit:DataGridTextColumn Header="Content" Binding="{Binding SimpleTextContent}" Width="620"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="Created" Binding="{Binding CreatedDate,StringFormat=MM/dd/yyyy}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="Last Modified" Binding="{Binding LastModifiedDate,StringFormat=MM/dd/yyyy}"></toolkit:DataGridTextColumn>
+                                                
+                                                </toolkit:DataGrid.Columns>
+                                            </toolkit:DataGrid>
+                                            <StackPanel Grid.Row="1" Margin="0,5,0,5">
+                                                <Label Content="Write Your Note" ></Label>
+                                                <!--<ToolBar Height="30" Margin="0,5,0,0">
+                                                    <ToggleButton MinWidth="40">B</ToggleButton>
+                                                    <ToggleButton MinWidth="40">I</ToggleButton>
+                                                    <ToggleButton MinWidth="40">U</ToggleButton>
+                                                </ToolBar>-->
+                                                <toolkitExt:RichTextBox x:Name="txtName" Margin="0,0,0,0" Text="{Binding Path=SelectedNote.Content}"  Height="100" Width="760" >
+                                                </toolkitExt:RichTextBox>
+                                            </StackPanel>
+                                            <WrapPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Button Height="22" HorizontalAlignment="Center"  Name="button8" VerticalAlignment="Center"  Style="{StaticResource SaveButton}" Command="{Binding SaveNotes}">Save</Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Height="22" HorizontalAlignment="Center" Name="button9" VerticalAlignment="Center"  Style="{StaticResource DeleteButton}" Command="{Binding CmdDeleteNotes}">Delete</Button>
+                                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                                <Button Height="22" HorizontalAlignment="Center" VerticalAlignment="Center"  Style="{StaticResource NewCommonButton}" Command="{Binding CmdNewNotes}" vm:EventFocusAttachment.ElementToFocus="{Binding ElementName=txtName}" >New</Button>
+                                            </WrapPanel>
+                                        </Grid>
+                                    </TabItem.Content>
+                                </TabItem>
+                            </TabControl>
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="tbBillingFunctions" Header="Billing Functions" local:EyeCandy.Image="..\Images/Icons/bookkeeper.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                
+                <TabItem.Content>
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Width="783">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="635"></RowDefinition>                            
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>                            
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="#577FB2" Margin="0,0,0,0" BorderThickness="1" Grid.Row="0" ></Border>
+                        <Border BorderBrush="#577FB2" Margin="0,5,0,7" BorderThickness="1" Grid.Row="1" ></Border>                        
+                        <Grid Grid.Row="0" Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>                                
+                            </Grid.RowDefinitions>
+                            <Label Content="Show Files  " Name="lblShowFiles" VerticalAlignment="Center"     HorizontalAlignment="Left" Margin="5,0,5,5"/>
+                            <WrapPanel  Name="wpShowFileOptions" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,5,5">                                
+                                <Label Content="From Date:" Name="lblFileFromDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <toolkit:DatePicker SelectedDate="{Binding Date1}" Name="dtFileFrom" Width="120"></toolkit:DatePicker>
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <Label Content="To Date:" Name="lblFileToDate" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <toolkit:DatePicker SelectedDate="{Binding Date2}" Name="dtFileTo" Width="120" ></toolkit:DatePicker>
+                            </WrapPanel>                            
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="0" Margin="0,5,5,15">
+                            <Grid.ColumnDefinitions>                                
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <WrapPanel  Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"  HorizontalAlignment="Left" Margin="5,2,5,2">
+                                <RadioButton Name="radExp" IsChecked="True" Command="{Binding SelectBatchFiles}" CommandParameter="Export" Content="Exported Files Only" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"></RadioButton>
+                                <RadioButton IsChecked="True" Command="{Binding SelectBatchFiles}" CommandParameter="Import" VerticalAlignment="Center" Content="Imported Files Only" HorizontalAlignment="Left"  Width="150"></RadioButton>
+                                <RadioButton Command="{Binding SelectBatchFiles}" CommandParameter="All" Content="All" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="60"></RadioButton>
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <!--<Button Name="btnRefreshBillingFunction" Content="Refresh" Height="22"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3,3,3,3"></Button>-->
+                            </WrapPanel>
+                            <!--<toolkit:DataGrid Name="dgFiles"  Margin="5,0,0,8" Grid.Row="1" Grid.Column="0"></toolkit:DataGrid>-->
+
+
+                            <toolkit:DataGrid Name="batchFileGrid" AutoGenerateColumns="False" ColumnWidth="180" Grid.Row="1" GridLinesVisibility="None" Margin="5,4,0,33" ItemsSource="{Binding Path=DisplayedBatchFiles,UpdateSourceTrigger=PropertyChanged}">
+                                <dg:DataGrid.Columns>
+                                    <dg:DataGridTextColumn Header="File Name" Width="Auto" IsReadOnly="True" Binding="{Binding FileName}"></dg:DataGridTextColumn>
+                                    <dg:DataGridTextColumn Header="File Type" Width="Auto" IsReadOnly="True"  Binding="{Binding FileType}"></dg:DataGridTextColumn>
+                                    <dg:DataGridTextColumn Header="Created On" Width="Auto" IsReadOnly="True"  Binding="{Binding CreatedOn,StringFormat=MM/dd/yyyy}"></dg:DataGridTextColumn>
+                                </dg:DataGrid.Columns>
+                            </toolkit:DataGrid>
+
+                            <StackPanel  Name="spFileButtons" Grid.Row="2" VerticalAlignment="Center"   Orientation="Horizontal" HorizontalAlignment="Right" Margin="8,0,0,0" Height="22">
+                                <Button Command="{Binding ViewBatchFile}" CommandParameter="{Binding ElementName=batchFileGrid, Path=SelectedValue}" Name="btnViewFile" Content="View Batch" Height="22"  Width="120" VerticalAlignment="Center"></Button>
+                                <Separator Width ="10" Visibility="Hidden"></Separator>
+                                <Button IsEnabled="{Binding ExpCardPayeeBtnStatus}" Name="btnCreateCardPayee"  Content="Export Card-Payee" Height="22"  Width="120" VerticalAlignment="Center" Click="btnCreateCardPayee_Click"></Button>
+                                <Separator Width ="10" Visibility="Hidden"></Separator>
+                                <Button IsEnabled="{Binding ExpCheckPayeeBtnStatus}" Name="btnCreateCheckPayee"  Content="Export Check-Payee" Height="22"  Width="120" VerticalAlignment="Center" Click="btnCreateCheckPayee_Click"></Button>
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <Button Command="{Binding ImportCardPayee}" Name="btnImportTransactionData" Content="Import Data From File" VerticalAlignment="Center" Height="22" Width="120"></Button>                                
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <Button Name="btnDeleteSelectedFile" IsEnabled="{Binding ElementName=batchFileGrid, Path=SelectedValue.IsDeletable}" Command="{Binding DeleteBatchFile}" CommandParameter="{Binding ElementName=batchFileGrid, Path=SelectedValue}" Content="Delete Selected File" VerticalAlignment="Center" Height="22" Width="120"></Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="Importtoolsettings" Visibility="{Binding IsImportToolSettings}" Header="Import Tool Settings" local:EyeCandy.Image="..\Images/Icons/bookkeeper.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                <TabItem.Content>
+                   <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Width="783">                
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                        <GroupBox  Grid.Row="0" Grid.Column="0" Header="Broker Settings" FontFamily="Arial" FontSize="10" FontWeight="Bold">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"></RowDefinition>
+                                    <RowDefinition Height="25"></RowDefinition>
+                                    <RowDefinition Height="25"></RowDefinition>                                 
+                                    <RowDefinition Height="25"></RowDefinition>
+                                    <RowDefinition Height="1"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Content="Fixed Location: " Grid.Column="0" Margin="5,0,0,0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2"></Label>
+                                <Label Content="Row: " Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                                <!--<ComboBox Grid.Column="1" Grid.Row="1" Width="80" FontWeight="Normal" Margin="-80,0,0,0" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding SelectedFixRows}" Height="20">
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="1" Grid.Row="1" Height="20" Width="80" FontWeight="Normal" Watermark="Rows" Margin="-80,0,0,0" Minimum="-2000" Maximum="2000" Value="{Binding SelectedFixRows}"></toolkitExt:IntegerUpDown>
+                                
+                                <Label Content="Col:" Grid.Column="1" Grid.Row="1" Height="20" Width="30" Margin="40,7,0,0" VerticalAlignment="Center"></Label>
+                                <!--<ComboBox Grid.Column="1" Grid.Row="1" Width="80" ItemsSource="{Binding RowsAndCols}" FontWeight="Normal" Margin="145,0,0,0" Height="20" SelectedValue="{Binding SelectedBrokerFixColomnRows}" HorizontalAlignment="Left">
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="1" Grid.Row="1" Width="80" Height="20" FontWeight="Normal" Watermark="Column" Margin="145,0,0,0" Minimum="-2000" Maximum="2000" Value="{Binding SelectedBrokerFixColomnRows}"  ></toolkitExt:IntegerUpDown>
+
+                                <Label  Grid.Column="0" Grid.Row="2" Margin="5,0,0,0" Content="Relative search:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                                <TextBox  Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Text="{Binding strRelativeSearch}" FontWeight="Normal" Height="20" HorizontalAlignment="Left" Width="180" ></TextBox>
+                                <Label Grid.Column="1" Grid.Row="2" Content="Then" HorizontalAlignment="left" Margin="190,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2"></Label>
+                                <Label  Grid.Column="2" Grid.Row="2" Content="Row:" HorizontalAlignment="Left"  VerticalAlignment="Center"></Label>
+                                <!--<ComboBox  Grid.Column="2" Grid.Row="2" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding SelectedRelativeRows}"  Width="70" FontWeight="Normal" Height="20" Margin="-90,0,0,0" >
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="2" Grid.Row="2" Height="20" Width="80" FontWeight="Normal" Watermark="Rows" Margin="-80,0,0,0" Minimum="-2000" Maximum="2000" Value="{Binding SelectedRelativeRows}"  ></toolkitExt:IntegerUpDown>
+                                <Label  Grid.Column="2" Grid.Row="2" Content="Col:" Width="30" Height="20" Margin="25,9,0,0" VerticalAlignment="Center"></Label>
+                                <!--<ComboBox Grid.Column="2" Grid.Row="2" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding SelectedBrkoerRelativeColomnRows}" Height="20"  Width="70" FontWeight="Normal" Margin="130,0,0,0">
+                                    
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="2" Grid.Row="2" Value="{Binding SelectedBrkoerRelativeColomnRows}" Height="20" Watermark="Column" Width="80" FontWeight="Normal" Margin="130,0,0,0">
+
+                                </toolkitExt:IntegerUpDown>
+                                <Button Grid.Row="3" Grid.Column="0" Height="20" FontWeight="Normal" Width="80" Command="{Binding AddNewBrokerSetting}">Add New</Button>
+                                <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Height="20" Command="{Binding SaveNewBrokerSetting}" FontWeight="Normal" Width="80">Save</Button>
+                            </Grid>                            
+                        </GroupBox>
+                        <GroupBox  Grid.Row="1" Grid.Column="0" Header="Payor Settings" FontFamily="Arial" FontSize="10" FontWeight="Bold" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                    <RowDefinition Height="3"></RowDefinition>
+                                    <RowDefinition Height="22"></RowDefinition>
+                                    <RowDefinition Height="22"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>                                   
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>
+                                    <RowDefinition Height="23"></RowDefinition>                                    
+                                    <RowDefinition Height="3"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="1" Height="18" Content="Payor:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                                <ComboBox Height="18" Grid.Row="1" Width="100" ItemsSource="{Binding Payors}" SelectedValue="{Binding SelectedPayor}" FontWeight="Normal" HorizontalAlignment="Left" Grid.ColumnSpan="2"  Margin="53,0,0,0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding PayorName}"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Label Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Height="18" Content="Template:" HorizontalAlignment="Left" Margin="70,0,0,0"></Label>
+                                <ComboBox Grid.Column="1" Height="18" FontWeight="Normal" ItemsSource="{Binding PayorTemplate}" SelectedValue="{Binding SelectedPayortempalate}" Grid.Row="1" Width="100" Margin="101,0,193,0" Grid.ColumnSpan="2">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding TemplateName}" ></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Label Grid.Column="0" Grid.Row="2" Height="18" Content="File type:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                                <ComboBox Grid.Row="2" HorizontalAlignment="Left" ItemsSource="{Binding FileTypeValue}" SelectedValue="{Binding SelectedFileTypeValue}" Height="18" FontWeight="Normal" Width="100" Margin="53,4,0,0" Grid.ColumnSpan="2"></ComboBox>
+                                <Label Grid.Column="1" Grid.Row="2"  Content="Format:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="90,4,0,4"></Label>
+                                <ComboBox Grid.Column="1" Grid.Row="2" Height="18" ItemsSource="{Binding FileFormate}" SelectedValue="{Binding SelectedFileFormate}"  FontWeight="Normal" Width="100" Margin="161,0,193,0" Grid.ColumnSpan="2"></ComboBox>
+                                <TextBlock  Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" Width="25" Height="20" Margin="-70,0,120,0" >
+                                    <Hyperlink Command="{Binding AddImportToolTemplate}">
+                                        Add                                        
+                                    </Hyperlink>                                    
+                                </TextBlock>
+                                <TextBlock  Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" Width="45" Height="20" Margin="0,0,120,0" >
+                                    <Hyperlink Command="{Binding UpdateImportToolTemplate}">
+                                        Update                                        
+                                    </Hyperlink>
+                                </TextBlock>
+                                <TextBlock  Grid.Column="2" Grid.Row="1" Width="35" VerticalAlignment="Bottom" Height="20" Margin="0,0,50,0" >
+                                    <Hyperlink Command="{Binding DeleteImportToolPayor}">Delete</Hyperlink>
+                                </TextBlock>
+                                <TextBlock Grid.Column="2" Grid.Row="1" Width="50" VerticalAlignment="Bottom" Height="20" Margin="40,0,0,0" >
+                                    <Hyperlink Command="{Binding DuplicateTemplate}">Duplicate</Hyperlink>
+                                </TextBlock>
+                                <Label  Grid.Column="2" Grid.Row="1" Height="20" Width="50" Visibility="{Binding IsVisibleDuplicateUI}" VerticalAlignment="Center" Margin="150,0,0,0">Copy To</Label>
+                                <ComboBox Grid.Column="2" Grid.Row="1" Height="18" Width="80" ItemsSource="{Binding DuplicatePayors}" SelectedValue="{Binding SelectedDuplicatePayors}" Visibility="{Binding IsVisibleDuplicateUI}" FontWeight="Normal" Grid.ColumnSpan="2" Margin="53,0,0,0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding PayorName}"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <ComboBox Grid.Column="2" Grid.Row="1" Height="18" ItemsSource="{Binding DuplicatePayorTemplate}" SelectedValue="{Binding SelectedDuplicatePayortempalate}" Width="80" Visibility="{Binding IsVisibleDuplicateUI}" FontWeight="Normal" Grid.ColumnSpan="2" Margin="220,0,0,0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding TemplateName}" ></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button Grid.Column="3" Grid.Row="1" Height="18" Width="20" Visibility="{Binding IsVisibleDuplicateUI}" Command="{Binding DuplicateSaveTemplate}" FontWeight="Normal"  FontSize="10" Margin="100,0,0,0">Ok</Button>
+                                <Button Grid.Column="3" Grid.Row="1" Height="18"  Width="40" Visibility="{Binding IsVisibleDuplicateUI}" Command="{Binding DuplicateCancelTemplate}" FontWeight="Normal" FontSize="10" Margin="170,0,0,0">Cancel</Button>
+                                <Label Grid.Row="3" Height="18" Margin="0,0,0,0" IsEnabled="{Binding isEnabled}" Content="Phrase:" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2"></Label>
+                                <TextBox Grid.Row="3" IsEnabled="True" Width="180" Height="18" Text="{Binding PayorSettingPhrase,Mode=TwoWay}" VerticalAlignment="Center" FontWeight="Normal"  Margin="53,3,84,2" Grid.ColumnSpan="2"></TextBox>
+                                <Button Grid.Row="3" FontWeight="Normal" Grid.Column="1" Width="100" Height="18" Content="Check" HorizontalAlignment="Left" Command="{Binding CmdCheckPhrase}" Grid.ColumnSpan="2" Margin="161,0,0,0"></Button>
+                                <Button Grid.Row="3" FontWeight="Normal" Grid.Column="1" Width="100" Height="18" Content="View/Edit" HorizontalAlignment="Center" Command="{Binding CmdEditAndDispaly}" Grid.ColumnSpan="2" Margin="185,0,0,0"></Button>
+                                <Button Grid.Row="3" FontWeight="Normal" Grid.Column="1" Width="100" Height="18" Content="Import" HorizontalAlignment="Center" Command="{Binding CmdImport}" Grid.ColumnSpan="3" Visibility="Hidden" Margin="175,0,0,0"></Button>
+                                <!--<CheckBox HorizontalAlignment="Left" Width="150" Height="19"  Margin="0,0,0,0" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                                    <CheckBox.Content>
+                                        <Label Content="Force Import"></Label>
+                                    </CheckBox.Content>
+                                </CheckBox>-->
+                                <Button HorizontalAlignment="Left" Width="80" Height="18" FontWeight="Normal" Grid.Row="5" Margin="5,0,0,0" Command="{Binding AddNewPayorPhrase}"  Content="Add new"></Button>
+                                <Button HorizontalAlignment="Left" Grid.Column="1" Width="80" Height="18" FontWeight="Normal" Grid.Row="5" Margin="6,0,0,0" Command="{Binding SaveNewPhrase}"  Content="Save"></Button>
+
+                                <Border Name="Header" Grid.Row="6" BorderThickness="1" BorderBrush="CadetBlue" Grid.RowSpan="6" Margin="0,2,0,0" Grid.Column="0" Grid.ColumnSpan="4">
+                                    <TextBlock  FontSize="10" FontStyle="Normal">Statement data</TextBlock>
+                                </Border>
+                                <ListBox x:Name="Statemntdata" Width="250" Height="115" ItemsSource="{Binding ImportToolMasterStatementData}" SelectedValue="{Binding SelectedImportToolMasterStatementData}" Grid.Row="7" HorizontalAlignment="Left" Margin="5,-10,0,0" FontSize="10" FontFamily="Times New Roman" FontWeight="Normal" Grid.RowSpan="5" BorderThickness="1" BorderBrush="BlanchedAlmond" Grid.ColumnSpan="2">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Statementdata}"></TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Label Content="Fixed Location: "  Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                                <Label Content="Row" Grid.Column="2"  Width="40" Grid.Row="7" VerticalAlignment="Center" Margin="0,0,30,0"></Label>
+                                <!--<ComboBox Grid.Column="2" Grid.Row="7"  SelectedValue="{Binding PayorSettingFixedRows}"  ItemsSource="{Binding RowsAndCols}" Width="80" FontWeight="Normal" Margin="74,0,0,0" Height="20">
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="2" Grid.Row="7"  Value="{Binding PayorSettingFixedRows}" Watermark="Rows"  Width="80" FontWeight="Normal" Margin="74,0,0,0" Height="20">
+                                </toolkitExt:IntegerUpDown>
+                                <Label Content="Col:" Grid.Column="2"  Grid.Row="7" Height="20" Width="30" Margin="200,5,0,0" VerticalAlignment="Center"></Label>
+                                <!--<ComboBox Grid.Column="3" Grid.Row="7"  Width="80" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding PayorSettingFixedCols}" Margin="5,0,0,0" FontWeight="Normal" Height="20" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="3" Grid.Row="7"  Width="80" Value="{Binding PayorSettingFixedCols}" Margin="5,0,0,0" FontWeight="Normal" Watermark="Columns" Height="20" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+                                </toolkitExt:IntegerUpDown>
+                                <Label Grid.Row="8" Grid.Column="2"  Content="Relative search:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                                <Label Grid.Column="2" Grid.Row="8"  Content="Then"  VerticalAlignment="Center" Width="35" Margin="0,0,20,0"></Label>
+                                <TextBox  Grid.Column="1" Grid.Row="8"  Grid.ColumnSpan="2" Text="{Binding PayorSettingRelativeSearch}" VerticalAlignment="Center" FontWeight="Normal" Height="20" Width="100" Margin="340,0,0,0" ></TextBox>
+                                <Label  Grid.Column="3" Grid.Row="8"  Content="Row:" Margin="1,0,0,0" HorizontalAlignment="Left"  VerticalAlignment="Center" ></Label>
+                                <!--<ComboBox  Grid.Column="3" Grid.Row="8"   Width="70" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding PayorSettingRelativeRows}" FontWeight="Normal" Height="20" Margin="0,0,90,0" >
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown  Grid.Column="3" Grid.Row="8" Watermark="Rows"  Width="70" Value="{Binding PayorSettingRelativeRows}" FontWeight="Normal" Height="20" Margin="0,0,90,0" >
+                                </toolkitExt:IntegerUpDown>
+                                <Label  Grid.Column="3" Grid.Row="8"  Content="Col:" Width="30" Height="20" Margin="15,5,0,0" VerticalAlignment="Center"></Label>
+                                <!--<ComboBox Grid.Column="3" Grid.Row="8"  ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding PayorSettingRelativeCols}" Height="20"  Width="70" FontWeight="Normal" VerticalAlignment="Center" Margin="110,0,0,0" Grid.ColumnSpan="2" >
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="3" Grid.Row="8" Watermark="Columns"  Value="{Binding PayorSettingRelativeCols}" Height="20"  Width="70" FontWeight="Normal" VerticalAlignment="Center" Margin="110,0,0,0" Grid.ColumnSpan="2" >
+                                </toolkitExt:IntegerUpDown>
+
+                                <Label Content="End data indicator(Blank Fields):"  Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+
+                                <ComboBox Grid.Column="2" Grid.Row="9" Margin="65,0,0,0" Grid.ColumnSpan="2" IsEditable="False" IsEnabled="{Binding isEnableBlankFields}" SelectedValue="{Binding SelectedBlankFields,Mode=TwoWay}"  ItemsSource="{Binding TempAllAvailableFieldsList,Mode=TwoWay}" Width="180" FontWeight="Normal" Height="20">
+                                </ComboBox>
+                            
+                                <Button Grid.Row="11" Grid.Column="2" Margin="5,0,0,0" FontWeight="Normal" Command="{Binding CmdSaveStatementData}" Content="Save" Height="18" Width="70" HorizontalAlignment="Left"></Button>
+
+                                <Border Name="PaymentData" Grid.Row="12" BorderThickness="1" BorderBrush="CadetBlue" Margin="0,3,0,0" Grid.RowSpan="10" Grid.Column="0" Grid.ColumnSpan="4">
+                                    <TextBlock  FontSize="10" FontStyle="Normal">Payment data</TextBlock>
+                                </Border>
+
+                                <GroupBox Header="Available Fields" Width="120" FontSize="10" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="5,0,0,0" Height="200" Grid.Row="13"  Grid.RowSpan="9" Grid.ColumnSpan="2">
+                                    <ListBox x:Name="AllData" Width="100"  BorderThickness="1" ItemsSource="{Binding AllAvailableFieldsList}" SelectedValue="{Binding SelectedAvailablrFieldsList}" BorderBrush="BlanchedAlmond" FontSize="10" FontFamily="Times New Roman" FontWeight="Normal" >
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding FieldName }"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>                                    
+                                </ListBox>
+                                </GroupBox>
+
+                                <Button HorizontalAlignment="Left" Width="30" Height="18" FontWeight="Normal" Grid.Row="16" Grid.Column="1" Margin="55,0,0,0" Command="{Binding MoveToSelectedFields}"  Content="&gt;&gt;"></Button>
+                                <Button HorizontalAlignment="Left" Width="30" Height="18" FontWeight="Normal" Grid.Row="17" Grid.Column="1" Margin="55,0,0,0" Command="{Binding MoveToAvailbaleFields}"  Content="&lt;&lt;"></Button>
+                                <GroupBox Header="Selected Fields" Width="120" HorizontalAlignment="Right" Margin="-10,0,5,0" FontSize="10" FontFamily="Times New Roman" Height="200" Grid.Row="13"  Grid.RowSpan="9" Grid.ColumnSpan="2">
+                                    <ListBox x:Name="SelectedData" Width="100" FontSize="10" FontFamily="Times New Roman" FontWeight="Normal" ItemsSource="{Binding AllSelectedFieldsList}" SelectedValue="{Binding SelectedFieldsList}" BorderThickness="1" BorderBrush="BlanchedAlmond">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding FieldName}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </GroupBox>
+                                <Label Content="Fixed Location:" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2"></Label>
+                                <Label Content="Row" Grid.Column="2" Width="30" Grid.Row="13" VerticalAlignment="Center" Margin="-30,0,0,0"></Label>
+                                <!--<ComboBox Grid.Column="2" Grid.Row="13" Width="80" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding selectedPaymentDataRowValue,Mode=TwoWay}" FontWeight="Normal" Margin="80,0,0,0" Height="20">
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="2" Watermark="Rows"  Grid.Row="13" Width="80" Value="{Binding selectedPaymentDataRowValue,Mode=TwoWay}" FontWeight="Normal" Margin="80,0,0,0" Height="20">
+                                </toolkitExt:IntegerUpDown>
+                                <Label Content="Col" Grid.Column="2" Width="30" Grid.Row="13" VerticalAlignment="Center" Grid.ColumnSpan="2"  Margin="0,0,30,0"></Label>
+                                <!--<ComboBox Grid.Column="2" Grid.Row="13" Width="80" ItemsSource="{Binding RowsAndCols}" Grid.ColumnSpan="2"  SelectedValue="{Binding selectedPaymentDataColValue,Mode=TwoWay}" FontWeight="Normal" Margin="80,0,0,0" Height="20">
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown Grid.Column="2" Grid.Row="13" Width="80" Watermark="Column" Grid.ColumnSpan="2"  Value="{Binding selectedPaymentDataColValue,Mode=TwoWay}" FontWeight="Normal" Margin="80,0,0,0" Height="20">
+                                </toolkitExt:IntegerUpDown>
+                                <Label  Grid.Column="2" Grid.Row="14" Content="Header search:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                                <Label Grid.Column="2" Grid.Row="14" Content="Then" HorizontalAlignment="left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="195,0,0,0"></Label>
+                                <TextBox  Grid.Column="2" Grid.Row="14" VerticalAlignment="Center" FontWeight="Normal" Height="20" Width="100" Margin="53,0,0,0" Text="{Binding strHeaderSearch}">
+                                    
+                                </TextBox>
+                                <Label  Grid.Column="3" Grid.Row="14" Content="Row:" HorizontalAlignment="Left"  VerticalAlignment="Center"></Label>
+                                <!--<ComboBox  Grid.Column="3" Grid.Row="14"  Width="70" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding selectedHeaderRowsValue}" FontWeight="Normal" Height="20" Margin="-90,0,0,0" >
+                                </ComboBox>-->
+                                <toolkitExt:IntegerUpDown  Grid.Column="3" Grid.Row="14"  Width="70" Watermark="Rows" Value="{Binding selectedHeaderRowsValue}" FontWeight="Normal" Height="20" Margin="-90,0,0,0" >
+                                </toolkitExt:IntegerUpDown>
+                                <Label  Grid.Column="3" Grid.Row="14" Content="Col:" Width="30" Height="20" Margin="25,9,0,0" VerticalAlignment="Center"></Label>
+                                <!--<ComboBox Grid.Column="3" Grid.Row="14" ItemsSource="{Binding RowsAndCols}" SelectedValue="{Binding selectedHeaderColsValue}" Height="20"  Width="70" FontWeight="Normal" Margin="130,0,0,0">
+                                </ComboBox>-->
+
+                                <toolkitExt:IntegerUpDown Grid.Column="3" Grid.Row="14" Watermark="Columns" Value="{Binding selectedHeaderColsValue}" Height="20"  Width="70" FontWeight="Normal" Margin="130,0,0,0">
+                                </toolkitExt:IntegerUpDown>
+
+                                <Label Content="Part of Primary key: " Grid.Column="2" Grid.Row="15" Width="105" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                                <StackPanel Grid.Column="2" Grid.Row="15" Margin="0,5,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <RadioButton  VerticalAlignment="Center"  Content="Yes" IsChecked="{Binding isPartOfPrimaryKeyYes}"></RadioButton>
+                                    <Separator Width="10" Visibility="Hidden"></Separator>
+                                    <RadioButton  VerticalAlignment="Center" Content="No" IsChecked="{Binding isPartOfPrimaryKeyNo}"></RadioButton>
+                                </StackPanel>                                
+                                <Label Content="Calculated fields: " Grid.Column="2" Grid.Row="16" Width="105" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                                <Label Content="Formula expression: "  Grid.Column="2" Grid.Row="17" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                                <TextBox FontSize="10" FontWeight="Normal"  Grid.Column="2" Grid.Row="17" Width="190" Margin="110,0,0,0" Grid.ColumnSpan="2" Text="{Binding strformulaExpression}" IsEnabled="{Binding isCalculatedFieldsYes}" HorizontalAlignment="Left"  VerticalAlignment="Center"></TextBox>
+                                <StackPanel Grid.Column="2" Grid.Row="16" Margin="0,5,0,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <RadioButton  VerticalAlignment="Center"  Content="Yes" IsChecked="{Binding isCalculatedFieldsYes}"></RadioButton>
+                                    <Separator Width="10" Visibility="Hidden"></Separator>
+                                    <RadioButton  VerticalAlignment="Center" Content="No" IsChecked="{Binding isCalculatedFieldsNo}" ></RadioButton>
+                                </StackPanel>
+                                <Button HorizontalAlignment="Left" Width="105" Height="20"  Margin="80,0,0,0" FontWeight="Normal" Grid.Row="17" Grid.Column="3" Command="{Binding OpenWindowTOAddFormula}" IsEnabled="{Binding isCalculatedFieldsYes}" Content="Add/Modify formula"></Button>
+                                <Button HorizontalAlignment="Left" Width="30" Height="20"  Margin="190,0,0,0" FontWeight="Normal" Grid.Row="17" Grid.Column="3" Content="Clear" IsEnabled="{Binding isCalculatedFieldsYes}" Command="{Binding ClearFormula}" ></Button>
+                                <Label Grid.Row="18" Grid.Column="2" Width="90" HorizontalAlignment="Left" VerticalAlignment="Center">Mask/Field Type: </Label>
+                                <ComboBox FontSize="10" FontWeight="Normal" ItemsSource="{Binding tempListMaskFieldTypes}" SelectedValue="{Binding SelectedMaskFieldsTypes}" Grid.Column="2" Grid.Row="18" Width="190" Margin="110,0,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                
+                              <Label Grid.Row="19" Grid.Column="2" Width="90" HorizontalAlignment="Left" VerticalAlignment="Center">Translate:</Label>
+                                <ComboBox FontSize="10" FontWeight="Normal" Grid.Column="2" Grid.Row="19" Width="100" Margin="110,0,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsEnabled="{Binding IsTransTypeEnabled}" ItemsSource="{Binding ListTranslatorTypes}" SelectedItem="{Binding SelectedTranslatorsTypes}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Label Grid.Row="19" Grid.Column="3" Width="90" HorizontalAlignment="Left" VerticalAlignment="Center">Default(Text): </Label>
+                                <TextBox Grid.Row="19" Grid.Column="3" Margin="75,0,0,0" Width="145" Height="20" FontWeight="Normal" Text="{Binding strDefaultText}"></TextBox>
+                                
+                                <!--<TextBox Grid.Row="19" Grid.Column="3" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal" Text="{Binding strTranalateTextValue}"></TextBox>
+                                <Button Grid.Row="19" Grid.Column="3" Width="50" FontWeight="Normal" Margin="110,0,0,0" HorizontalAlignment="Left" Command="{Binding cmdAddTranslator}"  VerticalAlignment="Center">Add</Button>
+                                <Button Grid.Row="19" Grid.Column="3" Width="50" FontWeight="Normal" Margin="0,0,12,0"  HorizontalAlignment="Right" Command="{Binding delTranslator}" VerticalAlignment="Center">Delete</Button>-->
+                               
+                                <Button HorizontalAlignment="Left" Width="80" Height="20"  Margin="4,-4,0,0" FontWeight="Normal" Grid.Row="21" Grid.Column="2" Command="{Binding btnSavePaymentData}" Content="Save"></Button>
+                            </Grid>
+                         </GroupBox>                      
+                    </Grid>
+              </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.PolicySearched"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+             xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"   
+             xmlns:FocusView="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+    Title="Searched Policy" Background="#B8D9FF" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="323" SizeToContent="WidthAndHeight" d:DesignWidth="722">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="248" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="21*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="295"/>
+            <ColumnDefinition Width="176" />
+            <ColumnDefinition Width="236" />
+            <ColumnDefinition Width="9*" />
+        </Grid.ColumnDefinitions>
+        <toolkit:DataGrid ColumnWidth="87" IsReadOnly="True"  AutoGenerateColumns="False"  CanUserAddRows="False" ItemsSource="{Binding MPolicySearchedLst}" SelectedItem="{Binding MSelectedPolicySearched,Mode=TwoWay}" GridLinesVisibility="None"  Background="White" Width="707" Height="248" Grid.ColumnSpan="3">
+        <toolkit:DataGrid.Columns>
+                <toolkit:DataGridTextColumn Header="Client#" Visibility="Hidden" Binding="{Binding ClienID}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Client Name"  Binding="{Binding ClientName}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Insured" Binding="{Binding Insured}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Payor" Binding="{Binding PayorName}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Policy#" Binding="{Binding PolicyNumber}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="State" Binding="{Binding State}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Carrier" Binding="{Binding Carrier}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Status" Binding="{Binding Status}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Product" Binding="{Binding Product}"></toolkit:DataGridTextColumn>
+            
+        </toolkit:DataGrid.Columns>
+
+    </toolkit:DataGrid>
+        <WrapPanel  Name="OKButtons1" VerticalAlignment="Center" Margin="58,211,124,37" HorizontalAlignment="Center" Grid.Column="1"></WrapPanel>
+        <StackPanel HorizontalAlignment="Left" Margin="3,1,0,8" Name="stackPanel1" Width="173" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+            <Button Name="btnOK1" Content="OK" Command="{Binding SetClientPolicy}" Grid.Row="3" Grid.Column="2" Height="22" Width="76" Click="btnOK1_Click"></Button>
+            <Label Height="28" Name="label1" Content="  " DataContext="{Binding}" />
+            <Button Name="btnCancel" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_cross.png" Content="Cancel" Grid.Row="3" Grid.Column="2" Height="22" Width="76" Click="btnCancel_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

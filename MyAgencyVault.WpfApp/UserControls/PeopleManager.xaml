@@ -1,0 +1,385 @@
+﻿<UserControl x:Class="MyAgencyVault.WinApp.UserControls.PeopleManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+               xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+             xmlns:validation="clr-namespace:MyAgencyVault.WinApp.Validation"
+             xmlns:behaviour="clr-namespace:MyAgencyVault.ViewModel.Behaviour;assembly=MyAgencyVault.VM"
+             xmlns:vm="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+             xmlns:toolkitExt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+               xmlns:conv="clr-namespace:MyAgencyVault.ViewModel.Converters;assembly=MyAgencyVault.VM"
+    Height="auto" Width="793" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+    <UserControl.Resources>
+        <conv:ZipToLongConverter x:Key="ZipConv"></conv:ZipToLongConverter>
+        <conv:PercentageConverter x:Key="percentageConv"/>
+    </UserControl.Resources>
+    <Border BorderBrush="#6F9DD9" BorderThickness="1" Padding="4">
+        <Grid>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="0.20*"></ColumnDefinition>
+                <ColumnDefinition Width="0.006*"></ColumnDefinition>
+                <ColumnDefinition Width="0.70*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.07*"></RowDefinition>
+                <RowDefinition Height="600"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ContentControl Grid.Column="2" Grid.Row="2"  HorizontalAlignment="Left"   VerticalAlignment="Stretch">
+                <Border BorderBrush="#6F9DD9" BorderThickness="1">
+                    <TabControl  Grid.Column="0" Name="tabCtrlPeople" Margin="4,4,4,4">
+                        <TabItem Name="tabDetail" Header="Detail" local:EyeCandy.Image="../Images/Logo/magnifying_glass.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+
+                            <Grid Height="496" Width="589" >
+                                <Label   Name="lblLicense" Content="  License Name :" Margin="0,7,0,0"></Label>
+                                <ComboBox Height="20" Margin="98,5,20,0" VerticalAlignment="Top" Foreground="Black" ItemsSource="{Binding SharedVMData.Licensees}"  IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding SharedVMData.SelectedLicensee}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Company,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <GroupBox Header="Login Details And Password Hint" Margin="0,38,5,0" Name="grpBoxLoginDetail" Height="151" VerticalAlignment="Top" local:EyeCandy.Image="../Images/Logo/Key.png" HeaderTemplate ="{StaticResource ImageBindingGroupBoxControl}" SnapsToDevicePixels="False">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.20*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.30*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.20*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.30*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions >
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0"  VerticalAlignment="Center" Name="lblName" Width="120" HorizontalAlignment="Left">User Name</Label>
+                                        <TextBox behaviour:FocusLostBehaviour.FocusLost="{Binding UserNameLostFocus}" validation:FieldDescriptor.Name="UserName" validation:FieldDescriptor.GroupName="UserName" x:Name="txtUserName" Grid.Column="1" Grid.Row="0" Height="20" VerticalAlignment="Center" Text="{Binding Currentuser.UserName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                        <Label Grid.Column="0" Grid.Row="1"  VerticalAlignment="Center" Name="lblPassword" Width="120" HorizontalAlignment="Left">Password</Label>
+                                       
+                                        <PasswordBox validation:FieldDescriptor.Name="Password" validation:FieldDescriptor.GroupName="Password" Height="20" Background="#EAF2FB" Name="txtPassword"  Grid.Column="1" Grid.Row="1"  vm:PasswordHelper.BindPassword="true" vm:PasswordHelper.BoundPassword="{Binding Path=Currentuser.Password,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, Mode=TwoWay}"  ></PasswordBox>
+                                    
+
+                                        <Label Grid.Column="0" Grid.Row="2"  VerticalAlignment="Center" Name="lblConfrmPassword" Width="120" HorizontalAlignment="Left">Confirm Password</Label>
+                                       
+                                        <PasswordBox validation:FieldDescriptor.IsCompare="True" validation:FieldDescriptor.CompareTo="{Binding Path=Currentuser.Password,Mode=OneWay}" validation:FieldDescriptor.Name="Password" validation:FieldDescriptor.GroupName="Password" Grid.Column="1" Background="#EAF2FB" Grid.Row="2" Height="20"  vm:PasswordHelper.BindPassword="true"  vm:PasswordHelper.BoundPassword="{Binding Path=Currentuser.ConfirmPassword, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  ></PasswordBox>
+                                         
+                                        <Label Grid.Column="2" Name="lblQuestion" Width="94" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="20,0,0,0" VerticalAlignment="Center">Question</Label>
+                                        <ComboBox Grid.Column="3" Grid.Row="0"  VerticalAlignment="Center" ItemsSource="{Binding Path=HntQuestions,Mode=TwoWay}"  SelectedItem="{Binding SelectedQuestion}" SelectedIndex="{Binding selectedIndex}" IsSynchronizedWithCurrentItem="True" >
+                                            <ComboBox.ItemTemplate >
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding QuestionText,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"  />
+                                                    </StackPanel>
+
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+
+                                        <Label Grid.Column="2" Grid.Row="1" Name="lblAnswer"  Grid.RowSpan="2" Margin="20,0,0,0" VerticalAlignment="Center">Answer</Label>
+                                        <TextBox validation:FieldDescriptor.Name="SecurityQuestionAnswer" validation:FieldDescriptor.GroupName="SecurityQuestionAnswer" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Height="48" Grid.RowSpan="2" Name="PasswordHintA" Text="{Binding Currentuser.PasswordHintA, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  ></TextBox>
+
+                                        <Label Grid.Column="0" Grid.Row="4"  VerticalAlignment="Center" Name="lblBguserId" Width="120" HorizontalAlignment="Left">Import UserID</Label>
+                                        <TextBox  Grid.Column="1" Grid.Row="4" Height="20" VerticalAlignment="Center"  Text="{Binding Currentuser.BGUserId, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding IsEnabledAlloption}" ></TextBox>
+
+                                    </Grid>
+
+                                </GroupBox>
+                                <GroupBox Header="Personal Details"  Margin="0,195,5,35" Name="grpBoxPersonalDetail" local:EyeCandy.Image="../Images/Logo/user_view.png" HeaderTemplate ="{StaticResource ImageBindingGroupBoxControl}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.20*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.30*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.05*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.15*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.30*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions >
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0"  VerticalAlignment="Center" Name="lblFirstName" Width="120" HorizontalAlignment="Left">First Name</Label>
+                                        <TextBox validation:FieldDescriptor.GroupName="Name" validation:FieldDescriptor.Name="FirstName" Grid.Column="1" Grid.Row="0" Height="20" VerticalAlignment="Center"  Name="txtFirstName"  Text="{Binding Currentuser.FirstName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=False}" ></TextBox>
+                                        <Label Grid.Column="0" Grid.Row="1"  VerticalAlignment="Center" Name="lblLastName" Width="120" HorizontalAlignment="Left" >Last Name</Label>
+                                        <TextBox validation:FieldDescriptor.GroupName="Name" validation:FieldDescriptor.Name="LastName" Grid.Column="1" Grid.Row="1" Height="20"   Name="txtLastName" Text="{Binding Currentuser.LastName,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=False}" ></TextBox>
+                                        <Label Grid.Column="0" Grid.Row="2"  VerticalAlignment="Center" Name="lblCompany" Width="120" HorizontalAlignment="Left">Company</Label>
+                                        <TextBox validation:FieldDescriptor.Name="Company" validation:FieldDescriptor.GroupName="Company" Grid.Column="1" Grid.Row="2" Height="20"  Name="txtCompany" VerticalAlignment="Center" Text="{Binding Currentuser.Company, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                        <Label Grid.Column="0" Grid.Row="3"  VerticalAlignment="Center" Name="lblNickName" Width="120" HorizontalAlignment="Left">Nick Name</Label>
+                                        <TextBox validation:FieldDescriptor.Name="NickName" validation:FieldDescriptor.GroupName="NickName" Grid.Column="1" Grid.Row="3" Height="20"  Name="txtNickName" Text="{Binding Currentuser.NickName, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                        <Label Grid.Column="0" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Center" Name="lblAddress" Width="120" HorizontalAlignment="Left">Address</Label>
+                                        <TextBox validation:FieldDescriptor.Name="Address" validation:FieldDescriptor.GroupName="Address" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2"  Height="55" VerticalAlignment="Center"  Name="txtAddress" Text="{Binding Currentuser.Address, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+
+
+                                        <Label Grid.Column="3" Grid.Row="0"  Name="lblZip" Width="94" VerticalAlignment="Center" HorizontalAlignment="Left">Zip</Label>
+                                        <Label Grid.Column="3" Grid.Row="1" Width="94" Name="lblCity" VerticalAlignment="Center" >City</Label>
+                                        <Label Grid.Column="3" Grid.Row="2" Width="94" Name="lblState" VerticalAlignment="Center" >State</Label>
+                                        <Label Grid.Column="3" Grid.Row="3" Width="94" Name="lblEmail" VerticalAlignment="Center" >Email</Label>
+                                        <Label Grid.Column="3" Grid.Row="4" Width="94" Name="lblOfficePhone" VerticalAlignment="Center" >Office Phone</Label>
+                                        <Label Grid.Column="3" Grid.Row="5" Width="94" Name="lblCellPhone" VerticalAlignment="Center" >Cell Phone</Label>
+                                        <Label Grid.Column="3" Grid.Row="6" Width="94" Name="lblFax" VerticalAlignment="Center" >Fax</Label>
+                                       
+                                       
+                                        <toolkitExt:MaskedTextBox validation:FieldDescriptor.Name="ZipCode" validation:FieldDescriptor.GroupName="ZipCode" Mask="00000" behaviour:FocusLostBehaviour.FocusLost="{Binding ZipLostFocus}" Grid.Column="4" Grid.Row="0" Height="20" Value="{Binding Currentuser.ZipCode,Mode=TwoWay}"></toolkitExt:MaskedTextBox>
+                                     
+
+                                        <TextBox validation:FieldDescriptor.Name="City" validation:FieldDescriptor.GroupName="City" Grid.Column="4" Grid.Row="1" Height="20"  Name="txtCity" Text="{Binding Currentuser.City, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsTabStop="False"></TextBox>
+                                        <TextBox validation:FieldDescriptor.Name="State" validation:FieldDescriptor.GroupName="State" Grid.Column="4" Grid.Row="2" Height="20"  Name="txtState" Text="{Binding Currentuser.State, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsTabStop="False"></TextBox>
+                                        <TextBox validation:FieldDescriptor.Name="E-mail" validation:FieldDescriptor.GroupName="E-mail" Grid.Column="4" Grid.Row="3" Height="20"  Name="txtEmail" VerticalAlignment="Center" Text="{Binding Currentuser.Email, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+
+                                     
+                                        <toolkitExt:MaskedTextBox validation:FieldDescriptor.Name="OfficePhone" validation:FieldDescriptor.GroupName="OfficePhone" Mask="(000) 000-0000" Height="20" Grid.Column="4" Grid.Row="4"  Value="{Binding Path=Currentuser.OfficePhone, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></toolkitExt:MaskedTextBox>
+                                        
+                                        <toolkitExt:MaskedTextBox validation:FieldDescriptor.Name="CellPhone" validation:FieldDescriptor.GroupName="CellPhone" Mask="(000) 000-0000" Height="20"  Grid.Column="4" Grid.Row="5"  Value="{Binding Path=Currentuser.CellPhone, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></toolkitExt:MaskedTextBox>
+                                        <toolkitExt:MaskedTextBox validation:FieldDescriptor.Name="Fax" validation:FieldDescriptor.GroupName="Fax" Mask="(000) 000-0000" Height="20"  Grid.Column="4" Grid.Row="6"  Value="{Binding Path=Currentuser.Fax,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></toolkitExt:MaskedTextBox>
+
+                                    </Grid>
+                                </GroupBox>
+                                <Button local:EyeCandy.Image="../Images/Logo/floppy_disk_blue.png" Style="{StaticResource ImageButtonSave}"   HorizontalAlignment="Right" Margin="0,0,220,0" VerticalAlignment="Bottom"  Command="{Binding ImportRecords}">Import agent</Button>
+                                <Button local:EyeCandy.Image="../Images/Logo/floppy_disk_blue.png" Style="{StaticResource ImageButtonSave}"   HorizontalAlignment="Right" Margin="0,0,150,0" VerticalAlignment="Bottom"  Command="{Binding saveRecords}">Save</Button>
+                                <Button local:EyeCandy.Image="../Images/Logo/add.png" Style="{StaticResource ImageButtonSave}"     VerticalAlignment="Bottom" Margin="0,0,82,0" HorizontalAlignment="Right" Command="{Binding NewRecord}" vm:EventFocusAttachment.ElementToFocus="{Binding ElementName=txtUserName}">New</Button>
+                                <Button local:EyeCandy.Image="../Images/Logo/Delete.png" Style="{StaticResource ImageButtonSave}"    VerticalAlignment="Bottom" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding Path=DeleteUser}">Delete</Button>
+                            </Grid>
+
+
+                        </TabItem>
+
+                        <TabItem TabIndex="3" Name="tabSetting" Header="Settings" local:EyeCandy.Image="../Images/Logo/preferences.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                            <Grid Height="496" Width="585" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.35*"></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.20*"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition Height="0.40*"></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Name="lblAgentName" Grid.Row="0" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12">
+                                    <!--<Label.ContentTemplate>
+                                        <DataTemplate>-->
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="User : "/>
+                                        <TextBlock Text="{Binding Currentuser.NickName}"/>
+                                    </StackPanel>
+                                    <!--</DataTemplate>
+                                    </Label.ContentTemplate>-->
+                                </Label>
+                                <!--<Label Name="lblSettingAgentName" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" FontSize="12" ></Label>-->
+                                <!--<Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" BorderBrush="DarkGray" BorderThickness=".2,.2,2,2" CornerRadius="18">-->
+                                <GroupBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3"  Header="Permissions"   local:EyeCandy.Image="../Images/Logo/monitor_preferences.png" HeaderTemplate ="{StaticResource ImageBindingGroupBoxControl}">
+                                    <Grid>
+                                        <Grid.Resources>
+                                            <vm:BooleanConverter x:Key="ValueConverter" />
+                                        </Grid.Resources>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Name="lblRead" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">Read</Label>
+                                        <Label Name="lblWrite" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2">Write</Label>
+                                        <Label Name="lblNoAccess" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3">No Access</Label>
+
+                                        <Label Name="lblPeopleManager" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" HorizontalContentAlignment="Left">People Manager</Label>
+                                        <Label Name="lblPolicyManager" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" HorizontalContentAlignment="Left">Policy Manager</Label>
+                                        <Label Name="lblSettings" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Row="3" HorizontalContentAlignment="Left">Settings</Label>
+                                        <Label Name="lblFollowUp" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" HorizontalContentAlignment="Left">Follow Up Manager</Label>
+                                        <Label Name="lblHelp" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" HorizontalContentAlignment="Left">Help/Update</Label>
+                                        <Label Name="lblConfgr" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" HorizontalContentAlignment="Left">Comp Manager</Label>
+                                        <Label Name="lblReport" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7" HorizontalContentAlignment="Left">Report Manager</Label>
+                                        <WrapPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                                            <RadioButton GroupName="4" Grid.Column="1" Grid.Row="2"  Margin="22,0,0,0" Name="rdReadPeopleManager" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[0].Permission,Converter={StaticResource ValueConverter},ConverterParameter=1}"></RadioButton>
+                                            <RadioButton GroupName="5" Grid.Column="2" Grid.Row="2" Margin="49,0,0,0" Name="rdWritePeopleManager" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[0].Permission,Converter={  StaticResource ValueConverter},ConverterParameter=2}"></RadioButton>
+                                            <RadioButton GroupName="6" Grid.Column="3" Grid.Row="2" Margin="49,0,0,0" Name="rdNoAccessPeopleManager" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[0].Permission,Converter={  StaticResource ValueConverter},ConverterParameter=3}"></RadioButton>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                                            <RadioButton Margin="22,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"  IsChecked="{Binding Path=Currentuser.Permissions[1].Permission,  Converter={StaticResource ValueConverter},ConverterParameter=1}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[1].Permission,Converter={StaticResource ValueConverter},ConverterParameter=2}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[1].Permission,Converter={StaticResource ValueConverter},ConverterParameter=3}"></RadioButton>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                                            <RadioButton Margin="22,0,0,0" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[2].Permission,Converter={StaticResource ValueConverter},ConverterParameter=1}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[2].Permission,Converter={StaticResource ValueConverter},ConverterParameter=2}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[2].Permission,Converter={StaticResource ValueConverter},ConverterParameter=3}"></RadioButton>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                                            <RadioButton Margin="22,0,0,0" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[3].Permission,Converter={StaticResource ValueConverter},ConverterParameter=1}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[3].Permission,Converter={StaticResource ValueConverter},ConverterParameter=2}" ></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[3].Permission,Converter={StaticResource ValueConverter},ConverterParameter=3}"></RadioButton>
+                                        </WrapPanel>
+                                        <WrapPanel Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                                            <RadioButton Margin="22,0,0,0" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[4].Permission,Converter={StaticResource ValueConverter},ConverterParameter=1}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[4].Permission,Converter={StaticResource ValueConverter},ConverterParameter=2}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[4].Permission,Converter={StaticResource ValueConverter},ConverterParameter=3}"></RadioButton>
+                                        </WrapPanel>
+                                        <WrapPanel  Margin="22,0,0,0" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                                            <RadioButton Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[5].Permission,Converter={  StaticResource ValueConverter},ConverterParameter=1}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[5].Permission,Converter={StaticResource ValueConverter},ConverterParameter=2}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[5].Permission,Converter={StaticResource ValueConverter},ConverterParameter=3}"></RadioButton>
+                                        </WrapPanel>
+                                        <WrapPanel   Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                                            <RadioButton Margin="22,0,0,0" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[6].Permission,Converter={StaticResource ValueConverter},ConverterParameter=1}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[6].Permission,Converter={StaticResource ValueConverter},ConverterParameter=2}"></RadioButton>
+                                            <RadioButton Margin="49,0,0,0" Grid.Column="3" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=Currentuser.Permissions[6].Permission,Converter={StaticResource ValueConverter},ConverterParameter=3}"></RadioButton>
+                                        </WrapPanel>
+                                    </Grid>
+                                </GroupBox>
+                                <!--<Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" >-->
+                                <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="0.55*"></RowDefinition>
+                                        <RowDefinition Height="0.55*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="0.05*"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Border BorderBrush="DarkGray" BorderThickness=".2,.2,2,2" CornerRadius="18" 
+                                      Grid.Column="2" >-->
+                                    <GroupBox Header="Account Defaults" IsEnabled="{Binding IsEnableAccountDefaults}"
+                                      Grid.Column="2" local:EyeCandy.Image="../Images/Logo/hand_red_card.png" HeaderTemplate ="{StaticResource ImageBindingGroupBoxControl}" >
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.02*"></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center" Name="chkHouseAccount" Command="{Binding HouseAccountTransferred}" Visibility="{Binding IsAdministrator}" IsEnabled="{Binding IsNotHouseOwner}" IsChecked="{Binding Path=Currentuser.IsHouseAccount,UpdateSourceTrigger=PropertyChanged}">House Account</CheckBox>
+                                            <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Name="chkMthlyRptsagency" IsChecked="{Binding Path=Currentuser.ReportForEntireAgency,UpdateSourceTrigger=PropertyChanged}">Send Monthly Reports For Entire Agency</CheckBox>
+                                            <CheckBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Name="chkmthlyRptsOwn" IsChecked="{Binding Path=Currentuser.ReportForOwnBusiness,UpdateSourceTrigger=PropertyChanged}">Send Monthly Reports For Own Business</CheckBox>
+                                            <CheckBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Name="chkmAccountExec" IsChecked="{Binding Path=IsAccountExec,UpdateSourceTrigger=PropertyChanged}">Account Exec</CheckBox>
+
+                                        </Grid>
+                                    </GroupBox>
+
+                                </Grid>
+
+                                <Grid Grid.Column="3" Grid.Row="2" Grid.ColumnSpan ="2">
+
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="0.05*"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <GroupBox Grid.Column="2"  Header="Outgoing Split Defaults" local:EyeCandy.Image="../Images/Logo/safe_out.png" HeaderTemplate ="{StaticResource ImageBindingGroupBoxControl}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition ></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.05*"></ColumnDefinition>
+                                                <ColumnDefinition Width="0.90*"></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <CheckBox Margin="10,0,0,0" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="3" IsChecked="{Binding IsAgentDiable}" >Disable Agent % Edit</CheckBox>
+
+
+                                            <TextBlock Margin="5,0,0,0" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" >First Year % Default</TextBlock>
+                                            <TextBlock Margin="5,0,0,0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">Renewal % Default</TextBlock>
+
+                                            <TextBox Margin="5,0,0,0" Grid.Column="3" Grid.Row="1" Height="20"  Name="txtFirstYear" IsEnabled="{Binding FirstYearPercentageEnable}" VerticalAlignment="Center" Text="{Binding Currentuser.FirstYearDefault,ValidatesOnDataErrors=True,Converter={StaticResource percentageConv},StringFormat=p}" Mouse.GotMouseCapture="txtFirstYear_GotMouseCapture"></TextBox>
+                                            <TextBox Margin="5,0,0,0" Grid.Column="3" Grid.Row="2" Height="20"  Name="txtRenewal" IsEnabled="{Binding RenewalYearPercentageEnable}" VerticalAlignment="Center" Text="{Binding Currentuser.RenewalDefault,ValidatesOnDataErrors=True,Converter={StaticResource percentageConv},StringFormat=p}" Mouse.GotMouseCapture="txtRenewal_GotMouseCapture"></TextBox>
+                                        </Grid>
+
+                                    </GroupBox>
+                                </Grid>
+
+                                <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom">Select Agents to be linked :</TextBlock>
+                                <!--</Border>-->
+                                <!--<TextBox Grid.Column="1" Grid.Row="0" Height="20"   Name="txtSettingUserName" ></TextBox>-->
+                                <toolkit:DataGrid  AutoGenerateColumns="False" CanUserAddRows="False"  ColumnWidth="123" Grid.Row="3" GridLinesVisibility="None"  Grid.ColumnSpan="5" Grid.RowSpan="4" Margin="0,33,0,75" ItemsSource="{Binding Path=Currentuser.LinkedUsers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                    <dg:DataGrid.Columns>
+                                        <dg:DataGridCheckBoxColumn Header="Select"  Width="40"  Binding="{Binding IsConnected, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                                        </dg:DataGridCheckBoxColumn>
+                                        <dg:DataGridTextColumn Header="Last Name" Width="100" IsReadOnly="True" Binding="{Binding LastName}"></dg:DataGridTextColumn>
+                                        <dg:DataGridTextColumn Header="First Name" Width="100" IsReadOnly="True"  Binding="{Binding FirstName}"></dg:DataGridTextColumn>
+                                        <dg:DataGridTextColumn Header="Nick Name" Width="80" IsReadOnly="True"  Binding="{Binding NickName}"></dg:DataGridTextColumn>
+                                        <dg:DataGridTextColumn Header="User Name" Width="140" IsReadOnly="True" Binding="{Binding UserName}"></dg:DataGridTextColumn>
+                                    </dg:DataGrid.Columns>
+                                </toolkit:DataGrid>
+                                <TextBlock Margin="0,25,0,0" Grid.Row="6" >
+                                    <Hyperlink Command="{Binding SelectAll}">Select All</Hyperlink>
+                                </TextBlock>
+                                <TextBlock Margin="10,25,10,10" Grid.Row="6" Grid.Column="1">
+                                    <Hyperlink Command="{Binding SelectNone}">Select None</Hyperlink>
+                                </TextBlock>
+
+                                <Grid  Grid.Row="6" Grid.ColumnSpan="5"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                                <Button  Style="{StaticResource SaveButton}" Grid.Column="4" Margin="61.512,65,0,0" Grid.Row="6" VerticalAlignment="Top" Command="{Binding UpdateAgents}">Update</Button>
+                                <Label HorizontalContentAlignment="Left" Margin="0,14,0,0" Name="label1" Grid.Row="3" Grid.ColumnSpan="2" Height="12.536" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180.73">Select Users To View</Label>
+
+                            </Grid>
+
+                        </TabItem>
+
+
+                    </TabControl>
+                </Border>
+            </ContentControl>
+            <ContentControl Grid.Row="1" Grid.Column="0">
+                <Border BorderBrush="#6F9DD9" BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.04*"></RowDefinition>
+                            <RowDefinition Height="0.05*"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Name="lblSelectUser" Margin="4,4,4,4">Select User Type</Label>
+                        <ComboBox Margin="4,4,4,2" Grid.Row="1" Height="20" VerticalAlignment="Top" ItemsSource="{Binding Path = userType}"  IsSynchronizedWithCurrentItem="True">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ListBox BorderBrush="#FF577FB2" Grid.Row="2" Margin="4,4,4,4" ItemsSource="{Binding LicenseeUsers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Currentuser}" IsSynchronizedWithCurrentItem="True">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding NickName}"></TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                    </Grid>
+                </Border>
+
+
+            </ContentControl>
+        </Grid>
+    </Border>
+</UserControl>

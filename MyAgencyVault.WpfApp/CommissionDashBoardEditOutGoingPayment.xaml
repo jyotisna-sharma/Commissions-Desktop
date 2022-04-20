@@ -1,0 +1,76 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.CommissionDashBoardEditOutGoingPayment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+             xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+        xmlns:Conver="clr-namespace:MyAgencyVault.ViewModel.Converters;assembly=MyAgencyVault.VM" 
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"   
+             xmlns:FocusView="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+    Title="Edit OutGoingPayment" Background="#B8D9FF" WindowStartupLocation="CenterScreen" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="222" Width="727" ResizeMode="NoResize">
+    <Grid Height="182" Width="704">
+        <Grid.Resources>
+            <Conver:PercentageConverter x:Key="percentageConv"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150*" />
+            <RowDefinition Height="32*" />
+        </Grid.RowDefinitions>
+        <toolkit:DataGrid ColumnWidth="87" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding CommissionDashBoardOutGoingPaymentLst,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CommissionDashBoardSelecetdOutGoingPaymentLst}" GridLinesVisibility="None"  Background="White" Margin="0,0,0,32" Grid.RowSpan="2">
+            <toolkit:DataGrid.Columns>
+                <toolkit:DataGridTemplateColumn Header="Payee" Width="150">
+                    <toolkit:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding NickName}"/>
+                            </DataTemplate>
+                    </toolkit:DataGridTemplateColumn.CellTemplate>
+                </toolkit:DataGridTemplateColumn>
+                <!--<toolkit:DataGridTextColumn Header="Payee"  Binding="{Binding PayeeName}"></toolkit:DataGridTextColumn>-->
+                <toolkit:DataGridTextColumn Header="Premium" Binding="{Binding Premium,Converter={StaticResource percentageConv},StringFormat=p}"
+                                            EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                
+                <toolkit:DataGridTextColumn Header="Payment" Binding="{Binding Payment,Converter={StaticResource percentageConv},StringFormat=p}"
+                                            EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+
+                <toolkit:DataGridTextColumn Header="Out Going Per Unit#" Width="120" Binding="{Binding OutGoingPerUnit,StringFormat=c}"
+                                            EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+
+                <toolkit:DataGridTextColumn Header="Total Due To Payee" Width="100" Binding="{Binding PaidAmount,StringFormat=c}"
+                                            EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+
+                <toolkit:DataGridTemplateColumn Header="Paid Status" Width="70">
+                    <toolkit:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding PaidStatus}"/>
+                        </DataTemplate>
+                    </toolkit:DataGridTemplateColumn.CellTemplate>
+                </toolkit:DataGridTemplateColumn>
+                <!--<toolkit:DataGridTextColumn Header="Status" Binding="{Binding PaidStatus}"></toolkit:DataGridTextColumn>-->
+                <toolkit:DataGridTemplateColumn Header="Delete" Width="85">
+                    <toolkit:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button VerticalAlignment="Center"
+                                    Command="{Binding DataContext.CommDashOutGoingDelete, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type toolkit:DataGrid}}}"
+                                    CommandParameter="{Binding OutgoingPaymentId}"
+                                    >Delete                                                 
+
+                            </Button>
+                        </DataTemplate>
+                    </toolkit:DataGridTemplateColumn.CellTemplate>
+                </toolkit:DataGridTemplateColumn>
+            </toolkit:DataGrid.Columns>
+
+        </toolkit:DataGrid>
+        <WrapPanel  Name="OKButtons1" VerticalAlignment="Center" Margin="318,9,280,32" HorizontalAlignment="Center" Grid.Row="1"></WrapPanel>
+        <StackPanel Height="22" HorizontalAlignment="Left" Margin="308,7,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="170" Orientation="Horizontal" Grid.Row="1">
+            <Button Name="btnOK1" Content="Save" Command="{Binding CommissionDashOK}" Style="{StaticResource SaveButton}" Grid.Row="3" Grid.Column="2" Height="22" Width="76"></Button>
+            <Label Height="28" Name="label1" Content="  " DataContext="{Binding}" />
+            <Button Name="btnCancel" Command="{Binding CommissionDashCancel}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_cross.png" Content="Cancel" Grid.Row="3" Grid.Column="2" Height="22" Width="76" />
+        </StackPanel>
+        <TextBlock VerticalAlignment="Center" Margin="168,4,380,13" Grid.Row="1">
+                <Hyperlink Command="{Binding CommissionDashBoardResetOutGoingPayment}" CommandParameter="Reset">Reset</Hyperlink></TextBlock>
+    </Grid>
+</Window>

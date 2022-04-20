@@ -1,0 +1,21 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.ImportPolicy"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+        Title="ImportPolicy" Height="500" Width="900" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <toolkit:DataGrid x:Name="DgImport" Grid.Row="1" Grid.Column="1" IsReadOnly="True"></toolkit:DataGrid>
+        <Button x:Name="btImport" Grid.Row="2" Grid.Column="1" Height="20" HorizontalContentAlignment="Center" Width="80" HorizontalAlignment="Right" Click="btImport_Click" >Import</Button>
+
+    </Grid>
+</Window>

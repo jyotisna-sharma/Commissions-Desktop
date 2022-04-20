@@ -1,0 +1,1362 @@
+﻿<UserControl xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"  x:Name="Usectrl1" x:Class="MyAgencyVault.WinApp.UserControls.PolicyManagerOptimized"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:wait="clr-namespace:MyAgencyVault.WinApp"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
+    xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+                xmlns:toolkitExt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"              
+                xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"   
+                xmlns:UserControl="clr-namespace:MyAgencyVault.WinApp.UserControls"
+                xmlns:vmlib="clr-namespace:MyAgencyVault.VMLib;assembly=MyAgencyVault.VM"
+                xmlns:vmlib1="clr-namespace:MyAgencyVault.ViewModel.VMLib;assembly=MyAgencyVault.VM"
+                xmlns:FocusView="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"              
+                xmlns:Conver="clr-namespace:MyAgencyVault.ViewModel.Converters;assembly=MyAgencyVault.VM" 
+                xmlns:behaviour="clr-namespace:MyAgencyVault.ViewModel.Behaviour;assembly=MyAgencyVault.VM"
+                xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                Height="auto" Width="793" VerticalAlignment="Stretch" HorizontalAlignment="Left" >
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <local:BindingProxy x:Key="FirstColumnCheckedProxy" Data="{Binding IsTiered}"   />
+        <Conver:DateConverter x:Key="DateConverter"/>
+        <vmlib1:ScheduleGridData x:Key="schData"></vmlib1:ScheduleGridData>
+        <vmlib1:ScheduleGridData x:Key="outSchData"></vmlib1:ScheduleGridData>
+        <!--add header number style-->
+        <Style x:Key="NumberStyle" TargetType="{x:Type dg:DataGridColumnHeader}">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <!--<Setter Property="Background" Value="#D2DFF0"/>-->
+
+        </Style>
+        <Style x:Key="MyTooltip" TargetType="{x:Type ToolTip}">
+
+            <Setter Property = "HorizontalOffset" Value="50"/>
+            <Setter Property = "VerticalOffset" Value="20"/>
+            <Setter Property = "Background" Value="Gainsboro"/>
+            <Setter Property = "Foreground" Value="Black"/>
+            <Setter Property = "FontSize" Value="10"/>
+            <Setter Property = "FontWeight" Value="Bold"/>
+            <Setter Property = "FontFamily" Value="Tahoma"/>
+
+        </Style>
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Red" FontSize="10" Text="*" ToolTip="{Binding [0].ErrorContent}" VerticalAlignment="Center"/>
+                <AdornedElementPlaceholder/>
+            </StackPanel>
+        </ControlTemplate>
+        <FocusView:BooleanConverter x:Key="ConverterBool"></FocusView:BooleanConverter>
+        <Conver:EqualityConverter x:Key="RdBtnConvert"></Conver:EqualityConverter>
+        <Conver:RdBtnCounterConverter x:Key="RdBtnCouConvert"/>
+        <Conver:PercentageConverter x:Key="percentageConv"/>
+        <Conver:BoolToColorConverter x:Key="colorConverter"/>
+
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width= "5" />
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="5" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="4"></RowDefinition>
+            <RowDefinition Height="180"></RowDefinition>
+            <RowDefinition Height="4"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.ColumnSpan="3"></Border>
+        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="3" ></Border>
+        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="4" Grid.ColumnSpan="3" ></Border>
+        <Grid Grid.ColumnSpan="1" Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.40*"></ColumnDefinition>
+                <ColumnDefinition Width="1.06*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Client" Name="lblclientFilter"   VerticalAlignment="Center"></Label>
+
+            <!--<my:AutoCompleteBox x:Name="autoSeachBox" FilterMode="StartsWith" IsTextCompletionEnabled="True"  Grid.Column="1"  Height="23" Grid.ColumnSpan="2" Margin="0,5,249,5" ItemsSource="{Binding DisplayedClientsLists}"  SelectedItem="{Binding SelectedDisplayClient.Name}" >
+              <my:AutoCompleteBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=Name}" ></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </my:AutoCompleteBox.ItemTemplate>
+                </my:AutoCompleteBox>-->
+            <!--vinod-->
+
+            <!--<TextBox x:Name="autoSeachBox"  Grid.Column="1"  Height="23" Grid.ColumnSpan="2" Margin="0,5,249,5"></TextBox>-->
+
+            <ComboBox TextSearch.TextPath="Name" IsEnabled="{Binding IsClientEnable}" IsEditable="True" Grid.Column="1"  Height="20" VerticalAlignment="Center" ItemsSource="{Binding DisplayedClientsLists}"   SelectedItem="{Binding SelectedDisplayClient}" Grid.ColumnSpan="2" Margin="0,5,249,5" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" ></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <!--vinod-->
+            <WrapPanel Grid.Column="2" VerticalAlignment="Center" Margin="70,4,49,4" Grid.ColumnSpan="2">
+
+                <!--<Separator Width="10" Visibility="Hidden"></Separator>-->
+                <!--<Button Name="btnSerch" Height="22" Content="Search" ToolTip="Get Client"  Command="{Binding CreateNewClient}" HorizontalAlignment="Left" Style="{StaticResource ImageButtonSave}"  Grid.Column="2" local:EyeCandy.Image="..\Images\Icons\briefcase_add.png" ></Button>-->
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <Button Name="btnNew" Height="22" Content="New"  Command="{Binding CreateNewClient}" HorizontalAlignment="Left" Style="{StaticResource ImageButtonSave}"  Grid.Column="2" local:EyeCandy.Image="..\Images\Icons\briefcase_add.png"></Button>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <Button Name="btnEdit" Cursor="Hand" Content="Edit" Height="22" Command="{Binding EditClient}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\briefcase_edit.png"  HorizontalAlignment="Left"  Grid.Column="3" ></Button>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <Button Cursor="Hand" Height="22" Command="{Binding DeleteClientCmd}" Content="Delete" Grid.Column="4" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\briefcase_delete.png"></Button>
+            </WrapPanel>
+
+            <Label Content="Agency" Margin ="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3"></Label>
+            <ComboBox Grid.Column="5" Text="{Binding Path=Company}" IsEnabled="True" SelectedValuePath="LicenseeId" Height="20" VerticalAlignment="Center" ItemsSource="{Binding SharedVMData.Licensees}" SelectedItem="{Binding SharedVMData.SelectedLicensee}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Company}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+        </Grid>
+
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.13*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+            <Label Content="Show Policies" Name="label1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <WrapPanel Grid.Column="2" VerticalAlignment="Center">
+
+                <RadioButton Content="Active" IsChecked="{Binding IsActiceChecked}"  Name="chkActive" HorizontalAlignment="Left"  Width="60" Grid.ColumnSpan="2" Command="{Binding ClickStatusChanged}"  CommandParameter="Active" ></RadioButton>
+                <RadioButton Content="Pending" IsChecked="{Binding IsPendingChecked}"  Name="chkActive1" Grid.Column="1" HorizontalAlignment="Left"  Width="73" Command="{Binding ClickStatusChanged}"  CommandParameter="Pending"></RadioButton>
+                <RadioButton Content="Terminated" IsChecked="{Binding IsTerminatedCheck}" Name="chkActive2" Grid.Column="1" HorizontalAlignment="Left"  Width="87" Command="{Binding ClickStatusChanged}"  CommandParameter="Terminated"></RadioButton>
+                <RadioButton Content="All" IsChecked="{Binding IsAllCheck}" Name="chkActive4" Grid.Column="1" HorizontalAlignment="Left"  Width="60" Command="{Binding ClickStatusChanged}" CommandParameter="All" ></RadioButton>
+            </WrapPanel>
+
+            <toolkit:DataGrid ColumnWidth="87" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False"   Grid.Row="1" Grid.ColumnSpan="3"  ItemsSource="{Binding PolicyList, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPolicy}"  GridLinesVisibility="None"  Background="White" SelectionUnit="FullRow"  SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged" VirtualizingStackPanel.IsVirtualizing="True"  VirtualizingStackPanel.VirtualizationMode="Standard">
+
+                <toolkit:DataGrid.Columns>
+                    <toolkit:DataGridTextColumn Header="Policy#" Width="100"  Binding="{Binding PolicyNumber}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Insured" Width="110" Binding="{Binding Insured}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Payor" Width="110"  Binding="{Binding PayorNickName}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Carrier" Width="110" Binding="{Binding CarrierName}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Effective" Width="68" Binding="{Binding OriginalEffectiveDate,StringFormat=MM/dd/yyyy}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Product" Width="105" Binding="{Binding CoverageName}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Status" Width="62" Binding="{Binding PolicyStatusName}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Type" Width="45" Binding="{Binding PolicyType}"></toolkit:DataGridTextColumn>
+                    <toolkit:DataGridTextColumn Header="Pay Type" Width="70" Binding="{Binding PolicyIncomingPayType}"></toolkit:DataGridTextColumn>
+
+                </toolkit:DataGrid.Columns>
+
+            </toolkit:DataGrid>
+
+            <WrapPanel  Name="stcButtons" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Center" >
+                <Button Name="btnAdd1" Content="Add Policy" Grid.Row="3" VerticalAlignment="Center" Grid.Column="2" Height="22" Width="120" Command="{Binding AddPolicy}" FocusView:EventFocusAttachment.ElementToFocus="{Binding ElementName=txtInsuredDiv}"></Button>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <Button Name="btnAdd2" Content="Duplicate Policy" VerticalAlignment="Center" Grid.Row="3" Grid.Column="3" Height="22" Width="120" Command="{Binding DuplicatePolicyCmd}" FocusView:EventFocusAttachment.ElementToFocus="{Binding ElementName=txtInsuredDiv}" ></Button>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <Button  Name="btnAdd3" Content="Delete Policy" Command="{Binding DeletePolicyCmd}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="4" Height="22" Width="120"></Button>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <Button Command="{Binding FullRefreshCommand}" Name="btnAdd4" Content="Refresh" VerticalAlignment="Center" Grid.Row="3" Grid.Column="4" Height="22" Width="80"></Button>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <Button  Visibility="{Binding IspolicyImportVisible}" Content="Import Policy" VerticalAlignment="Center" Grid.Row="3" Grid.Column="4" Height="22" Width="80" Click="btnImportPolicy_Click"></Button>
+                <!--Command="{Binding CmdImportPolicy}"<Separator Width="10" Visibility="Hidden"></Separator>
+                <Button Command="{Binding CmdCheckImportFormat}" Visibility="{Binding IspolicyImportVisible}" Content="Check Import Format" VerticalAlignment="Center" Grid.Row="3" Grid.Column="5" Height="22" Width="120"></Button>-->
+
+            </WrapPanel>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition Height="4"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TabControl Name="tbPolicies" Grid.Row="1" SelectedIndex="{Binding SelectedPageIndex}">
+                <TabItem Name="tbPolicyDetail" Header="Policy Details" local:EyeCandy.Image="..\Images/Icons/folder_view.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                    <TabItem.Content>
+                        <Grid VerticalAlignment="Top" Height="450">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="7"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <!--<RowDefinition Height="8"></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>-->
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="32"></ColumnDefinition>
+                                <ColumnDefinition Width="36*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Status" Name="label2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="104" />
+
+                            <ComboBox Height="20"  Grid.Column="2" Grid.Row="1" ItemsSource="{Binding MasterPolicyStatus}" SelectedItem="{Binding SelectedStatus}" SelectedIndex="{Binding SelectedPolicy.PolicyStatusId}"  VerticalAlignment="Top"  behaviour:SelectionBehavior.SelectionChanged="{Binding StatusSelectionChanged}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding Status}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Label Content="Type Of Policy"  Grid.Column="1" Grid.Row="2" Name="label3" VerticalAlignment="Center" HorizontalAlignment="Left" Width="84.5" />
+
+                            <WrapPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
+                                <RadioButton Content="New" IsEnabled="{Binding NewRbStatus}" VerticalAlignment="Center"  HorizontalAlignment="Left" Command="{Binding NewRepalcePoliceCmd}" CommandParameter="New" IsChecked="{Binding Path=SelectedPolicy.PolicyType,Converter={StaticResource ConverterBool},ConverterParameter=New}"/>
+                                <Separator Width="12" Visibility="Hidden"></Separator>
+                                <RadioButton IsEnabled="{Binding ReplaceRbStatus}"  Content="Replacement" VerticalAlignment="Center" Command="{Binding NewRepalcePoliceCmd}" CommandParameter="Replace" IsChecked="{Binding Path=SelectedPolicy.PolicyType,Converter={StaticResource ConverterBool},ConverterParameter=Replace}" />
+                                <Separator Width="12" Visibility="Hidden"></Separator>
+                                <Button Height="20" Grid.Column="1" Grid.Row="1" ToolTip="{Binding ReplaceBtntooltip}" VerticalAlignment="Center"  Width="31" Visibility="{Binding ShowHideTypeOfPolicy}" Command="{Binding ReplacePolicy}" HorizontalAlignment="Right">...</Button>
+                            </WrapPanel>
+
+                            <Label Content="Client" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" Name="label4" FontSize="12" FontFamily="Calibri" HorizontalAlignment="Left" Width="83" />
+                            <Label Content="Insured/Div" Grid.Column="1" Grid.Row="4" Name="label5"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="72" />
+                            <Label Content="Policy Number" Name="label622" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" />
+                            <Label Content="Orig Effective Date" Grid.Column="1" Grid.Row="6" Name="label7" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                            <ComboBox Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" SelectedIndex="0" IsEditable="True" TextSearch.TextPath="Name" ItemsSource="{Binding DisplayedClientsLists}" SelectedItem="{Binding SelectedClient}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                            </ComboBox>
+                            <TextBox Height="20"  Grid.Column="2" Grid.Row="4" Name="txtInsuredDiv" VerticalAlignment="Center" Text="{Binding SelectedPolicy.Insured, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>
+                            <TextBox behaviour:FocusLostBehaviour.FocusLost="{Binding PolicyNumberFocus}" Height="20" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" Text="{Binding SelectedPolicy.PolicyNumber, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,StringFormat=c}">
+                            </TextBox>
+
+                            <toolkit:DatePicker Name="PolicyDetailEffDate" SelectedDateChanged="PolicyDetailEffDate_SelectedDateChanged" behaviour:FocusGotBehaviour.FocusGot="{Binding DefaultEffDate}" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" SelectedDate="{Binding SelectedPolicy.OriginalEffectiveDate, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            </toolkit:DatePicker>
+
+                            <toolkit:DatePicker Name="PolicyDefaultTrackFromDate" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" behaviour:FocusGotBehaviour.FocusGot="{Binding DefaultTrackFormDate}" SelectedDate="{Binding SelectedPolicy.TrackFromDate}"></toolkit:DatePicker>
+
+                            <ComboBox Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" ItemsSource="{Binding MasterPaymentsModeData}" SelectedItem="{Binding SelectedPaymentMode}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Mode}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                            </ComboBox>
+                            <TextBox behaviour:FieldType.IsNumeric="True"  Grid.Column="2" Grid.Row="9" Name="txtPremium" VerticalAlignment="Center" Text="{Binding SelectedPolicy.ModeAvgPremium,StringFormat=c}" TextChanged="txtPremium_TextChanged" Mouse.GotMouseCapture="txtPremium_GotMouseCapture" />
+                            <ComboBox Grid.Column="2" Grid.Row="10" Height="20" VerticalAlignment="Center" IsEditable="True" TextSearch.TextPath="PayorName"
+                                      ItemsSource="{Binding PayorsLst, IsAsync=True,FallbackValue=Populating...}"                                      
+                                       SelectedItem="{Binding Path=SelectedPolicy.Payor,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PayorName}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox VerticalAlignment="Center" Grid.Column="2" Grid.Row="11" Height="20" IsEditable="True" TextSearch.TextPath="CarrierName" ItemsSource="{Binding CarriersLst}" 
+                                      SelectedItem="{Binding Path=SelectedPolicy.Carrier, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate >
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding CarrierName}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox VerticalAlignment="Center" Grid.Column="2" Grid.Row="12" Height="20" IsEditable="True" TextSearch.TextPath="Name"  ItemsSource="{Binding AllProducts}" 
+                                     SelectedItem="{Binding Path=SelectedPolicy.Coverage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ComboBox.ItemTemplate >
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox VerticalAlignment="Center" Grid.Column="2" Grid.Row="13" Height="20" ItemsSource="{Binding AllCoverageNickName}" SelectionChanged="ComboBox_SelectionChanged_2"  SelectedItem="{Binding SelectedCoverageNickName}">
+                                <ComboBox.ItemTemplate >
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding NickName}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <ComboBox Grid.Column="2" Grid.Row="14" Height="20" VerticalAlignment="Center"  ItemsSource="{Binding SubmittedThroughLst}" SelectedItem="{Binding SelectedPolicy.SubmittedThrough}"></ComboBox>
+                            <WrapPanel Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" Height="20" behaviour:FocusGotBehaviour.FocusGot="{Binding ShowAutoTermDate }">
+                                <TextBox Height="20" HorizontalAlignment="Left" Name="txtEligible" VerticalAlignment="Center"  Width="70" Text="{Binding SelectedPolicy.Enrolled,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>
+                                <Separator Width="20" Visibility="Hidden"></Separator>
+                                <TextBox Height="20" HorizontalAlignment="Center" Name="txtEnroll" VerticalAlignment="Center"  Width="70" Text="{Binding SelectedPolicy.Eligible,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>
+                            </WrapPanel>
+
+                            <toolkit:DatePicker Grid.Column="2" Grid.Row="16" VerticalAlignment="Center" SelectedDate="{Binding SelectedPolicy.PolicyTerminationDate}"></toolkit:DatePicker>
+                            <!--<toolkit:DatePicker Background="Red" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" SelectedDate="{Binding SelectedPolicy.PolicyTerminationDate}" behaviour:FocusGotBehaviour.FocusGot="{Binding ShowAutoTermDate}" behaviour:SingleClickBehaviour.SingleClick="{Binding cmdUpdateAutotermDate}" ToolTip="{Binding AutotermToolTip}" >
+
+                            </toolkit:DatePicker>-->
+
+                            <!--<toolkit:DatePicker  Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" SelectedDate="{Binding SelectedPolicy.PolicyTerminationDate}" behaviour:FocusGotBehaviour.FocusGot="{Binding ShowAutoTermDate}" behaviour:SingleClickBehaviour.SingleClick="{Binding cmdUpdateAutotermDate}"  >
+                                <toolkit:DatePicker.ToolTip>
+                                    <ToolTip Style="{StaticResource MyTooltip}">
+                                        <TextBlock Text="{Binding AutotermToolTip }" ></TextBlock>
+                                    </ToolTip>
+                                </toolkit:DatePicker.ToolTip>
+                            </toolkit:DatePicker>-->
+
+                            <Popup x:Name="Pops" IsOpen="False" Placement="Bottom" HorizontalOffset="100"  VerticalOffset="5" MinHeight="100" MinWidth="150"  StaysOpen="False" AllowsTransparency="True" PlacementTarget="{Binding ElementName=lblTermDate}"  Margin="2" MaxWidth="100" HorizontalAlignment="Left" Width="100">
+                                <StackPanel>
+                                    <TextBox Text="{Binding WaterText}" FontSize="10" FontWeight="Bold" Background="White"/>
+                                </StackPanel>
+                            </Popup>
+
+                            <ComboBox Height="20"  Grid.Column="2" Grid.Row="17" VerticalAlignment="Center" IsEnabled="{Binding EnabledPolicyTermDate}"   ItemsSource="{Binding PolicyTerminationtReasonLst}" SelectedItem="{Binding SelectedTermReason}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TerminationReason}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <GroupBox Grid.Column="4" Header="Incoming Payment From Payor" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="8" Name="groupBox1" local:EyeCandy.Image="..\Images\Icons\safe_into.png" HeaderTemplate ="{StaticResource IncomingGroupBoxControl}"  VerticalAlignment="Top" Height="183" Margin="0,0,-5,0">
+
+                                <Grid Margin="0,0,10,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"></ColumnDefinition>
+                                        <ColumnDefinition Width="112"></ColumnDefinition>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="6"></ColumnDefinition>
+                                        <ColumnDefinition Width="102"></ColumnDefinition>
+                                        <ColumnDefinition Width="108"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <!--<CheckBox Content="Track Payment" Name="chkTrackPayment" Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"  IsChecked="{Binding SelectedPolicy.IsTrackPayment}"/>-->
+                                    <ComboBox Name="cmbType" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0" ItemsSource="{Binding MasterIncomingPaymentTypeLst}" SelectedItem="{Binding SelectedMasterIncomingPaymentType}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=PaymenProcedureName}"></TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+
+                                    <ComboBox Name="cmbMode" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="1" ItemsSource="{Binding IncomingModes}" SelectedItem="{Binding SelectedIncomingMode}">
+
+                                    </ComboBox>
+                                    <Button TabIndex="17" Height="22" Grid.Column="4"   Content="Check-Schedule"  Visibility="{Binding ShowHideCheckSchedulebtn}" VerticalAlignment="Center"  Width="87" Command="{Binding CheckedNamedSchedule}" HorizontalAlignment="Right" Margin="0,6,58,23" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                                    <WrapPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" VerticalAlignment="Center">
+                                        <RadioButton Content="% of Premium"  HorizontalAlignment="Left" IsChecked="{Binding IncPercentOfPremium}" Name="rdbIncomingScheduleType1" Checked="rdbIncomingScheduleType1_Checked" />
+                                        <Separator Width="15" Visibility="Hidden"></Separator>
+                                        <RadioButton Content="Per Head" Name="rdbIncomingScheduleType3" IsChecked="{Binding IncPerHead}" HorizontalAlignment="Left" Checked="rdbIncomingScheduleType3_Checked" />
+                                        <Separator Width="15" Visibility="Hidden"></Separator>
+                                        <RadioButton Content="Advanced" Name="rdbIncomingScheduleType2" IsChecked="{Binding IncAdvance}" Visibility="Hidden" HorizontalAlignment="Left" />
+                                    </WrapPanel>
+
+
+                                    <TextBox behaviour:FieldType.IsNumeric="True" Name="txtSplit" VerticalAlignment="Center" Text="{Binding SelectedPolicy.SplitPercentage,ValidatesOnDataErrors=True,Mode=TwoWay,Converter={StaticResource percentageConv},StringFormat=p}" Grid.Column="2" Grid.Row="3" />
+
+                                    <Label Content="Type" Grid.Column="1" Grid.Row="0" Name="label18" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" />
+                                    <Label Content="Mode" Grid.Column="1" Grid.Row="1" Name="Mode" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" />
+                                    <Label HorizontalAlignment="Left" Name="label28" Width="57" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">Schedule</Label>
+                                    <Label Content="Split" Grid.Column="1" Grid.Row="3" Name="lblSplit" Width="66" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                    <Label Content="Annual Expected:" Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="2" Name="label23"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                    <Label Content="{Binding strLableContent}" Grid.Column="5" Grid.Row="3" Name="label22" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="-10,0,0,0" HorizontalAlignment="Left"  />
+                                    <Label Content="Advanced payment" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                                    <TextBox  Grid.Row="4" x:Name="txtAdvances" Grid.Column="2" VerticalAlignment="Center" PreviewTextInput="txtAdvances_PreviewTextInput" IsEnabled="{Binding IsAdvanceEnabled}" Text="{Binding SelectedPolicy.Advance,Mode=TwoWay}"></TextBox>
+                                    <Label Grid.Row="4" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Content="months"></Label>
+                                    <Grid Grid.Row="5" Grid.ColumnSpan="6" Margin="0,-10,9,0">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Visibility"  Value="Visible">
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomOptionSelected, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsCustomOptionSelected, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="45"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label   Grid.Row="0" Content="{Binding FirstYearText}" Name="label20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,14,90,13" Width="101" Height="18" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2"/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" behaviour:FieldType.IsNumeric="True" Name="txtFirstYear" VerticalAlignment="Center" Mouse.GotMouseCapture="txtFirstYear_GotMouseCapture" TextChanged="txtFirstYear_TextChanged" Margin="22,11,82,14" Grid.ColumnSpan="2" />
+                                        <Label   Grid.Row="0" Grid.Column="2" Content="{Binding Renewaltext}" Name="label21"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="17" Margin="28,13,0,15" Width="94" Grid.ColumnSpan="2" />
+                                        <TextBox Grid.Row="0" Grid.Column="3" behaviour:FieldType.IsNumeric="True" Name="txtRenewal" Text="{Binding strRenewal}"   Mouse.GotMouseCapture="txtRenewal_GotMouseCapture" Margin="22,9,22,16" />
+
+                                    </Grid>
+                                    <Grid Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="4" Margin="0,8,0,0">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Visibility"  Value="Visible">
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomOptionSelected, UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsCustomOptionSelected, UpdateSourceTrigger=PropertyChanged}" Value="false">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <TextBlock   Visibility="{Binding RelativeSource}">
+                                     <Hyperlink   Command="{Binding CustomSchedule}"  >Click here to view/set commission% Settings </Hyperlink>
+                                        </TextBlock>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Outgoing Payments" Margin="0,0,7,12" Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="4" Grid.RowSpan="11" Name="groupBox2"
+                                      local:EyeCandy.Image="..\Images\Icons\safe_out.png" HeaderTemplate ="{StaticResource OutgoingGroupBoxControl}">
+
+                                <Grid ShowGridLines="False" Margin="0,0,9,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"></ColumnDefinition>
+                                        <ColumnDefinition Width="80"></ColumnDefinition>
+                                        <ColumnDefinition Width="90"></ColumnDefinition>
+                                        <ColumnDefinition Width="6"></ColumnDefinition>
+                                        <ColumnDefinition Width="90"></ColumnDefinition>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                        <ColumnDefinition Width="10"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <WrapPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="5" VerticalAlignment="Center" Margin="0,5,0,0">
+                                        <Label Content="Split Schedule" Name="label24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,2,5,0"/>
+                                        <Separator Width="6" Visibility="Hidden"></Separator>
+                                        <RadioButton Content="% Of Commission"   IsChecked="{Binding OutPercentOfCommission}" x:Name="rdbOutgoingPaymentType1" Checked="RdbOutgoingPaymentType1_Checked" VerticalAlignment="Center"  HorizontalAlignment="Left" Width="120" Margin="0,0,24,-4" />
+                                        <RadioButton Content="% Of Premium" IsEnabled="{Binding IsPercentOfPremiumEnabled}"  IsChecked="{Binding OutPercentOfPremium}" Checked="RdbOutgoingPaymentType2_Checked" Name="rdbOutgoingPaymentType2" VerticalAlignment="Center"  HorizontalAlignment="Right" Width="102"  Margin="0,0,20,-4" />
+                                        <RadioButton Content="Advanced" Visibility="Hidden" IsChecked="{Binding OutAdvance}" HorizontalAlignment="Right" Name="rdbOutgoingPaymentType3" VerticalAlignment="Center"  Width="78" />
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Center" Margin="0,-25,0,0" >
+
+                                        <WrapPanel.Style>
+                                            <Style TargetType="WrapPanel">
+                                                <Setter Property="Visibility"  Value="Collapsed">
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomDateSelected, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </WrapPanel.Style>
+                                        <Label Content="Splits based on" Name="lbl_cust" HorizontalAlignment="Left" VerticalAlignment="Center"   />
+                                        <Separator Width="6" Visibility="Hidden"></Separator>
+                                        <RadioButton Content="Invoice Date" IsChecked="{Binding IsOutScheduleInvoice}" HorizontalAlignment="Right" Name="rdbInvoice" VerticalAlignment="Center"  Width="110" Margin="0,0,36,-4" />
+                                        <RadioButton Content="Entered Date"  IsChecked="{Binding IsOutScheduleEntered}" Name="rdbPremium" VerticalAlignment="Center"  HorizontalAlignment="Right" Width="97" />
+
+
+                                    </WrapPanel>
+                                    <toolkit:DataGrid  SelectionMode="Single" Visibility="Visible" Name="grdDefault"  IsReadOnly="{Binding IsEditDisable}" SelectionUnit="FullRow" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="6" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding OutGoingField,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedOutGoingField}" Margin="0,15,0,26" >
+                                        <toolkit:DataGrid.Columns>
+                                            <!--<toolkit:DataGridCheckBoxColumn Header="Primary Agent"  Binding="{Binding IsPrimaryAgent}"/>-->
+                                            <toolkit:DataGridTextColumn Header="Payee" Width="180"  Binding="{Binding Payor}" />
+                                            <toolkit:DataGridTextColumn Header="First Year" x:Name="txtFirstYearOutgoing" Binding="{Binding FirstYearPercentage,Converter={StaticResource percentageConv},StringFormat=p}" EditingElementStyle="{StaticResource RightAlignedEditCell}" ElementStyle="{StaticResource RightAlignedCell}"/>
+                                            <toolkit:DataGridTextColumn Header="Renewal" x:Name="txtRenewalOutgoing" Binding="{Binding RenewalPercentage,Converter={StaticResource percentageConv},StringFormat=p}" EditingElementStyle="{StaticResource RightAlignedEditCell}"  ElementStyle="{StaticResource RightAlignedCell}">
+                                            </toolkit:DataGridTextColumn>
+
+                                            <toolkit:DataGridTextColumn Header="First Year" x:Name="txtFirstYearOutgoing1" 
+                                                                        Binding="{Binding FirstYearPercentage,StringFormat=c}" 
+                                                                        EditingElementStyle="{StaticResource RightAlignedEditCell}"
+                                                                        ElementStyle="{StaticResource RightAlignedCell}"/>
+
+                                            <toolkit:DataGridTextColumn Header="Renewal Year" x:Name="txtRenewalOutgoing1"
+                                                                        Binding="{Binding RenewalPercentage,StringFormat=c}"
+                                                                        EditingElementStyle="{StaticResource RightAlignedEditCell}"  
+                                                                        ElementStyle="{StaticResource RightAlignedCell}"
+                                                />
+
+                                            <toolkit:DataGridTextColumn Header="Tier#" Binding="{Binding TierNumber}" 
+                                           Visibility= "{Binding .Data, Converter={StaticResource BoolToVisibilityConverter}, Source={StaticResource FirstColumnCheckedProxy}}" EditingElementStyle="{StaticResource RightAlignedEditCell}"  ElementStyle="{StaticResource RightAlignedCell}" />
+
+                                        </toolkit:DataGrid.Columns>
+                                        <toolkit:DataGrid.Style>
+                                            <Style TargetType="toolkit:DataGrid" >
+                                                <Setter Property="Visibility"  Value="Hidden"></Setter>
+                                                <Setter Property="RowHeight"  Value="20"></Setter>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomDateSelected, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                        <Setter Property="Margin" Value="0,-30,0,5" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsCustomDateSelected, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                        <Setter Property="Margin" Value="0,0,0,5" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </toolkit:DataGrid.Style>
+                                    </toolkit:DataGrid>
+
+                                    <toolkit:DataGrid Name="grdCustom" Margin="0,-15,0,-2" SelectionMode="Single" IsReadOnly="{Binding IsEditDisable}" SelectionUnit="FullRow" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5" Grid.RowSpan="4" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding OutGoingField,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedOutGoingField}" >
+                                        <toolkit:DataGrid.Columns>
+                                            <!--<toolkit:DataGridCheckBoxColumn Header="Primary Agent"  Binding="{Binding IsPrimaryAgent}"/>-->
+                                            <toolkit:DataGridTextColumn Header="Payee" Width="160"  Binding="{Binding Payor}" />
+
+                                            <toolkit:DataGridTemplateColumn Header="Start Date" Width="120">
+                                                <toolkit:DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <toolkit:DatePicker HorizontalAlignment="Left"  Name="datePicker1" SelectedDate="{Binding CustomStartDate,Converter={StaticResource DateConverter}}"   />
+                                                    </DataTemplate>
+                                                </toolkit:DataGridTemplateColumn.CellTemplate>
+                                                <toolkit:DataGridTemplateColumn.CellEditingTemplate>
+                                                    <DataTemplate>
+                                                        <toolkit:DatePicker HorizontalAlignment="Left"  Name="datePicker2" SelectedDate="{Binding CustomStartDate,Converter={StaticResource DateConverter}}"   />
+                                                    </DataTemplate>
+                                                </toolkit:DataGridTemplateColumn.CellEditingTemplate>
+
+                                            </toolkit:DataGridTemplateColumn>
+
+                                            <toolkit:DataGridTextColumn Header="Split %" x:Name="txtSplitOutgoing"  Binding="{Binding SplitPercent,Mode=TwoWay,Converter={StaticResource percentageConv},StringFormat=p}" EditingElementStyle="{StaticResource RightAlignedEditCell}"  ElementStyle="{StaticResource RightAlignedCell}">
+                                            </toolkit:DataGridTextColumn>
+                                            
+                                            <toolkit:DataGridTextColumn Header="Split %" x:Name="txtSplitOutgoing1" 
+                                                                        Binding="{Binding SplitPercent,Mode=TwoWay,StringFormat=c}" 
+                                                                        EditingElementStyle="{StaticResource RightAlignedEditCell}"  
+                                                                        ElementStyle="{StaticResource RightAlignedCell}">
+                                            </toolkit:DataGridTextColumn>
+                                            
+                                            <toolkit:DataGridTextColumn Header="Tier#" Binding="{Binding TierNumber}" EditingElementStyle="{StaticResource RightAlignedEditCell}"  
+                                               Visibility= "{Binding .Data, Converter={StaticResource BoolToVisibilityConverter}, Source={StaticResource FirstColumnCheckedProxy}}" 
+                                               ElementStyle="{StaticResource RightAlignedCell}" />
+
+                                        </toolkit:DataGrid.Columns>
+                                        <toolkit:DataGrid.Style>
+                                            <Style  TargetType="toolkit:DataGrid">
+                                                <Setter Property="Visibility"  Value="Hidden" />
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsCustomDateSelected, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsCustomDateSelected, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </toolkit:DataGrid.Style>
+                                    </toolkit:DataGrid>
+
+                                    <Label Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Height="25" Margin="0,10,0,0">Account Exec</Label>
+                                    <ComboBox Height="18"  Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6"  VerticalAlignment="Center" Margin="75,0,0,0" ItemsSource="{Binding AccountExecLst}" SelectedItem="{Binding SelectedAccountExecLst}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding NickName}"></TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <Label Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="1" Height="25" Margin="10,10,0,0">Primary Agent</Label>
+                                    <ComboBox Height="18"  Grid.Column="5" Grid.Row="6"  VerticalAlignment="Center" Grid.ColumnSpan="1" Margin="0,0,0,0" ItemsSource="{Binding PrimaryAgents}" SelectedItem="{Binding SelectedPrimaryAgent}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding NickName}"></TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <WrapPanel Grid.Column="1" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="5" HorizontalAlignment="Left" >
+                                        <Button IsEnabled="{Binding AddPaeeButton}" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding PolicyAddPayeeToolTip}" Content="Add Payee" Height="22" Name="button1" VerticalAlignment="Center"  Width="70" Command="{Binding OpenCAgentWindow}" />
+                                        <Separator Width="10" Visibility="Hidden"></Separator>
+                                        <Button Content="Delete Payee" Height="22" HorizontalAlignment="Left" Name="button2" VerticalAlignment="Center"  Width="80" Command="{Binding DeletePayee}"/>
+                                        <Separator Width="10" Visibility="Hidden"></Separator>
+                                        <Button Content="Split Evenly" Height="22" Name="button3" VerticalAlignment="Bottom" Command="{Binding SplitEvently}"/>
+                                        <Separator Width="10" Visibility="Hidden"></Separator>
+                                        <Button Content="Add House" Height="22" HorizontalAlignment="Right" Name="button4" Command="{Binding AddHouse}" VerticalAlignment="Bottom" Width="80" />
+                                    </WrapPanel>
+                                </Grid>
+                            </GroupBox>
+                            <Label Content="Track From Date" Grid.Column="1" Grid.Row="7" Name="label9"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="97" />
+                            <Label Content="Mode" Grid.Column="1" Grid.Row="8" Name="label10" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="72" />
+                            <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal">
+                                <Label  VerticalAlignment="Center"  HorizontalAlignment="Left" Content="{Binding SelectedPaymentMode.Mode}"/>
+                                <Label Content=" Premium" VerticalAlignment="Center"  />
+                            </StackPanel>
+                            <Label Content="Payor" Grid.Column="1" Grid.Row="10" Name="label12" HorizontalAlignment="Left" Width="82"  VerticalAlignment="Center" />
+                            <Label Content="Carrier" Grid.Column="1" Grid.Row="11" Name="label13"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="82" />
+                            <Label Content="Product" Grid.Column="1" Grid.Row="12" Name="label14"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="72" />
+                            <Label Content="Product Type" Grid.Column="1" Grid.Row="13" Name="lblProductType"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="82" />
+                            <Label Content="Submitted Through" Grid.Column="1" Grid.Row="14"   VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <Label Content="Enrolled/Eligible" Grid.Row="15" Grid.Column="1" Name="label15" VerticalAlignment="Center" />
+
+
+                            <Label Content="Policy Term Date" Grid.Row="16" Grid.Column="1" Name="lblTermDate" HorizontalAlignment="Left"  VerticalAlignment="Center" MouseEnter="lblTermDate_MouseEnter" MouseLeave="lblTermDate_MouseLeave">
+
+                                <Label.InputBindings>
+                                    <MouseBinding Gesture="LeftClick" Command="{Binding cmdUpdateAutotermDate}" />
+                                </Label.InputBindings>
+                            </Label>
+
+                            <Label Content="Term Reason" Grid.Row="17" Name="label17" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+                            <WrapPanel Grid.Column="7" Grid.Row="18" VerticalAlignment="Center" HorizontalAlignment="Right" Height="11" Margin="0,6,0,7">
+                                <!--<Button Height="22" Content="Save" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding PolicyDetailSaveToolTip}" Command="{Binding SavePoliciesCmd}" Style="{StaticResource SaveButton}" HorizontalAlignment="Left" Grid.Column="4" Grid.Row="16" Name="button5" VerticalAlignment="Center"></Button>-->
+                                <!--<Button Height="20" Content="{Binding Savecontent}" Width="40" Foreground="{Binding Changedcolor, Converter={StaticResource colorConverter}}" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding PolicyDetailSaveToolTip}" Command="{Binding SavePoliciesCmd}"  HorizontalAlignment="Left" Grid.Column="4" Grid.Row="16" Name="button5" VerticalAlignment="Center">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="Transparent"></Setter>
+                                            
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Changedcolor}" Value="true">
+                                                    <Setter Property="FontWeight" Value="Bold"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    
+                                </Button>-->
+                                <Separator Width="12" Visibility="Hidden"></Separator>
+                            </WrapPanel>
+                            <Button Height="20" Width="60" Foreground="{Binding Changedcolor, Converter={StaticResource colorConverter}}" ToolTipService.ShowOnDisabled="True" ToolTip="{Binding PolicyDetailSaveToolTip}" Command="{Binding SavePoliciesCmd}" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="18" Name="button5" VerticalAlignment="Center" Margin="63,1,0,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding imagePath}" Height="12" Width="17" Margin="-13,0,0,0" />
+                                    <TextBlock Text="{Binding Savecontent}"></TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button Content="Cancel" Grid.Column="2" Command="{Binding CancelPoliciesCmd}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_cross.png" Grid.Row="18" Name="button6" VerticalAlignment="Center" Margin="132,1,3,1" Width="65"></Button>
+                        </Grid>
+                    </TabItem.Content>
+
+
+                </TabItem>
+                <TabItem Name="tbPolicyDetail1" Header="Advanced Schedule" IsEnabled="False" ToolTipService.ShowOnDisabled="True" ToolTip="Advanced Schedule coming soon!!!" local:EyeCandy.Image="../Images/Icons/folder_cubes.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}" DataContext="{Binding VMPolicySchedule}">
+                    <TabItem.Content>
+                        <Grid Height="436" Width="772" VerticalAlignment="Center">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="8"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <TabControl Name="tbPoliciesInOut" Grid.Row="1" Grid.Column="1" >
+                                    <TabItem  Header="Incoming Schedule"  local:EyeCandy.Image="../Images/Icons/safe_into.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                                        <Grid Height="380" Width="740">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="65"></ColumnDefinition>
+                                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                                <ColumnDefinition Width="192*"></ColumnDefinition>
+                                                <ColumnDefinition Width="192*"></ColumnDefinition>
+                                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="10"></RowDefinition>
+                                                <RowDefinition Height="0"></RowDefinition>
+
+                                                <RowDefinition Height="0"></RowDefinition>
+                                                <RowDefinition Height="0"></RowDefinition>
+                                                <RowDefinition ></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="140"></RowDefinition>
+
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="60"></RowDefinition>
+                                                <RowDefinition Height="2"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Height="20"  Name="lblPayorIcontent" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" ></Label>
+                                            <Label  HorizontalAlignment="Left"  Name="label6" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"  >Schedule Type</Label>
+                                            <Label Visibility="{Binding FromRangeVisibility}"  HorizontalAlignment="Left"  Name="label422" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"  Width="50" Content="{Binding FromText}"></Label>
+                                            <Label HorizontalAlignment="Left"  Content="{Binding CommTText}" Width="87" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"></Label>
+                                            <ComboBox SelectedIndex="0"   VerticalAlignment="Center" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="3" ItemsSource="{Binding IncomingAdvanceScheduleTypes}" SelectedItem="{Binding SelecetdIncomingAdvanceScheduleTypes}" SelectionChanged="ComboBox_SelectionChanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                                    </DataTemplate>
+
+                                                </ComboBox.ItemTemplate>
+
+                                            </ComboBox>
+                                            <TextBox Name="txtBoxFromRange" Visibility="{Binding FromRangeVisibility}" VerticalAlignment="Center"   Grid.Column="2" Grid.Row="5"/>
+                                            <Label Visibility="{Binding ToRangeVisibility}" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Right" Margin="0,2,27,2"   VerticalAlignment="Center"  Width="30" Content="{Binding ToText}"></Label>
+                                            <TextBox Name="txtBoxToRange" Visibility="{Binding ToRangeVisibility}" Grid.Column="4" Grid.Row="5" VerticalAlignment="Center"/>
+                                            <toolkit:DatePicker Grid.Column="2" Grid.Row="6" Margin="0,1" VerticalAlignment="Center" SelectedDate="{Binding NewSheduleEntry.EffectiveFromDate}">
+                                            </toolkit:DatePicker>
+                                            <toolkit:DatePicker Grid.Column="4" Grid.Row="6" Margin="0,1" VerticalAlignment="Center" SelectedDate="{Binding NewSheduleEntry.EffectiveToDate}">
+                                            </toolkit:DatePicker>
+                                            <TextBox Name="txtBoxToRate" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center"/>
+
+                                            <Label Margin="0,2,2,2" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center">Date From</Label>
+                                            <Label Margin="8,2,2,2" Grid.Column="3" Grid.Row="6" VerticalAlignment="Center">Date To</Label>
+
+                                            <WrapPanel Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                <Button Margin="0,0,5,0" Command="{Binding NewIncomingAdvanceSchedule}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_add.png" >New</Button>
+                                                <!--<Separator Width="20" Visibility="Hidden"></Separator>-->
+                                                <Button Margin="0,0,5,0" HorizontalAlignment="Right"  Command="{Binding AddIncomingAdvanceSchedule}" VerticalAlignment="Top" Style="{StaticResource NewCommonButton}">Add</Button>
+                                                <!--<Separator Width="20" Visibility="Hidden"></Separator>-->
+                                                <Button Margin="0,0,5,0" HorizontalAlignment="Right" Style="{StaticResource DeleteButton}" Command="{Binding RemoveIncomingAdvanceSchedule}" VerticalAlignment="Top">Remove</Button>
+                                            </WrapPanel>
+                                            <toolkit:DataGrid Name="IncomingSchDataGrid" ItemsSource="{Binding IncomingAdvanceScheduleLst.IncomingScheduleList,Mode=TwoWay}" SelectedItem="{Binding SelectedIncomingAdvanceSchedule}" AutoGenerateColumns="False" CanUserAddRows="False"  CanUserDeleteRows="False"  CanUserSortColumns="True" IsReadOnly="True" Grid.Column="1" Grid.ColumnSpan="6" Grid.Row="8">
+                                                <toolkit:DataGrid.Columns>
+                                                    <toolkit:DataGridTextColumn Header="FromRange" Visibility="{Binding Source={StaticResource schData},Path=FromRangeVisibility}"  Width="95" Binding="{Binding FromRange}"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="ToRange" Visibility="{Binding Source={StaticResource schData},Path=ToRangeVisibility}"  Width="95" Binding="{Binding ToRange}"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="{Binding Source={StaticResource schData},Path=RateColumnName}" Width="95" Binding="{Binding Rate}"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="FromDate" Width="95" Binding="{Binding EffectiveFromDate,StringFormat=MM/dd/yyyy}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="ToDate" Width="95" Binding="{Binding EffectiveToDate,StringFormat=MM/dd/yyyy}"></toolkit:DataGridTextColumn>
+
+                                                </toolkit:DataGrid.Columns>
+                                            </toolkit:DataGrid>
+                                            <WrapPanel Grid.Column="6" VerticalAlignment="Center" Grid.Row="9" Grid.ColumnSpan="1" HorizontalAlignment="Right">
+                                                <!--<Button Margin="0,0,5,0" Command="{Binding DefaultIncShedule}" TabIndex="10" Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\data_into.png">Default</Button>-->
+                                                <Button Margin="0,0,5,0" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\data_into.png" Command="{Binding DefaultIncomingAdvanceShedule}" Grid.Row="1" HorizontalAlignment="Right" >Default</Button>
+                                                <Button Margin="0,0,5,0" Grid.Row="1" HorizontalAlignment="Right"  Command="{Binding SaveIncomingAdvanceSchedule}" Style="{StaticResource SaveButton}">Save</Button>
+
+                                            </WrapPanel>
+
+
+                                            <!--<WrapPanel Grid.Column="5" Grid.Row="9" HorizontalAlignment="right" VerticalAlignment="Center">
+
+                                            <Button TabIndex="8" HorizontalAlignment="Right" Grid.Row="9" Grid.Column="6" Grid.ColumnSpan="1" Command="{Binding DefaultIncShedule}"  Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\data_into.png" >Default</Button>
+                                            </WrapPanel>-->
+
+
+
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="Outgoing Schedule" local:EyeCandy.Image="../Images/Icons/folder_cubes.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                                        <Grid Height="380" Width="740">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                                <ColumnDefinition Width="65"></ColumnDefinition>
+                                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="10"></RowDefinition>
+                                                <RowDefinition Height="0"></RowDefinition>
+
+                                                <RowDefinition Height="0"></RowDefinition>
+                                                <RowDefinition Height="0"></RowDefinition>
+                                                <RowDefinition ></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="140"></RowDefinition>
+
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="60"></RowDefinition>
+                                                <RowDefinition Height="2"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Height="20"  Name="lblPayorIcontentOut" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" ></Label>
+                                            <Label  HorizontalAlignment="Left"  Name="lblPayorScheduleTypeout" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"  >Schedule Type</Label>
+                                            <Label Visibility="{Binding FromOutgoingRangeVisibility}"  HorizontalAlignment="Left"  Name="lblPayorFromout" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"  Width="50" Content="{Binding FromOutgoingText}"></Label>
+                                            <Label HorizontalAlignment="Left"  Name="lblPayorCommitionout" Width="87" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" Content="{Binding CommOutgoingTText}" ></Label>
+                                            <ComboBox SelectedIndex="0" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="3" ItemsSource="{Binding OutgoingAdvanceScheduleTypes}" SelectedItem="{Binding SelecetdOutgoingAdvanceScheduleTypes}" SelectionChanged="ComboBox_SelectionChanged_1">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                                    </DataTemplate>
+
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <TextBox Visibility="{Binding FromOutgoingRangeVisibility}" Name="fromOutgoing" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="5"/>
+                                            <Label Visibility="{Binding ToOutgoingRangeVisibility}" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Left" Margin="8,2,2,2"  Name="lblToOut" VerticalAlignment="Center"  Width="30" Content="{Binding ToOutgoingText}"></Label>
+                                            <TextBox Visibility="{Binding ToOutgoingRangeVisibility}" Grid.Column="4" Grid.Row="5"  Name="toOutgoing" VerticalAlignment="Center"/>
+                                            <toolkit:DatePicker Grid.Column="2" Grid.Row="6" Margin="0,1" VerticalAlignment="Center" SelectedDate="{Binding NewOutSheduleEntry.EffectiveFromDate}">
+                                            </toolkit:DatePicker>
+                                            <toolkit:DatePicker Grid.Column="4" Grid.Row="6" Margin="0,1" VerticalAlignment="Center" SelectedDate="{Binding NewOutSheduleEntry.EffectiveToDate}">
+                                            </toolkit:DatePicker>
+                                            <TextBox Name="rateOutgoing" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center"/>
+                                            <Label Margin="8,2,2,2" Grid.Column="3" Grid.Row="7" HorizontalAlignment="Left"   Name="lblToPayor" VerticalAlignment="Center"  Width="40" Content="Payee"></Label>
+                                            <ComboBox Grid.Column="4"  Grid.Row="7" Height="20" VerticalAlignment="Center" ItemsSource="{Binding OutgoingPayeeList}" Text="{Binding NewOutSheduleEntry.PayeeName,Mode=TwoWay}" SelectedItem="{Binding OutgoingSelecetdPayee}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding NickName}"></TextBlock>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <Label Margin="2" Grid.Column="5" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center"  Content="Primary Agent"></Label>
+                                            <ComboBox Margin="5" Grid.Column="6"  Grid.Row="7" Height="20" VerticalAlignment="Center" ItemsSource="{Binding PrimaryAgents}" SelectedItem="{Binding SelectedPrimaryAgent,Mode=TwoWay}" >
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding NickName}"></TextBlock>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                            <Label Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" >Date From</Label>
+                                            <Label Margin="8,2,2,2" Grid.Column="3" Grid.Row="6" VerticalAlignment="Center" >Date To</Label>
+
+                                            <WrapPanel Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                <Button Margin="0,0,5,0" Command="{Binding NewOutgoingAdvanceSchedule}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_add.png" >New</Button>
+                                                <!--<Separator Width="20" Visibility="Hidden"></Separator>-->
+                                                <Button Margin="0,0,5,0" HorizontalAlignment="Right"  Command="{Binding AddOutgoingAdvanceSchedule}" Style="{StaticResource NewCommonButton}" VerticalAlignment="Top" >Add</Button>
+                                                <!--<Separator Width="20" Visibility="Hidden"></Separator>-->
+                                                <Button Margin="0,0,5,0" HorizontalAlignment="Right" Command="{Binding RemoveOutgoingAdvanceSchedule}" VerticalAlignment="Top" Style="{StaticResource DeleteButton}">Remove</Button>
+                                            </WrapPanel>
+                                            <toolkit:DataGrid Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" Grid.ColumnSpan="7" Grid.Row="8" Name="dgIScheduleDetailsOut" ItemsSource="{Binding OutgoingAdvanceScheduleLst.OutgoingScheduleList,Mode=TwoWay}" SelectedItem="{Binding SelectedOutgoingAdvanceSchedule}">
+                                                <toolkit:DataGrid.Columns>
+                                                    <toolkit:DataGridTextColumn Header="Payee Name"  Visibility="Visible" Width="100" Binding="{Binding PayeeName}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="FromRange" Visibility="{Binding Source={StaticResource outSchData},Path=FromRangeVisibility}" Width="95" Binding="{Binding FromRange}"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="ToRange" Visibility="{Binding Source={StaticResource outSchData},Path=ToRangeVisibility}" Width="95" Binding="{Binding ToRange}"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="{Binding Source={StaticResource outSchData},Path=RateColumnName}" Width="95" Binding="{Binding Rate}"
+                                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="FromDate" Width="95" Binding="{Binding EffectiveFromDate,StringFormat=MM/dd/yyyy}"></toolkit:DataGridTextColumn>
+                                                    <toolkit:DataGridTextColumn Header="ToDate" Width="95" Binding="{Binding EffectiveToDate,StringFormat=MM/dd/yyyy}"></toolkit:DataGridTextColumn>
+                                                </toolkit:DataGrid.Columns>
+                                            </toolkit:DataGrid>
+                                            <WrapPanel Grid.Column="6" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                <Button Margin="0,0,5,0" Grid.Row="1" HorizontalAlignment="Right"  Name="btnSaveOut" Style="{StaticResource SaveButton}" Command="{Binding SaveOutgoingAdvanceSchedule}">Save</Button>
+                                            </WrapPanel>
+
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                            </Grid>
+
+                        </Grid>
+
+
+
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem Name="tbPolicyDetail2" VerticalAlignment="Top"
+                         Header="Commission Dashboard" local:EyeCandy.Image="../Images/Icons/folder_window.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}" DataContext="{Binding VMPolicyCommission}">
+
+                    <TabItem.Content>
+                        <Grid  Height="450">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="110"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="110"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="110"></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="5"></RowDefinition>
+                                <RowDefinition Height="10*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="745"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Incoming Payments" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></Label>
+                            <WrapPanel Grid.Column="1" Grid.Row="2" Margin="0,0,0,0">
+                                <toolkit:DataGrid  Name="dgCovcmmissions" Width="745" ColumnWidth="160" AutoGenerateColumns="False"  CanUserReorderColumns="False"  CanUserResizeColumns="False" >
+                                    <toolkit:DataGrid.Columns>
+                                        <toolkit:DataGridTextColumn Width="63">
+
+                                        </toolkit:DataGridTextColumn>
+
+                                        <toolkit:DataGridTextColumn FontSize="20" Header="              Premium" Width="160">
+
+                                        </toolkit:DataGridTextColumn>
+                                        <toolkit:DataGridTextColumn Header="               Units" Width="155">
+
+                                        </toolkit:DataGridTextColumn>
+                                    </toolkit:DataGrid.Columns>
+                                </toolkit:DataGrid>
+                                <TextBox Width="19" Background="White" IsReadOnly="True"></TextBox>
+                            </WrapPanel>
+
+                            <toolkit:DataGrid IsReadOnly="True" ItemsSource="{Binding PolicyIncomingPaymentCommissionDashBoard}" SelectedItem="{Binding PolicySelectedIncomingPaymentCommissionDashBoard}" Name="dgCommissions" ColumnWidth="80" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="2"  CanUserReorderColumns="False"  CanUserResizeColumns="False" Margin="0,20,0,0" SelectionMode="Single" SelectionUnit="FullRow" HorizontalScrollBarVisibility="Auto">
+                                <toolkit:DataGrid.Columns>
+                                    <toolkit:DataGridTextColumn Width="63"  Header="Invoice" Binding="{Binding InvoiceDate,StringFormat=MM/dd/yyyy}">
+                                    </toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Header="        Amount"  Binding="{Binding PaymentRecived,StringFormat=c}"  EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+                                    </toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Header="      Incoming"  Binding="{Binding CommissionPercentage,Converter={StaticResource percentageConv},StringFormat=p}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+                                    </toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Header="  Number" Width="58"  Binding="{Binding NumberOfUnits}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+                                    </toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Width="51"  Header="     $ Per" Binding="{Binding DollerPerUnit,StringFormat=c}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+
+                                    </toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Width="45" Header="     Fee"  Binding="{Binding Fee,StringFormat=c}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+
+                                    </toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Width="58" Header=" Share %"  Binding="{Binding SplitPer,Converter={StaticResource percentageConv},StringFormat=p}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+
+                                    </toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Width="85" Header="   Total Amount" Binding="{Binding TotalPayment,StringFormat=c}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+
+                                    </toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Width="68" Header="Batch/Stmnt"  Binding="{Binding BatchNumber}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+
+                                    </toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Width="68" Header="Stmnt Date" Binding="{Binding EntryDate,StringFormat=MM/dd/yyyy}">
+                                    </toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Width="68" Header="Page #s " Binding="{Binding Pageno}">
+                                    </toolkit:DataGridTextColumn>
+                                    <!--<toolkit:DataGridTextColumn Width="75" Header="  Statement #"  Binding="{Binding StmtNumber}"
+                                                                EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+
+                                    </toolkit:DataGridTextColumn>-->
+                                </toolkit:DataGrid.Columns>
+                            </toolkit:DataGrid>
+                            <Label Content="Outgoing Payments" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></Label>
+
+                            <WrapPanel Grid.Column="1" Grid.Row="5" Margin="0,0,0,0">
+                                <toolkit:DataGrid  Name="dgOutGoing" Width="745" ColumnWidth="160" AutoGenerateColumns="False"  CanUserReorderColumns="False"  CanUserResizeColumns="False" >
+                                    <toolkit:DataGrid.Columns>
+                                        <toolkit:DataGridTextColumn Width="112">
+
+                                        </toolkit:DataGridTextColumn>
+
+                                        <toolkit:DataGridTextColumn FontSize="20" Header="               Outgoing % of" Width="220">
+
+                                        </toolkit:DataGridTextColumn>
+                                        <toolkit:DataGridTextColumn Header="               " Width="330">
+
+                                        </toolkit:DataGridTextColumn>
+                                    </toolkit:DataGrid.Columns>
+                                </toolkit:DataGrid>
+                                <TextBox Width="19" Background="White" IsReadOnly="True"></TextBox>
+                            </WrapPanel>
+                            <toolkit:DataGrid IsReadOnly="True"  ItemsSource="{Binding CommissionDashBoardOutGoingPaymentLst,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CommissionDashBoardSelecetdOutGoingPaymentLst}" Name="dgOutgoingIssues" ColumnWidth="80"  AutoGenerateColumns="False" Grid.Column="1" Grid.Row="5" CanUserReorderColumns="False" CanUserResizeColumns="False"  Margin="0,20,0,0" GridLinesVisibility="None" SelectionUnit="FullRow" SelectionMode="Single" HorizontalScrollBarVisibility="Disabled" >
+                                <toolkit:DataGrid.Columns>
+                                    <toolkit:DataGridTextColumn Header="Payee" Width="112" Binding="{Binding NickName}"></toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Header="Premium"  Width="110" Binding="{Binding Premium,Converter={StaticResource percentageConv},StringFormat=p}" EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}">
+                                    </toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Header="                 Payment"  Width="110" Binding="{Binding Payment,Converter={StaticResource percentageConv},StringFormat=p}"
+                                            EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+
+                                    <!--<toolkit:DataGridTextColumn Header="     Outgoing Per Unit#" Width="120" Binding="{Binding OutGoingPerUnit}" EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>-->
+
+                                    <toolkit:DataGridTextColumn Header="    Outgoing $ Per Unit" Width="120" Binding="{Binding OutGoingPerUnit,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+
+                                    <toolkit:DataGridTextColumn Header="    Total Due To Payee"  Width="120" Binding="{Binding PaidAmount,StringFormat=c}" EditingElementStyle="{StaticResource RightAlignedEditCell}" 
+                                             ElementStyle="{StaticResource RightAlignedCell}"></toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn Header="Status"  Binding="{Binding PaidStatus}"></toolkit:DataGridTextColumn>
+                                </toolkit:DataGrid.Columns>
+                            </toolkit:DataGrid>
+                            <Label Content="Commission Issues" Grid.Column="1" Grid.Row="7"  VerticalAlignment="Center"></Label>
+
+                            <StackPanel Orientation="Horizontal" Width="570" Grid.Column="1" Grid.Row="7" Margin="20,0,0,0" VerticalAlignment="Center">
+                                <RadioButton x:Name="rdOpen" Margin="20,0,0,0" IsChecked="{Binding isOpenStatus}" Checked="rdOpen_Checked">Open</RadioButton>
+                                <RadioButton x:Name="rdClose" Margin="20,0,0,0" IsChecked="{Binding isCloseStatus}" Checked="rdClose_Checked">Closed</RadioButton>
+                                <RadioButton x:Name="rdAll" Margin="20,0,0,0" IsChecked="{Binding isAllStatus}" Checked="rdAll_Checked">All</RadioButton>
+                                <TextBlock Margin="240,0,0,0" VerticalAlignment="Center">Last Refresh:</TextBlock>
+                                <!--<TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=strLastFollowUpRuns}"></TextBlock>-->
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Path=strLastFollowUpRuns }"></TextBlock>
+                            </StackPanel>
+
+                            <toolkitExt:BusyIndicator IsBusy="{Binding IsBusy}" BusyContent="Loading..."  Grid.Column="1" Grid.Row="8" x:Name="busyBox">
+                                <toolkit:DataGrid IsReadOnly="True" ItemsSource="{Binding PolicyFollowUpCommissionDashBoardLst}"
+                                              SelectedItem="{Binding PolicySelectedFollowUpCommissionDashBoard}" 
+                                            CanUserReorderColumns="False" Width="745"  CanUserResizeColumns="False" AutoGenerateColumns="False" Name="dgCommissionIssues" Grid.Row="8" Grid.Column="1" GridLinesVisibility="None"  SelectionMode="Single" SelectionUnit="FullRow">
+
+                                    <toolkit:DataGrid.Columns>
+                                        <toolkit:DataGridTextColumn  Header="Invoice Date" Width="100" Binding="{Binding InvoiceDate,StringFormat=MM/dd/yyyy}">
+                                        </toolkit:DataGridTextColumn>
+                                        <toolkit:DataGridTextColumn  Header="Category" Width="90" Binding="{Binding Path=Category.CategoryName}">
+                                        </toolkit:DataGridTextColumn>
+                                        <toolkit:DataGridTextColumn  Header="Issue Status" Width="90" Binding="{Binding Path=Status.StatusName}">
+                                        </toolkit:DataGridTextColumn>
+                                        <toolkit:DataGridTextColumn  Header="Reason" Width="90" Binding="{Binding Path=Reason.ReasonsName}">
+                                        </toolkit:DataGridTextColumn>
+                                        <toolkit:DataGridTextColumn  Header="Result" Width="90" Binding="{Binding Path=Results.ResultsName}">
+                                        </toolkit:DataGridTextColumn>
+                                    </toolkit:DataGrid.Columns>
+                                </toolkit:DataGrid>
+
+                            </toolkitExt:BusyIndicator>
+
+                            <StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="2" Width="400">
+                                <Button Command="{Binding NewCommissionDashBoardIncomingpayment}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_add.png" >New</Button>
+                                <Separator Width="15"  Height="5" Visibility="Hidden"></Separator>
+                                <Button Command="{Binding EditCommissionDashBoardIncomingPayment}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_edit.png">Edit</Button>
+                                <Separator Width="15" Height="5" Visibility="Hidden"></Separator>
+                                <Button Command="{Binding RemoveCommissionDashBoardIncomingPayment}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_delete1.png">Remove</Button>
+                                <Separator Width="15" Height="5" Visibility="Hidden"></Separator>
+                                <Button Command="{Binding UnlinkCommissionDashBoardIncomingPayment}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\link_delete.png">Unlink</Button>
+                                <Separator Width="15" Height="5" Visibility="Hidden"></Separator>
+                                <Button Visibility="Hidden" Command="{Binding LinkCommissiondashBoardToPolicy}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\link.png">Link</Button>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.RowSpan="2" Width="190" >
+
+                                <Button Command="{Binding CommissionDashBoardEditOutgoingPayment}"  Name="CommissionEdit" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_edit.png">Edit</Button>
+                                <Separator Width="5" Height="5" Visibility="Hidden"></Separator>
+                                <Button Visibility="Collapsed" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_delete1.png">Remove</Button>
+                                <Separator Width="5" Height="5" Visibility="Hidden"></Separator>
+                                <Button Command="{Binding CommissionDashBoardReverse}"  Name="btnCommissionReverse" Click="btnCommissionReverse_Click" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\undo.png">Reverse</Button>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"  Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <!--<Button Name="btnremove" Visibility="Hidden" Content="Remove"  Command="{Binding CommiossionIssueResolvedBtn}" Click="Button_Click_2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_check.png"></Button>-->
+                                <!--<Button Content="{Binding cmdText}" Command="{Binding CommiossionIssueResolvedBtn}" Click="Button_Click_2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_check.png"></Button>-->
+                            </StackPanel>
+
+                            <Separator Grid.Column="1" Grid.Row="2" Height="0" Margin="168.25,22.223,0,0" Name="separator1" VerticalAlignment="Top" Width="155.25" HorizontalAlignment="Left" />
+                            <Button Command="{Binding ViewBatchFile}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\Document_view.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,0,2" Grid.RowSpan="2">View file</Button>
+                            <Button Command="{Binding ExportPayments}" IsEnabled="{Binding HasPayments}" Click="Button_Click_3"    Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\Document_view.png" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,80,2" Grid.RowSpan="2">Export</Button>
+                            <!--<Button Name="bnresolve" Content="Resolve" Command="{Binding CommiossionIssueResolvedBtn}" Click="Button_Click_2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_check.png" Grid.Column="1" Margin="605,4,1,109" Grid.Row="6" Grid.RowSpan="3"></Button>-->
+                            <!--<Button Name="bnUnresolve" Content="Unresolve" Visibility="Hidden" Command="{Binding CommiossionIssueUnResolvedBtn}" Click="Button_Click_2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_check.png" Grid.Column="1" Margin="510,2,77,1" Grid.Row="6" Grid.RowSpan="2" Width="80"></Button>-->
+                            <!--Ankit changes this for open the popup on click of Resolve button-->
+                            <Button Name="bnresolve" Content="Resolve" Command="{Binding CommiossionIssueResolvedBtn}" Click="Button_Click_2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_check.png" Grid.Column="1" Margin="50,2,4,1" Grid.Row="6" Grid.RowSpan="2" Width="70"></Button>
+                            <Button Name="btnremove" Visibility="Hidden" Content="Remove" Command="{Binding CommiossionIssueResolvedBtn}" Click="Button_Click_2" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\money2_delete1.png" Grid.Column="1" Margin="50,2,4,1" Grid.Row="6" Grid.RowSpan="2" Width="70"></Button>
+                            <Button Name="btnRefreshFollowUpIssue" Content="Refresh" Command="{Binding RefreshFollowUpIssue}" Style="{StaticResource ImageButtonSave}"  Grid.Column="1" Margin="680,2,4,1" Grid.Row="6" Grid.RowSpan="2" Width="60"></Button>
+
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem Name="tbPolicyDetail4" Header="Policy Settings" local:EyeCandy.Image="../Images/Icons/folder_gear.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+
+                    <TabItem.Content>
+                        <Grid HorizontalAlignment="Left" Height="450">
+                            <!--<Grid.RowDefinitions>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="30"></RowDefinition>
+                            </Grid.RowDefinitions>  
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>-->
+
+                            <Grid Margin="0,0,0,15" Width="779">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10"></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="160"></ColumnDefinition>
+                                    <ColumnDefinition Width="120"></ColumnDefinition>
+                                    <ColumnDefinition Width="444" />
+                                    <ColumnDefinition Width="10" />
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="Settings"  Name="groupBox3" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="9">
+
+
+                                </GroupBox>
+
+                                <Label Content="Track Missing Month" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" HorizontalContentAlignment="Left"></Label>
+                                <Label Content="Track Incoming %" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Left"></Label>
+                                <WrapPanel Grid.Column="3" Grid.Row="2" VerticalAlignment="Center">
+                                    <RadioButton Grid.Column="1" Grid.Row="1" Content="Yes" IsChecked="{Binding Path= SelectedPolicy.IsTrackMissingMonth,Converter={StaticResource RdBtnCouConvert},ConverterParameter=1,Mode=TwoWay}" ></RadioButton>
+                                    <Separator Visibility="Hidden" Width="30"></Separator>
+                                    <RadioButton Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"  Content="No" IsChecked="{Binding Path= SelectedPolicy.IsTrackMissingMonth,Converter={StaticResource RdBtnCouConvert},ConverterParameter=2,Mode=TwoWay}" Width="45" ></RadioButton>
+                                </WrapPanel>
+                                <WrapPanel Grid.Column="3" Grid.Row="3" VerticalAlignment="Center">
+                                    <RadioButton Grid.Column="1" Grid.Row="1" Content="Yes"  IsChecked="{Binding Path= SelectedPolicy.IsTrackIncomingPercentage,Converter={StaticResource RdBtnCouConvert},ConverterParameter=1,Mode=TwoWay}"></RadioButton>
+                                    <Separator Visibility="Hidden" Width="30"></Separator>
+                                    <RadioButton Grid.Column="1" Grid.Row="1" Content="No" HorizontalAlignment="Left" Width="45"  IsChecked="{Binding Path= SelectedPolicy.IsTrackIncomingPercentage,Converter={StaticResource RdBtnCouConvert},ConverterParameter=2,Mode=TwoWay}"></RadioButton>
+                                </WrapPanel>
+                                <Button Grid.Column="3"  Grid.Row="6" Content="Update" Command="{Binding AddPolicySetting}" VerticalAlignment="Center" HorizontalAlignment="Left" local:EyeCandy.Image="../Images/Logo/Save.png" Style="{StaticResource ImageButtonSave}"></Button>
+                                <!--<RadioButton HorizontalAlignment="Left" Margin="6,0,0,14" Name="radioButton11" Width="48" Grid.Column="1" Grid.Row="2">Yes</RadioButton>
+                                <RadioButton Margin="60,0,0,14" Name="radioButton12" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Width="45">No</RadioButton>
+                                <RadioButton HorizontalAlignment="Left" Margin="6,0,0,14" Name="radioButton13" Width="48" Grid.Column="1" Grid.Row="3">Yes</RadioButton>
+                                <RadioButton Margin="60,0,0,14" Name="radioButton14" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="45">No</RadioButton>
+                                <RadioButton HorizontalAlignment="Left" Margin="6,0,0,14" Name="radioButton15" Width="48" Grid.Column="1" Grid.Row="4">Yes</RadioButton>
+                                <RadioButton Margin="60,0,0,14" Name="radioButton16" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Width="45">No</RadioButton>
+                                <RadioButton HorizontalAlignment="Left" Margin="6,0,0,14" Name="radioButton17" Width="48" Grid.Column="1" Grid.Row="5">Flat</RadioButton>
+                                <RadioButton Margin="60,0,78,14" Name="radioButton18" Grid.Column="1" Grid.Row="5">Commission</RadioButton>
+                                <RadioButton Margin="0,0,-18,14" Name="radioButton19" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="5" Width="90">Premium</RadioButton>-->
+                            </Grid>
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem Name="tbPolicyDetail6" Header="Smart Fields" local:EyeCandy.Image="../Images/Icons/folder_information.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}" DataContext="{Binding VMPolicySmartField}">
+                    <TabItem.Content >
+                        <Grid HorizontalAlignment="Left" Width="780" Height="450" ShowGridLines="False">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="105"></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="25"></ColumnDefinition>
+                                <ColumnDefinition Width="125"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Division" Grid.Column="1" Grid.Row="2" Name="label5Learned"   VerticalAlignment="Center"   />
+                            <Label Content="Policy Number" Grid.Column="1" Grid.Row="3" Name="label6Learned"  VerticalAlignment="Center"  />
+                            <Label Content="Effective" Grid.Column="1" Grid.Row="4" Name="label7Learned"   VerticalAlignment="Center"  />
+                            <ComboBox Grid.Column="2" Grid.Row="1" Text="{Binding Path=Name}" IsEnabled="True" IsEditable="True" TextSearch.TextPath="Name" SelectedValuePath="ClientId" Height="20" VerticalAlignment="Center" SelectedIndex="0" ItemsSource="{Binding DisplayedClientsLists}" SelectedItem="{Binding SelectedClientLrnd}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBox Grid.Column="2" Grid.Row="2"  VerticalAlignment="Center" Text="{Binding SelecetdPolicyLearnedField.Insured}" />
+                            <TextBox Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Text="{Binding  SelecetdPolicyLearnedField.PolicyNumber}"></TextBox>
+                            <toolkit:DatePicker Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" SelectedDate="{Binding SelecetdPolicyLearnedField.Effective}"></toolkit:DatePicker>
+                            <toolkit:DatePicker Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" SelectedDate="{Binding  SelecetdPolicyLearnedField.TrackFrom}"></toolkit:DatePicker>
+                            <TextBox IsReadOnly="False"  Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" Text="{Binding SelecetdPolicyLearnedField.Renewal}"></TextBox>
+
+
+                            <TextBox VerticalAlignment="Center" IsEnabled="True" Grid.Column="2" Grid.Row="7" Text="{Binding SelecetdPolicyLearnedField.CarrierNickName}"/>
+                            <TextBox  VerticalAlignment="Center" Name="txtCoverage" IsEnabled="True" Grid.Column="2" Grid.Row="8" Text="{Binding SelecetdPolicyLearnedField.CoverageNickName}"/>
+                            <TextBox  VerticalAlignment="Center" Name="txtComp" IsEnabled="True" Grid.Column="2" Grid.Row="9" Margin="0,6,0,2" Text="{Binding SelecetdPolicyLearnedField.CompScheduleType}"/>
+                            <TextBox  VerticalAlignment="Center" Name="txtPolicyID" IsEnabled="{Binding PolicyIDEnabled}"  Text="{Binding SelecetdPolicyLearnedField.ImportPolicyID}" Grid.Column="2" Grid.Row="11" />
+                            <TextBox Height="22"  Grid.Column="2" Grid.Row="9" Text="{Binding ElementName=txtComp,Path=Text}" Margin="0,6,0,2" />
+                            <ComboBox Name="cmbType1" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="10" ItemsSource="{Binding LearnedMasterIncomingPaymentTypeLst}" SelectedItem="{Binding SelectedMasterIncomingPaymentTypeLrnd}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PaymenProcedureName}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <WrapPanel Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                                <Button Content=" Save " Style="{StaticResource SaveButton}" HorizontalAlignment="Right" Command="{Binding SavePolicyLearnedFieldCmd}"  Name="button5Learned" VerticalAlignment="Bottom"/>
+                            </WrapPanel>
+                            <Label Grid.Column="1" Grid.Row="5" Content="Track From"  Name="label9Learned" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="97" />
+                            <Label Content="Mode" Grid.Column="5" Grid.Row="4"  Name="label10Learned"  HorizontalAlignment="Left" VerticalAlignment="Center"  Width="60" />
+                            <Label Content="Carrier"  Grid.Column="1" Grid.Row="7" Name="label11Learned" VerticalAlignment="Center"  HorizontalAlignment="Left" Width="99" />
+                            <Label Content="Coverage"  Name="label12Learned" Grid.Column="1" Grid.Row="8"  HorizontalAlignment="Left" VerticalAlignment="Center"   />
+                            <Label Content="Comp Schedule"  Name="label18Learned" Grid.Column="1" Grid.Row="9"  VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+                            <Label Content="Comp Type"  Name="label13Learned" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center"/>
+                            <Label Content="Policy ID"  Name="labelPolicyID" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"/>
+                            <Label Content="Modal Avg Premium"  Name="label14Learned" Grid.Column="5" Grid.Row="3" VerticalAlignment="Center"/>
+                            <Label Content="Enrolled"  Name="label15Learned" Grid.Column="5" Grid.Row="5" VerticalAlignment="Center"/>
+                            <Label Content="Auto Term Date"  Name="label16Learned" Grid.Column="5" Grid.Row="7" VerticalAlignment="Center"/>
+                            <Label Content="Eligible"  Name="label17Learned" Grid.Column="5" Grid.Row="6" VerticalAlignment="Center"/>
+                            <Label HorizontalAlignment="Left"  Name="label8" VerticalAlignment="Center"  Width="88" Grid.Column="1" Grid.Row="6">Renewal</Label>
+
+                            <Label Name="labelModified" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="11" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding LastModifiedDetail}"></TextBlock>
+                            </Label>
+
+
+                            <Label HorizontalAlignment="Left"  Name="label25" VerticalAlignment="Center"  Width="80" Grid.Column="5" Grid.Row="2">PMC</Label>
+                            <TextBox Height="22"  Name="textBox2" VerticalAlignment="Center"  Grid.Column="6" Grid.Row="9" Text="{Binding SelecetdPolicyLearnedField.Link1}" Margin="0,6,0,2" />
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Left"  Name="label26" Width="80" Grid.Column="5" Grid.Row="1" >PAC</Label>
+                            <TextBox Height="22"  Name="textBox3" VerticalAlignment="Center"  Grid.Column="6" Grid.Row="10" Text="{Binding SelecetdPolicyLearnedField.Link2}" Margin="0,6,0,1" />
+                            <Label HorizontalAlignment="Left"  Name="label27" VerticalAlignment="Center"  Grid.Column="5" Grid.Row="8" >Payor Sys Id</Label>
+                            <Label HorizontalAlignment="Left"   VerticalAlignment="Bottom"  Grid.Column="5" Grid.Row="9" Margin="0,0,0,2">Link1</Label>
+                            <Label HorizontalAlignment="Left"   VerticalAlignment="Center"  Grid.Column="5" Grid.Row="10" >Link2</Label>
+                            <Label HorizontalAlignment="Left"   VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" >Client Name</Label>
+                            <TextBox Height="22" IsReadOnly="False" VerticalAlignment="Center"  Grid.Column="6" Grid.Row="1" Text="{Binding SelecetdPolicyLearnedField.PAC,StringFormat=C}" Margin="0,6,0,1" />
+                            <TextBox Height="22" IsReadOnly="False"  VerticalAlignment="Center"  Grid.Column="6" Grid.Row="2" Text="{Binding SelecetdPolicyLearnedField.PMC,StringFormat=C}" Margin="0,6,0,2" />
+                            <TextBox Height="22"   VerticalAlignment="Center"  Grid.Column="6" Grid.Row="3" Text="{Binding SelecetdPolicyLearnedField.ModalAvgPremium,StringFormat=c}" Margin="0,6,0,2" />
+                            <ComboBox Grid.Column="6" Grid.Row="4" VerticalAlignment="Center" ItemsSource="{Binding LrndMasterPaymentsModeData}" SelectedItem="{Binding SelectedPaymentModeLrnd}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Mode}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <TextBox Height="22"   VerticalAlignment="Center"  Grid.Column="6" Grid.Row="5" Text="{Binding SelecetdPolicyLearnedField.Enrolled}" Margin="0,6,0,2" />
+                            <TextBox Height="22"   VerticalAlignment="Center"  Grid.Column="6" Grid.Row="6" Text="{Binding SelecetdPolicyLearnedField.Eligible}" Margin="0,6,0,2" />
+                            <toolkit:DatePicker  Grid.Column="6" Grid.Row="7" VerticalAlignment="Bottom" SelectedDate="{Binding SelecetdPolicyLearnedField.AutoTerminationDate}" Margin="0,0,0,3"></toolkit:DatePicker>
+                            <TextBox Height="22"  IsReadOnly="False" VerticalAlignment="Center"  Grid.Column="6" Grid.Row="8" Text="{Binding SelecetdPolicyLearnedField.PayorSysId}" Margin="0,6,0,2" />
+                        </Grid>
+
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem Name="tbPolicyDetail5" MouseDoubleClick="tbPolicyDetail5_MouseDoubleClick"
+                         Header="Notes" local:EyeCandy.Image="../Images/Icons/folder_edit.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}" DataContext="{Binding VMPolicyNote}">
+
+                    <TabItem.Content>
+
+                        <Grid Height="450">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="250"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition Height="80"></RowDefinition>
+
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">Write Your Note :</Label>
+                            <toolkit:DataGrid CanUserAddRows="False" AutoGenerateColumns="False" Width="750" Grid.Column="1" Grid.Row="1" Name="dgNotes" Height="227" ItemsSource ="{Binding PolicyNote}" SelectedItem="{Binding SelectNote}">
+                                <toolkit:DataGrid.Columns>
+                                    <!--<toolkit:DataGridTemplateColumn Width="500" CanUserResize="False" Header="Content" IsReadOnly="True">
+                                        <toolkit:DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <toolkitExt:RichTextBox IsReadOnly="True" Width="500" Height="18" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                        
+                                                    </toolkitExt:RichTextBox>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </toolkit:DataGridTemplateColumn.CellTemplate>
+                                    </toolkit:DataGridTemplateColumn>-->
+                                    <toolkit:DataGridTextColumn IsReadOnly="True" Header="Content" Width="500" Binding="{Binding SimpleTextContent, Mode=OneWay}"></toolkit:DataGridTextColumn>
+                                    <!--<toolkit:DataGridTextColumn Header="Content"  Binding="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></toolkit:DataGridTextColumn>-->
+                                    <toolkit:DataGridTextColumn IsReadOnly="True" Header="Created On" Width="80" Binding="{Binding CreatedDate,StringFormat=MM-dd-yyyy}"></toolkit:DataGridTextColumn>
+                                    <toolkit:DataGridTextColumn IsReadOnly="True" Header="Last Modified On" Width="105"  Binding="{Binding LastModifiedDate,StringFormat=MM-dd-yyyy}"></toolkit:DataGridTextColumn>
+
+                                </toolkit:DataGrid.Columns>
+
+                            </toolkit:DataGrid>
+                            <toolkitExt:RichTextBox Name="rtxtNote" Grid.Column="1" Height="80" Width="750"  Grid.Row="3"
+                                                    Text="{Binding RTFNotecontent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></toolkitExt:RichTextBox>
+                            <!--<TextBox  Grid.Column="1" Height="80" Width="750"  Grid.Row="3" TextWrapping="Wrap" Text="{Binding Notecontent}" TabIndex="1" />-->
+                            <WrapPanel Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+
+                                <Button Style="{StaticResource NewCommonButton}" HorizontalAlignment="Left" Command="{Binding NewNote}" Name="btnNewNote" VerticalAlignment="Bottom" FocusView:EventFocusAttachment.ElementToFocus="{Binding ElementName=rtxtNote}">New</Button>
+                                <Separator Width="30" Visibility="Hidden"></Separator>
+
+                                <Button Style="{StaticResource SaveButton}" HorizontalAlignment="Left" Command="{Binding AddNote}" Name="btnSave" VerticalAlignment="Bottom" >Save</Button>
+                                <Separator Width="30" Visibility="Hidden"></Separator>
+
+                                <Button HorizontalAlignment="Left" Name="btnDelete" VerticalAlignment="Bottom" IsEnabled="{Binding DeleteButtonEnable}" Command="{Binding DeleteNote}" Style="{StaticResource DeleteButton}">Delete</Button>
+                            </WrapPanel>
+                        </Grid>
+
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem Name="tbBillingManager"   IsEnabled="False"
+                         Header="Billing" local:EyeCandy.Image="../Images/Icons/folder_edit.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}" ToolTipService.ShowOnDisabled="True" ToolTip="Client fee billing coming soon!!!"  >
+
+                    <TabItem.Content>
+
+                        Client fee billing coming soon!!!
+
+                    </TabItem.Content>
+                </TabItem>
+
+            </TabControl>
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>

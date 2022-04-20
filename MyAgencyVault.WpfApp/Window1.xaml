@@ -1,0 +1,136 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+        xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+    Title="CommissionsDept.com" Height="800" Width="900" Background="#B8D9FF" WindowStartupLocation="CenterOwner" WindowState="Maximized" IsTabStop="False">
+
+    
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.01*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.01*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.01*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.01*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--<Border Grid.Column="1" Grid.Row="1"  BorderThickness="2" BorderBrush="Black" ></Border>-->
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".005*"></ColumnDefinition>
+                <ColumnDefinition Width=".25*"></ColumnDefinition>
+                <ColumnDefinition Width=".005*"></ColumnDefinition>
+                <ColumnDefinition Width=".005*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.08*"></RowDefinition>
+                <RowDefinition Height=".70*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="10" BorderThickness="1,1,1,1" >
+                <Border.BorderBrush>
+                    <LinearGradientBrush   EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#577FB2" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+            </Border>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>                
+                <Label Content="Client" Grid.Row="1" VerticalAlignment="Center"></Label>
+                <ComboBox Name="cmbSearchScreens" Grid.Row="2">
+                    <ComboBoxItem Content="rajesh"></ComboBoxItem>
+                    <ComboBoxItem Content="Pankaj"></ComboBoxItem>
+                    <ComboBoxItem Content="ashih"></ComboBoxItem>
+                </ComboBox>
+                <Label Content="Payor" Grid.Row="3" VerticalAlignment="Center"></Label>
+                <ComboBox Name="cmbSearchFeild" Grid.Row="4">
+                    <ComboBoxItem Content="ICICI"></ComboBoxItem>
+                    <ComboBoxItem Content="AVIVA"></ComboBoxItem>
+                    <ComboBoxItem Content="pANKAJ"></ComboBoxItem>
+                </ComboBox>
+                <Label Content="Carrier" Grid.Row="5" VerticalAlignment="Center"></Label>
+                <ComboBox Name="cmbSearchScreens1" Grid.Row="6" VerticalAlignment="Center">
+                    <ComboBoxItem Content="ICICI"></ComboBoxItem>
+                    <ComboBoxItem Content="KODAK"></ComboBoxItem>
+                    <ComboBoxItem Content="AVIVA"></ComboBoxItem>
+                </ComboBox>
+                <Label Content="Last 10 Clients Viewed" Grid.Row="7" VerticalAlignment="Center"></Label>
+                <ComboBox Grid.Row="8" VerticalAlignment="Center">
+                    <ComboBoxItem Content="rajesh"></ComboBoxItem>
+                    <ComboBoxItem Content="ashish "></ComboBoxItem>
+                    <ComboBoxItem Content="pankaj"></ComboBoxItem>
+                </ComboBox>                
+                <Button Content="Search" Grid.Row="10" VerticalAlignment="Center" Width="80" Click="Button_Click"></Button>
+                <TextBlock Grid.Row="11">Client:</TextBlock>
+                <TextBox Grid.Row="11" Margin="40,0,0,0">Client</TextBox>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="4"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Click="btnPolicyManager_Click" Height="38" Name="btnPolicyManager"  Content="Policy Manager" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/cabinet_open.png" Grid.Row="1" IsTabStop="False">
+
+                </Button>
+                <Button  Height="38" Content="People Manager" Click="btnPolicyManager_Click" Style="{StaticResource ImageButton}"  local:EyeCandy.Image="Images/Icons/businesspeople2.png"  Name="btnPeopleManager" Grid.Row="2"  Grid.Column="0" IsTabStop="False">
+
+                </Button>
+                <Button IsEnabled="True"  Content="Payor Tool" Click="btnPolicyManager_Click" Height="38" Name="btnPayorTool" Style="{StaticResource ImageButton}" local:EyeCandy.Image="Images/Icons/toolbox.png"  Grid.Row="3"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button IsEnabled="False"  Content="Statement Manager" Height="38" Name="btnDownloadManager" Click="btnPolicyManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/download.png" Grid.Row="4"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button Content="Settings" Height="38" Name="btnSettings" Click="btnPolicyManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/Settings.png" Grid.Row="5"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button IsEnabled="True"   Content="Follow Up Manager" Click="btnPolicyManager_Click"   Height="38" Name="btnFollowUp" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/FollowUpMgr.png" Grid.Row="6"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button Content="Help/Update" Height="38" Name="btnHelpUpdate" Click="btnPolicyManager_Click"  Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/help2.png" Grid.Row="7"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button IsEnabled="True"  Content="Comp Manager" Height="38" Name="btnCompManager" Click="btnPolicyManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/CompMgr.png" Grid.Row="8"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button Content="Billing Manager" Height="38" Name="btnBillingManager" Click="btnPolicyManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/BillingMgr.png" Grid.Row="9"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button IsEnabled="False"  Content="Data Entry Unit" Height="38" Click="btnPolicyManager_Click" Name="btnDEU" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/Deu.png" Grid.Row="10"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button IsEnabled="True" Content="Report Manager" Height="38" Click="btnPolicyManager_Click" Name="btnReportManager" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/ReportMgr.png" Grid.Row="11"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button Content="Configuration" Height="38" Command="{Binding ConfigurationCommand}" Name="btnConfiguration" Click="btnPolicyManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/ConfigurMgr.png" Grid.Row="12"  Grid.Column="0" IsTabStop="False"></Button>
+                <Button Command="{Binding OnCloseAplication}" Content="Log Out" Height="38"  VerticalContentAlignment="Center"   Name="btnLogOut" Click="btnPolicyManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/exit.png" Grid.Row="13"  Grid.Column="0" IsTabStop="False"></Button>
+
+            </Grid>
+            <WrapPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+                <Separator Width="5" Visibility="Hidden"></Separator>
+                <Image x:Name="ImgDynamic" Source="{Binding Path=ImageSource}" VerticalAlignment="Center" Grid.Column="1" Height="18" Width="18" ></Image>
+                <Separator Width="8" Visibility="Hidden"></Separator> 
+                <Label  Name="lblScreenName" VerticalAlignment="Center"  FontSize="12" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">lblScreenName</Label>
+            </WrapPanel>
+            <ContentControl Name="myContent" Height="auto" Width="auto" Background="#B8D9FF" Content="Content" Grid.Column="4" Grid.RowSpan="3" Grid.Row="0"  VerticalAlignment="Top" HorizontalAlignment="Left"></ContentControl>
+        </Grid>
+    </Grid>
+
+</Window>

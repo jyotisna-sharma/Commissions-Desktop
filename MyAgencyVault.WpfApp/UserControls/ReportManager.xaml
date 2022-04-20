@@ -1,0 +1,1025 @@
+﻿<UserControl x:Class="MyAgencyVault.WinApp.UserControls.ReportManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+ xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+             xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+    Width="793" Height="auto" HorizontalAlignment="Left">
+    <Grid HorizontalAlignment="Left" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3"></RowDefinition>            
+            <RowDefinition></RowDefinition>                        
+        </Grid.RowDefinitions>
+        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.ColumnSpan="3" Grid.RowSpan="8"></Border>
+        <!--<Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="2" Grid.ColumnSpan="3" ></Border>-->
+        <!--<Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="4" Grid.ColumnSpan="3" ></Border>-->
+        <TabControl Name="tbReportManager" Grid.Row="1" Grid.Column="1" Margin="2,2,2,4" HorizontalAlignment="Left"   VerticalAlignment="Top">
+            <TabItem Name="tbiPayeeStatement" Header="Payee Statement Reports" local:EyeCandy.Image="..\Images/Icons/money_envelope_edit.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                
+                <TabItem.Content>
+                    <!--this is the payeestatement Report grid-->
+                    <Grid HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"  Width="790" Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="220"></RowDefinition>
+                            <RowDefinition Height="220"></RowDefinition>
+                            <RowDefinition Height="220"></RowDefinition>                            
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>                            
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0"></Border>                        
+                        <Grid Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5,0,0,0">
+                                <Label Content="Select Batch(es)" Name="lblPayeeBatches"  VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <Separator Width="10" Visibility="Hidden"></Separator>
+                                <ComboBox Height="20" Width="142" IsEditable="True" Name="cmbPayeeBatchFilter" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <ComboBoxItem Content="Paid"></ComboBoxItem>
+                                    <ComboBoxItem Content="Unpaid"></ComboBoxItem>
+                                    <ComboBoxItem Content="All"></ComboBoxItem>
+                                    <ComboBoxItem Content="2010"></ComboBoxItem>
+                                    <ComboBoxItem Content="2009"></ComboBoxItem>
+                                    <ComboBoxItem Content="2008"></ComboBoxItem>
+                                    <ComboBoxItem Content="2007"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>                            
+                            <ListBox BorderBrush="#FF577FB2"  Margin=" 5,5,0,5" Grid.Column="0" Grid.Row="2" Height ="160" VerticalAlignment="Top">
+                                <ListBoxItem >
+                                    <CheckBox>                               
+                                               <TextBlock Margin="-1,0,0,0" Text="Batch 1"></TextBlock>
+                                     </CheckBox> 
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 2"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem  >
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 3"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 4"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 5"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 6"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 7"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 8"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 9"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Batch 10"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Margin="5,2,5,5" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,5,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Margin="0,5,0,0" Content="Select Payee(s)" Name="lblPayeePayees" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <ListBox BorderBrush="#FF577FB2"  Margin="0,8,5,5" Grid.Column="0" Grid.Row="1" Height ="160" VerticalAlignment="Top">
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Hoshiyar Singh"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Rakesh Kumar"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Ab Linkan"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Peyton"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Eric"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Rajshree"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Ajay Kumar"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Dinesh "></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Payee 9"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem> <CheckBox>
+                                    <TextBlock Text="Payee 10"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                            </ListBox>
+                            <TextBlock Margin="0,2,5,5" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>                                
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,5,5,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                </Grid.RowDefinitions>                                
+                                <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"  Margin="-5,0,-5,-5"></Border>
+                                <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="-5,10,-5,0"></Border>
+                                <Label Margin=" 5,5,5,0" Content="Select Report(s)" Name="lblPayeeReports" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <ListBox BorderBrush="#FF577FB2"  Margin="5,5,0,5" Grid.Column="0" Grid.Row="1" Height ="160" VerticalAlignment="Top">
+                                    <ListBoxItem>
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement"></TextBlock>
+                                        </CheckBox>
+
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Policy List"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Migration Report"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Opportunity Report"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Analysis"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Payor"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Product"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Carrier"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Client"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Check Register Report"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                </ListBox>
+                                <TextBlock Margin="5,2,5,5" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                                </TextBlock>
+                                <Border BorderBrush="#577FB2" BorderThickness="1"  Margin="5,20,5,5" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"></Border>
+                                <TextBlock Margin="5,25,5,10" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="About Report text goes here. dfds fdf dfdsfdfjd fdf df dfsddf sd fds " TextWrapping="Wrap" HorizontalAlignment="Center" >
+                                </TextBlock>
+                                <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,0,5" >
+                                    <Label Content="Filter:" Name="lblPayeeOrderby" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"   HorizontalAlignment="Right"/>
+                                    <Separator Visibility="Hidden" Width="10"></Separator>
+                                    <RadioButton IsChecked="True" Content="Unpaid"></RadioButton>
+                                    <Separator Visibility="Hidden" Width="10"></Separator>
+                                    <RadioButton  Content="Paid"></RadioButton>
+                                    <Separator Visibility="Hidden" Width="10"></Separator>
+                                    <RadioButton Content="Both"></RadioButton>
+                                </WrapPanel>
+                                <WrapPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="5,10,5,5" VerticalAlignment="Center">
+                                    <Button Name="btnPayeePrint" Content="Print" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\printer2.png" VerticalAlignment="Center"   HorizontalAlignment="Left"></Button>
+                                    <Separator Width="10" Visibility="Hidden"></Separator>
+                                    <Button Name="btnPayeeEmail" Content="Email" VerticalAlignment="Center" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\mail_forward.png" HorizontalAlignment="Right" ></Button>
+                                </WrapPanel>
+                            </Grid>                            
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="tbiAudit" Header="Audit Reports" local:EyeCandy.Image="..\Images/Icons/bookkeeper.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                
+                <TabItem.Content>
+                    <!--this is the Audit Report grid-->
+                    <Grid HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"  Width="790" Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="220"></RowDefinition>
+                            <RowDefinition Height="220"></RowDefinition>
+                            <RowDefinition Height="220"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0"></Border>
+                        <Grid Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Select Payor(s)" Name="lblAuditPayors" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>                           
+                            <ListBox BorderBrush="#FF577FB2"  Margin=" 5,5,0,5" Grid.Column="0" Grid.Row="2" Height ="170" VerticalAlignment="Top">
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Hoshiyar Singh"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rakesh Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ab Linkan"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Peyton"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Eric"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rajshree"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ajay Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Dinesh "></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 9"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 10"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Margin="5,2,5,5" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,5,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Margin="0,0,0,0" Content="Select Payee(s)" Name="lblAuditPayees" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <ListBox BorderBrush="#FF577FB2"  Margin="0,5,5,5" Grid.Column="0" Grid.Row="1" Height ="170" VerticalAlignment="Top">
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Hoshiyar Singh"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rakesh Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ab Linkan"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Peyton"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Eric"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rajshree"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ajay Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Dinesh "></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 9"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 10"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Margin="0,2,5,5" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,5,5,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"  Margin="-5,0,-5,-5"></Border>
+                                <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="-5,10,-5,0"></Border>
+                                <Label Margin=" 5,5,5,0" Content="Select Report(s)" Name="lblAuditReports" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <ListBox BorderBrush="#FF577FB2"  Margin="5,5,0,5" Grid.Column="0" Grid.Row="1" Height ="160" VerticalAlignment="Top">
+                                    <ListBoxItem>
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement"></TextBlock>
+                                        </CheckBox>
+
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Policy List"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Migration Report"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Opportunity Report"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Analysis"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Payor"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Product"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Carrier"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Payee Statement Summary By Client"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+                                    <ListBoxItem >
+                                        <CheckBox>
+                                            <TextBlock Text="Check Register Report"></TextBlock>
+                                        </CheckBox>
+                                    </ListBoxItem>
+
+                                </ListBox>
+                                <TextBlock Margin="5,2,5,5" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                                </TextBlock>
+                                <Border BorderBrush="#577FB2" BorderThickness="1"  Margin="5,20,5,5" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"></Border>
+                                <TextBlock Margin="5,25,5,10" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="About Report text goes here." HorizontalAlignment="Center" >
+                                </TextBlock>
+                                <WrapPanel  Grid.Row="4" HorizontalAlignment="Right" Margin="5,5,5,5" VerticalAlignment="Center" >
+                                    <Label Content="Order By:" Name="lblAuditOrderby" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"   HorizontalAlignment="Right"/>
+                                    <Separator Visibility="Hidden" Width="10"></Separator>
+                                    <RadioButton Content="Carrier"></RadioButton>
+                                    <Separator Visibility="Hidden" Width="10"></Separator>
+                                    <RadioButton IsChecked="True"  Content="Payor"></RadioButton>
+                                    <Separator Visibility="Hidden" Width="10"></Separator>
+                                    <RadioButton Content="Payee"></RadioButton>                                   
+                                </WrapPanel >
+                                <StackPanel  Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center" Margin="5,10,5,5">                                    
+                                    <Label Content="Invoice Range:" Margin="0,5,0,5"></Label>                                    
+                                    <TextBlock>
+                                        <Label Content="From:" Margin="5,5,5,5"></Label>
+                                        <Separator Visibility="Hidden" Width="13"></Separator>
+                                        <toolkit:DatePicker Width="150"></toolkit:DatePicker>
+                                    </TextBlock>
+                                    <Separator Height="5" Visibility="Hidden"></Separator> 
+                                    <TextBlock>
+                                        <Label Content="To:" Margin="5,5,19,5"></Label>
+                                        <Separator Visibility="Hidden" Width="13"></Separator>
+                                        <toolkit:DatePicker Width="150"></toolkit:DatePicker>
+                                    </TextBlock>
+                                </StackPanel>
+                                
+                                <WrapPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="5,5,5,5" VerticalAlignment="Center">
+                                    <Button Name="btnAuditPrint" Content="Print" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\printer2.png" VerticalAlignment="Center"   HorizontalAlignment="Left"></Button>
+                                    <Separator Width="10" Visibility="Hidden"></Separator>
+                                    <Button Name="btnAuditEmail" Content="Email" VerticalAlignment="Center" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\mail_forward.png" HorizontalAlignment="Right" ></Button>
+                                </WrapPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="tbiManagementReports" Header="Management Reports" local:EyeCandy.Image="..\Images/Icons/chart_gantt.png" HeaderTemplate ="{StaticResource ImageBindingTabControlItems}">
+                
+                <TabItem.Content>
+                    <!--this is the Management Report grid-->
+                    <Grid HorizontalAlignment="Stretch"   VerticalAlignment="Stretch"  Width="790" Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="170"></RowDefinition>                            
+                            <RowDefinition Height="170"></RowDefinition>                            
+                            <RowDefinition Height="170"></RowDefinition>
+                            <RowDefinition Height="170"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="192" ></ColumnDefinition>
+                            <ColumnDefinition Width="192"></ColumnDefinition>
+                            <ColumnDefinition Width="192"></ColumnDefinition>
+                            <ColumnDefinition Width="192"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,0,0"></Border>                        
+                        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4"  Margin="0,5,0,0"></Border>
+                        <Border BorderBrush="#577FB2" BorderThickness="1" Grid.Row="3" Grid.ColumnSpan="4"  Margin="0,5,0,40">
+                            <TextBlock Margin="5,5,5,5" Text="About the report" HorizontalAlignment="Center"></TextBlock>
+                        </Border>                       
+                        <Grid Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,10,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Margin="5,0,0,0" Content="Select Payor(s)" Name="lblManagementPayors" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <ListBox BorderBrush="#FF577FB2"  Grid.Column="0" Grid.Row="1" Height ="120" VerticalAlignment="Top" Margin="5,5,0,5">
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Hoshiyar Singh"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rakesh Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ab Linkan"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Peyton"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Eric"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rajshree"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ajay Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Dinesh "></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 9"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 10"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="left" Margin="5,0,5,0">
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,10,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Margin="0,0,0,0" Content="Select Carrier(s)" Name="lblManagementCarriers" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <ListBox BorderBrush="#FF577FB2"  Grid.Column="0" Grid.Row="1" Height ="120" VerticalAlignment="Top" Margin="0,5,0,5">
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="ICICI"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Bajaj"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Bharti Hexa"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Lic"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Oxfoard"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Numero Uno"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Carrier 7"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                            </ListBox>
+                            <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="left" Margin="0,0,5,0">
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,10,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Margin="0,0,0,0" Content="Select Product(s)" Name="lblManagementProducts" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <ListBox BorderBrush="#FF577FB2"  Grid.Column="0" Grid.Row="1" Height ="120" VerticalAlignment="Top" Margin="0,5,0,5">
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Kodak life insurance"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Kodak Child insurance"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="ICICI prudential"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="ICICI Life Insurance"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Oxford Health Plan"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Dental"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="ICICI Health Insurance"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                                <ListBoxItem >
+                                    <CheckBox>
+                                        <TextBlock Text="Product 8"></TextBlock>
+                                    </CheckBox></ListBoxItem>
+                            </ListBox>
+                            <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,5,0">
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,10,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Margin="0,0,0,0" Content="Select Payee(s)" Name="lblManagementPayees" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <ListBox BorderBrush="#FF577FB2"  Grid.Column="0" Grid.Row="1" Height ="120" VerticalAlignment="Top" Margin="0,5,5,5">
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Hoshiyar Singh"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rakesh Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ab Linkan"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Peyton"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Eric"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Rajshree"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Ajay Kumar"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Dinesh "></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 9"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <CheckBox>
+                                        <TextBlock Text="Payee 10"></TextBlock>
+                                    </CheckBox>
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,5,0">
+                                <Hyperlink >Select All</Hyperlink>
+                                <Separator Visibility="Hidden" Width="10"></Separator>
+                                <Hyperlink >Select None</Hyperlink>
+                            </TextBlock>
+                        </Grid>                        
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" Margin="5,10,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>                                                        
+                            <Label Content="Select Report Criteria:" Name="lblManagementActions" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Top"     HorizontalAlignment="Left" />
+                            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,5,5,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Content="Type Of Policy" Name="Label1" Grid.Row="0" Grid.Column="0"  VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <ComboBox Margin="0,5,0,0"  Name="cmbTypeOfPolicy" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="20" Width="100" HorizontalAlignment="Left"  IsEditable="True"  VerticalAlignment="Top" >
+                                    <ComboBoxItem Content="Active"></ComboBoxItem>
+                                    <ComboBoxItem Content="Terminated"></ComboBoxItem>
+                                    <ComboBoxItem Content="Pending"></ComboBoxItem>
+                                    <ComboBoxItem Content="Deleted"></ComboBoxItem>
+                                </ComboBox>
+                                <Label Content="Mode" Name="Label2" Grid.Row="1" Grid.Column="0"  VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <ComboBox Margin="0,5,0,0"  Name="cmbMode" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Height="20" Width="100" HorizontalAlignment="Left"  IsEditable="True"  VerticalAlignment="Top" >
+                                    <ComboBoxItem Content="Active"></ComboBoxItem>
+                                    <ComboBoxItem Content="Terminated"></ComboBoxItem>
+                                    <ComboBoxItem Content="Pending"></ComboBoxItem>
+                                    <ComboBoxItem Content="Deleted"></ComboBoxItem>
+                                </ComboBox>
+                                <Label Content="Track Payment" Name="Label3" Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel Margin="0,5,0,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="20" HorizontalAlignment="Stretch"   VerticalAlignment="Top" >
+                                    <RadioButton Content="Yes"></RadioButton>
+                                    <Separator Width="10" Visibility="Hidden" ></Separator> 
+                                    <RadioButton Content="No"></RadioButton>
+                                    <Separator Width="10" Visibility="Hidden" ></Separator>
+                                    <RadioButton IsChecked="True" Content="Both"></RadioButton>
+                                </WrapPanel>
+                                <!--<ComboBox  Name="cmbTrackPayment" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="20" Width="100" HorizontalAlignment="Left"  IsEditable="True"  VerticalAlignment="Top" >
+                                    <ComboBoxItem Content="Active"></ComboBoxItem>
+                                    <ComboBoxItem Content="Terminated"></ComboBoxItem>
+                                    <ComboBoxItem Content="Pending"></ComboBoxItem>
+                                    <ComboBoxItem Content="Deleted"></ComboBoxItem>
+                                </ComboBox>-->
+                                <Label Content="Effective" Name="Label4"  Grid.Row="3" VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel Margin="0,5,0,0"  Name="wpEffective" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" >
+                                    <toolkit:DatePicker Name="dtEffectiveFrom" Width="120"></toolkit:DatePicker>
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <Label Content="To" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <toolkit:DatePicker Name="dtEffectiveTo" Width="120" ></toolkit:DatePicker>
+                                </WrapPanel>
+                                <Label Content="Track Date" Name="Label5" Grid.Row="4"  VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel Margin="0,5,0,0"  Name="wpTrackFrom" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" >
+                                    <toolkit:DatePicker Name="dtTrackFrom" Width="120"></toolkit:DatePicker>
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <Label Content="To" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <toolkit:DatePicker Name="dtTrackTo" Width="120" ></toolkit:DatePicker>
+                                </WrapPanel>
+                                <Label Content="Term Date" Name="Label6" Grid.Row="5" VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel Margin="0,5,0,0"  Name="wpTrackDate" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" >
+                                    <toolkit:DatePicker Name="dtTrackDateFrom" Width="120"></toolkit:DatePicker>
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <Label Content="To" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <toolkit:DatePicker Name="dtTrackDateTo" Width="120" ></toolkit:DatePicker>
+                                </WrapPanel>
+                                <Label Content="Term Reason" Name="Label7" Grid.Row="6" Grid.Column="0"  VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <ComboBox Margin="0,5,0,0"  Name="cmbTermReason" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="20" Width="100" HorizontalAlignment="Left"  IsEditable="True"  VerticalAlignment="Top" >
+                                    <ComboBoxItem Content="Active"></ComboBoxItem>
+                                    <ComboBoxItem Content="Terminated"></ComboBoxItem>
+                                    <ComboBoxItem Content="Pending"></ComboBoxItem>
+                                    <ComboBoxItem Content="Deleted"></ComboBoxItem>
+                                </ComboBox>
+                                <Label Content="Premium" Name="Label8"  Grid.Row="7" VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel Margin="0,5,0,0"  Name="wpPremium" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" >
+                                    <TextBox Width="120"></TextBox>
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <Label Content="To" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <TextBox Width="120"></TextBox>
+                                </WrapPanel>
+                                <Label Content="Enrolled" Name="Label9"  Grid.Row="8" VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel Margin="0,5,0,0"   Name="wpEnrolled" Grid.Row="8"  Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" >
+                                    <TextBox Width="120"></TextBox>
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <Label Content="To" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <TextBox Width="120"></TextBox>
+                                </WrapPanel>
+                                <Label Content="Eligible" Name="Label10" Grid.Row="9"  VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel Margin="0,5,0,0"  Name="wpEligible" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" >
+                                    <TextBox Width="120"></TextBox>
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <Label Content="To" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <TextBox Width="120"></TextBox>
+                                </WrapPanel>
+                                <Label Content="Invoice Range" Name="Label11" Grid.Row="10"  VerticalAlignment="Center"  HorizontalAlignment="Left" />
+                                <WrapPanel  Name="wpInvoiceRange" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="0,5,0,0" >
+                                    <toolkit:DatePicker Name="dtInvoiceRangeFrom" Width="120"></toolkit:DatePicker>
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <Label Content="To" VerticalAlignment="Center"   HorizontalAlignment="Left" />
+                                    <Separator Width="5" Visibility="Hidden"></Separator>
+                                    <toolkit:DatePicker Name="dtInvoiceRangeTo" Width="120" ></toolkit:DatePicker>
+                                </WrapPanel>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>                                    
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>                                    
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 5,5,5,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Select Report(s)" Name="lblManagementReports" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                    <ListBox BorderBrush="#FF577FB2"  Grid.Column="0" Grid.Row="1" Height ="135" VerticalAlignment="Top">
+                                        <ListBoxItem>
+                                            <CheckBox>
+                                                <TextBlock Text="Payee statement"></TextBlock>
+                                            </CheckBox>
+
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Policy list"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Migration Report"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Opportunity Report"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Payee Analysis"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Payee Statement Summary by Payor"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Payee Statement Summary by Product"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Payee Statement Summary by Carrier"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Payee Statement Summary by Client"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                        <ListBoxItem >
+                                            <CheckBox>
+                                                <TextBlock Text="Check Register Report"></TextBlock>
+                                            </CheckBox>
+                                        </ListBoxItem>
+                                    </ListBox>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Top"  Margin="5,5,5,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"></RowDefinition>
+                                        <RowDefinition Height="40"></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Order By: " Name="lblOrderby" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"   HorizontalAlignment="Right"/>
+                                    <ComboBox Height="20" Width="180" HorizontalAlignment="Left"  IsEditable="True" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Name="cmbStatus" VerticalAlignment="Center"  >
+                                        <ComboBoxItem Content="Client/Insured"></ComboBoxItem>
+                                        <ComboBoxItem Content="Payor"></ComboBoxItem>
+                                        <ComboBoxItem Content="Carrier"></ComboBoxItem>
+                                        <ComboBoxItem Content="Product"></ComboBoxItem>
+                                        <ComboBoxItem Content="Payee"></ComboBoxItem>
+                                        <ComboBoxItem Content="Effective"></ComboBoxItem>
+                                        <ComboBoxItem Content="Enrolled"></ComboBoxItem>
+                                        <ComboBoxItem Content="Track From"></ComboBoxItem>                                        
+                                    </ComboBox>
+                                    <WrapPanel  Name="wpManagementActions" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                        <Button Name="btnManagementPrint" Content="Print" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\printer2.png" VerticalAlignment="Center" HorizontalAlignment="Left"></Button>
+                                        <Separator Width="10" Visibility="Hidden"></Separator>
+                                        <Button Name="btnManagementEmail" Content="Email" VerticalAlignment="Center" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\mail_forward.png" HorizontalAlignment="Right" ></Button>
+                                    </WrapPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>                        
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

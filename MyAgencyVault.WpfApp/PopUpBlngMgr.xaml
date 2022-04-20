@@ -1,0 +1,12 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.PopUpBlngMgr"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+    Title="Sub Agent List" Height="300" Width="700" Loaded="Window_Loaded">
+    <Grid>
+        <toolkit:DataGrid Name="grdAgent"  >
+
+        </toolkit:DataGrid>
+    </Grid>
+</Window>

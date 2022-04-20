@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Users>
+  <UserInfo>
+    <UserId>1</UserId> 
+    <Fname>Hoshiyar</Fname>
+    <Lname>Singh</Lname>
+    <Company>Hanu Software</Company>
+    <NickName>HSingh</NickName>
+    <Address1>Gurgaon City</Address1> 
+    <Zip>22222</Zip>
+    <City>Gurgaon</City>
+    <State>Haryana</State>
+    <Email>Hoshiyar@gmail.com</Email>
+    <Phone>0124343456</Phone>
+    <CellPhone>9911123483</CellPhone>
+    <Fax>222222</Fax>
+    <IsEnable>True</IsEnable>    
+    <UserName>Hoshi Rawat</UserName>    
+    <LicenseName>My Product</LicenseName>
+    <Password>12345</Password>
+    <UserType>Agent</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>True</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>2</UserId>
+    <Fname>prem</Fname>
+    <Lname>kishor</Lname>
+    <Company>hanu22222</Company>
+    <NickName>prem22kishor2</NickName>
+    <Address1>New Delhi</Address1>
+    <Zip>22222</Zip>
+    <City>ARLINGTON</City>
+    <State>VA </State>
+    <Email>prmkishor@gmail.com </Email>
+    <Phone>3333333</Phone>
+    <CellPhone>333333333333333</CellPhone>
+    <Fax>333333333333333</Fax>
+    <IsEnable>False</IsEnable>
+    <UserName>Prem Kishor</UserName>
+    <LicenseName>My Product</LicenseName>
+    <Password>12345</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>0</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>0</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>3</UserId>
+    <Fname>Ankita</Fname>
+    <Lname>Pending</Lname>
+    <Company>HSSSSSS</Company>
+    <NickName>AnkitaPending</NickName>
+    <Address1>Usa Street No 3</Address1>
+    <Zip>22222</Zip>
+    <City>ARLINGTON</City>
+    <State>VA</State>
+    <Email>HSSSSSS@HSSSSSS.com</Email>
+    <Phone>2222222222</Phone>
+    <CellPhone>2222222222</CellPhone>
+    <Fax>2222222222</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Ankita Verma</UserName>
+    <LicenseName>My Product</LicenseName>
+    <Password>12345</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>4</UserId>
+    <Fname>AdminS</Fname>
+    <Lname>AdminL</Lname>
+    <Company>company</Company>
+    <NickName>AdminSAdminL</NickName>
+    <Address1>Argentine</Address1>
+    <Zip>656</Zip>
+    <City>GUAYANILLA</City>
+    <State>PR</State>
+    <Email>admin@gmail.com</Email>
+    <Phone>87878-878797+45</Phone>
+    <CellPhone>545645645645645</CellPhone>
+    <Fax>345345345345345</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Administrator</UserName>
+    <LicenseName>Other Product</LicenseName>
+    <Password>12345</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>5</UserId>
+    <Fname>Gaurav</Fname>
+    <Lname>Khanna</Lname>
+    <Company>Hanu</Company>
+    <NickName>GauravKhanna</NickName>
+    <Address1>Gurgaon</Address1>
+    <Zip>22222</Zip>
+    <City>ARLINGTON</City>
+    <State>VA</State>
+    <Email>gkhanna13@gmail.com</Email>
+    <Phone>567890-67990</Phone>
+    <CellPhone>8089+8765557</CellPhone>
+    <Fax>878788787878787</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Gaurave khanna</UserName>
+    <LicenseName>Other Product</LicenseName>
+    <Password>1213213</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>6</UserId>
+    <Fname>Rinku</Fname>
+    <Lname>Malhotra</Lname>
+    <Company>comp</Company>
+    <NickName>RMalhotra</NickName>
+    <Address1>Address changes</Address1>
+    <Zip>22222</Zip>
+    <City>ARLINGTON</City>
+    <State>VA</State>
+    <Email>gaurav.malhotra@hanusoftware.com</Email>
+    <Phone>2423423423424</Phone>
+    <CellPhone>0979079097907</CellPhone>
+    <Fax>0979070777907</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Rinku rana</UserName>
+    <LicenseName>Other Product</LicenseName>
+    <Password>1212</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>7</UserId>
+    <Fname>Agenty</Fname>
+    <Lname>Primary</Lname>
+    <Company>Hanu</Company>
+    <NickName>APrimary</NickName>
+    <Address1>Hanu</Address1>
+    <Zip>22222</Zip>
+    <City>ARLINGTON</City>
+    <State>VA</State>
+    <Email>fjhgjh@dshgjsdfg.com</Email>
+    <Phone>35426426</Phone>
+    <CellPhone>34635674</CellPhone>
+    <Fax>365775</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Agency123</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>3221312</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>8</UserId>
+    <Fname>Eric</Fname>
+    <Lname>Wood</Lname>
+    <Company>Commition Departmant</Company>
+    <NickName>HRawat</NickName>
+    <Address1>GGN</Address1>
+    <Zip>22222</Zip>
+    <City>ARLINGTON</City>
+    <State>VA</State>
+    <Email>hoshiyar@gmail.com</Email>
+    <Phone>(   ) 323-2321</Phone>
+    <CellPhone>( 44) 554-6546</CellPhone>
+    <Fax>(   )  44-4</Fax>
+    <IsEnable>False</IsEnable>
+    <UserName>Eric Wood</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>12121</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>9</UserId>
+    <Fname>Gaurav</Fname>
+    <Lname>Malhotra</Lname>
+    <Company>Hanu</Company>
+    <NickName>GMalhotra</NickName>
+    <Address1>Gurgaon</Address1>
+    <Zip>22222</Zip>
+    <City>ARLINGTON</City>
+    <State>VA</State>
+    <Email>gaurav@gaurav.com</Email>
+    <Phone>(111) 111-1111</Phone>
+    <CellPhone>(111) 111-1111</CellPhone>
+    <Fax>(111) 111-1111</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Malohtra</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>1213212</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>10</UserId>
+    <Fname>Ravi</Fname>
+    <Lname>Gupta</Lname>
+    <Company>Hanu Software</Company>
+    <NickName>RGupta</NickName>
+    <Address1>gurgaon</Address1>
+    <Zip>122001</Zip>
+    <City>gurgaon</City>
+    <State>Haryana</State>
+    <Email>rgupta@hanusoftware.com</Email>
+    <Phone>(890) 909-0909</Phone>
+    <CellPhone>(909) 090-9090</CellPhone>
+    <Fax>(090) 909-9090</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Ravi gupta</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>121313</Password>
+    <UserType>Admin</UserType>
+    <Question>What is your mother name?</Question>
+    <QuestionNo>4</QuestionNo>
+    <Answer>monalisa</Answer>
+    <HouseAccount>True</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>11</UserId>
+    <Fname>Ajax</Fname>
+    <Lname>Brown</Lname>
+    <Company>Hcl</Company>
+    <NickName>RGupta</NickName>
+    <Address1>gurgaon</Address1>
+    <Zip>122001</Zip>
+    <City>gurgaon</City>
+    <State>Haryana</State>
+    <Email>rgupta@hanusoftware.com</Email>
+    <Phone>(890) 909-0909</Phone>
+    <CellPhone>(909) 090-9090</CellPhone>
+    <Fax>(090) 909-9090</Fax>
+    <IsEnable>Flase</IsEnable>
+    <UserName>Ajx hero</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>1212</Password>
+    <UserType>Admin</UserType>
+    <Question>What is your mother name?</Question>
+    <QuestionNo>4</QuestionNo>
+    <Answer>VDY</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>12</UserId>
+    <Fname>rawat</Fname>
+    <Lname>hoshi</Lname>
+    <Company>marsar</Company>
+    <NickName>rhoshi</NickName>
+    <Address1>ggn</Address1>
+    <Zip>1111</Zip>
+    <City>SPRINGFIELD</City>
+    <State>MA</State>
+    <Email>hoshi@gmail.com</Email>
+    <Phone>(232) 323-232</Phone>
+    <CellPhone>( 32) 323-2332</CellPhone>
+    <Fax>( 32) 323-2323</Fax>
+    <IsEnable>Flase</IsEnable>
+    <UserName>Rawat Hoshiyar</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>23123</Password>
+    <UserType>Admin</UserType>
+    <Question>What is your nick name?</Question>
+    <QuestionNo>3</QuestionNo>
+    <Answer>Hoshi</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>0</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>13</UserId>
+    <Fname>Rakesh</Fname>
+    <Lname>Sharma</Lname>
+    <Company>Hanu Software</Company>
+    <NickName>Rsharma</NickName>
+    <Address1>Gurgaon</Address1>
+    <Zip>333333</Zip>
+    <City>Bostan</City>
+    <State>BT</State>
+    <Email>Rakesh12@gmail.com</Email>
+    <Phone>99912129991</Phone>
+    <CellPhone>323232432</CellPhone>
+    <Fax>45465634</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Rakesh sharma</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>12121</Password>
+    <UserType>Admin</UserType>
+    <Question>What is your first car name?</Question>
+    <QuestionNo>2</QuestionNo>
+    <Answer>WW</Answer>
+    <HouseAccount>True</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>1</PeopleManager>
+    <Settings>0</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>0</CompManager>
+    <ReportManager>1</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>14</UserId>
+    <Fname>Rajesh</Fname>
+    <Lname>Singh</Lname>
+    <Company>Hanu</Company>
+    <NickName>RSingh</NickName>
+    <Address1>Bukaro</Address1>
+    <Zip>9993239999</Zip>
+    <City>BH</City>
+    <State>BukarPure</State>
+    <Email>Rsingh@gmail.com</Email>
+    <Phone>0124242325676</Phone>
+    <CellPhone>9876452345</CellPhone>
+    <Fax>873892389298 </Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Rajesh Singh</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>1212313</Password>
+    <UserType>Admin</UserType>
+    <Question>What is the name of your first school?</Question>
+    <QuestionNo>0</QuestionNo>
+    <Answer>G D Gonka</Answer>
+    <HouseAccount>False</HouseAccount>
+    <PolicyManager>1</PolicyManager>
+    <PeopleManager>0</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>0</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>1</CompManager>
+    <ReportManager>1</ReportManager>
+  </UserInfo>
+  <UserInfo>
+    <UserId>15</UserId>
+    <Fname>Suman</Fname>
+    <Lname>Kumar</Lname>
+    <Company>Hnau</Company>
+    <NickName>Skumar</NickName>
+    <Address1>Delhi</Address1>
+    <Zip>1234232</Zip>
+    <City>Delhi</City>
+    <State>Dl</State>
+    <Email>Hoshiyar@gmail.com</Email>
+    <Phone>5445546645</Phone>
+    <CellPhone>3234345</CellPhone>
+    <Fax>746455324345</Fax>
+    <IsEnable>True</IsEnable>
+    <UserName>Suman Singh</UserName>
+    <LicenseName>MyAgencyValit</LicenseName>
+    <Password>12121</Password>
+    <UserType>Admin</UserType>
+    <Question>What is your favorite color?</Question>
+    <QuestionNo>1</QuestionNo>
+    <Answer>red</Answer>
+    <HouseAccount>True</HouseAccount>
+    <PolicyManager>0</PolicyManager>
+    <PeopleManager>0</PeopleManager>
+    <Settings>1</Settings>
+    <FollowUpManager>1</FollowUpManager>
+    <HelpUpdate>1</HelpUpdate>
+    <CompManager>1</CompManager>
+    <ReportManager>1</ReportManager>
+    
+  </UserInfo>
+  <!--<UserInfo>
+    <UserId></UserId>
+    <Fname></Fname>
+    <Lname></Lname>
+    <Company></Company>
+    <NickName></NickName>
+    <Address1></Address1>
+    <Zip></Zip>
+    <City></City>
+    <State></State>
+    <Email></Email>
+    <Phone></Phone>
+    <CellPhone></CellPhone>
+    <Fax></Fax>
+    <IsEnable></IsEnable>
+    <UserName></UserName>
+    <LicenseName></LicenseName>
+    <Password></Password>
+  </UserInfo>
+  <UserInfo>
+    <UserId></UserId>
+    <Fname></Fname>
+    <Lname></Lname>
+    <Company></Company>
+    <NickName></NickName>
+    <Address1></Address1>
+    <Zip></Zip>
+    <City></City>
+    <State></State>
+    <Email></Email>
+    <Phone></Phone>
+    <CellPhone></CellPhone>
+    <Fax></Fax>
+    <IsEnable></IsEnable>
+    <UserName></UserName>
+    <LicenseName></LicenseName>
+    <Password></Password>
+  </UserInfo>
+  <UserInfo>
+    <UserId></UserId>
+    <Fname></Fname>
+    <Lname></Lname>
+    <Company></Company>
+    <NickName></NickName>
+    <Address1></Address1>
+    <Zip></Zip>
+    <City></City>
+    <State></State>
+    <Email></Email>
+    <Phone></Phone>
+    <CellPhone></CellPhone>
+    <Fax></Fax>
+    <IsEnable></IsEnable>
+    <UserName></UserName>
+    <LicenseName></LicenseName>
+    <Password></Password>
+  </UserInfo>
+  <UserInfo>
+    <UserId></UserId>
+    <Fname></Fname>
+    <Lname></Lname>
+    <Company></Company>
+    <NickName></NickName>
+    <Address1></Address1>
+    <Zip></Zip>
+    <City></City>
+    <State></State>
+    <Email></Email>
+    <Phone></Phone>
+    <CellPhone></CellPhone>
+    <Fax></Fax>
+    <IsEnable></IsEnable>
+    <UserName></UserName>
+    <LicenseName></LicenseName>
+    <Password></Password>
+  </UserInfo>
+  <UserInfo>
+    <UserId></UserId>
+    <Fname></Fname>
+    <Lname></Lname>
+    <Company></Company>
+    <NickName></NickName>
+    <Address1></Address1>
+    <Zip></Zip>
+    <City></City>
+    <State></State>
+    <Email></Email>
+    <Phone></Phone>
+    <CellPhone></CellPhone>
+    <Fax></Fax>
+    <IsEnable></IsEnable>
+    <UserName></UserName>
+    <LicenseName></LicenseName>
+    <Password></Password>
+  </UserInfo>
+  <UserInfo>
+    <UserId></UserId>
+    <Fname></Fname>
+    <Lname></Lname>
+    <Company></Company>
+    <NickName></NickName>
+    <Address1></Address1>
+    <Zip></Zip>
+    <City></City>
+    <State></State>
+    <Email></Email>
+    <Phone></Phone>
+    <CellPhone></CellPhone>
+    <Fax></Fax>
+    <IsEnable></IsEnable>
+    <UserName></UserName>
+    <LicenseName></LicenseName>
+    <Password></Password>
+  </UserInfo>-->
+
+</Users>

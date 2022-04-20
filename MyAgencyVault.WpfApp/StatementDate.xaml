@@ -1,0 +1,111 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.StatementDate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="Calander" Height="597" Width="768" WindowStyle="ToolWindow"  
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" 
+        FontFamily="Arial" FontSize="6" FontStretch="Expanded">
+    <Grid Name="gridCalanders" Width="745" Height="571">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26*" />
+            <RowDefinition Height="497*" />
+            <RowDefinition Height="48*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="511*" />
+            <ColumnDefinition Width="234*" />
+        </Grid.ColumnDefinitions>
+        
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" Height="167" HorizontalAlignment="Left"  Margin="12,2,0,0" Name="calJan" VerticalAlignment="Top" Width="176" FontSize="6" FontWeight="Normal" FontStyle="Normal" FontStretch="Expanded" AllowDrop="False" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="194,2,0,0" Name="calFeb" VerticalAlignment="Top" Width="176" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Right" Margin="0,2,193,0" Name="calMar" VerticalAlignment="Top" Width="176" Grid.ColumnSpan="2" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Right" Margin="0,2,10,0" Name="calApr" VerticalAlignment="Top" Width="176" Grid.Column="1" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="12,165,0,0" Name="calMay" VerticalAlignment="Top" Width="176" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="194,165,0,0" Name="calJun" VerticalAlignment="Top" Width="176" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="174" HorizontalAlignment="Left" Margin="376,165,0,0" Name="calJul" VerticalAlignment="Top" Width="176" Grid.ColumnSpan="2" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="48,165,0,0" Name="calAug" VerticalAlignment="Top" Width="176" Grid.Column="1" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="12,329,0,0" Name="calSept"  VerticalAlignment="Top" Width="176" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="194,329,0,0" Name="calOct" VerticalAlignment="Top" Width="176" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="376,329,0,0" Name="calNov" VerticalAlignment="Top" Width="176" Grid.ColumnSpan="2" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Calendar SelectedDatesChanged="cal_SelectedDatesChanged" AllowDrop="False" FontSize="6" FontStretch="Expanded" FontStyle="Normal" FontWeight="Normal" Height="167" HorizontalAlignment="Left" Margin="48,329,0,0" Name="calDec" VerticalAlignment="Top" Width="176" Grid.Column="1" SelectionMode="MultipleRange" Grid.Row="1">
+            <!--<Calendar.BlackoutDates>
+                <CalendarDateRange Start="01/01/2010" End="{x:Static sys:DateTime.Now}"></CalendarDateRange>
+            </Calendar.BlackoutDates>-->
+        </Calendar>
+
+        <Button IsDefault="True" Command="{Binding  UpdateStatementDate}" CommandParameter="{Binding ElementName=cmbYear, Path=Text}" Content="Update" HorizontalAlignment="Left" Margin="307,6,0,17" Name="button1" Width="60" FontSize="12" FontWeight="Bold" Click="UpdateStatementDates_Click" Grid.Row="2"/>
+        
+        <ComboBox Height="21" SelectedIndex="0" HorizontalAlignment="Right" Margin="0,3,68,2" Name="cmbYear" VerticalAlignment="Center" Width="120" FontSize="12" SelectionChanged="cmbYear_SelectionChanged">
+            <ComboBox.Items>
+                <ComboBoxItem>2011</ComboBoxItem>
+                <ComboBoxItem>2012</ComboBoxItem>
+                <ComboBoxItem>2013</ComboBoxItem>
+                <ComboBoxItem>2014</ComboBoxItem>
+                <ComboBoxItem>2015</ComboBoxItem>
+                <ComboBoxItem>2016</ComboBoxItem>
+                <ComboBoxItem>2017</ComboBoxItem>
+                <ComboBoxItem>2018</ComboBoxItem>
+                <ComboBoxItem>2019</ComboBoxItem>
+                <ComboBoxItem>2020</ComboBoxItem>
+            </ComboBox.Items>
+        </ComboBox>
+        <Label Height="24" HorizontalAlignment="Right" Margin="0,4,192,0" Name="label1" VerticalAlignment="Top" Width="44" Content="Year:" FontSize="13" FontWeight="Normal" Grid.RowSpan="2" />
+        <Button IsCancel="True" Content="Close" Grid.Row="2" Height="26" HorizontalAlignment="Left" Width="56"
+               FontSize="12" FontWeight="Bold" Margin="380,5,0,0" Name="button2" VerticalAlignment="Top" Click="CloseUpdateStatements_Click" />
+    </Grid>
+</Window>

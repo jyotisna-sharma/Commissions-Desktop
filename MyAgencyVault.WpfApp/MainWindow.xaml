@@ -1,0 +1,179 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+         xmlns:behaviour="clr-namespace:MyAgencyVault.ViewModel.Behaviour;assembly=MyAgencyVault.VM"
+        xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+        xmlns:vm="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+        xmlns:toolkit1="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:wpftoolkit="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+        
+        Icon="/MyAgencyVault.WinApp;component/Images/Logo/LoginLogo.png"
+    Title="MainWindow"  Height="800" Width="900" Background="#B8D9FF" WindowStartupLocation="CenterOwner" WindowState="Maximized" IsTabStop="False" PreviewKeyDown="Window_PreviewKeyDown" >
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="MyBooleanToVisibilityConverter" />        
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.01*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.01*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.01*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.01*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".005*"></ColumnDefinition>
+                <ColumnDefinition Width=".25*"></ColumnDefinition>
+                <ColumnDefinition Width=".005*"></ColumnDefinition>
+                <ColumnDefinition Width=".005*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.08*"></RowDefinition>
+                <RowDefinition Height=".70*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="10" BorderThickness="1,1,1,1" >
+                <Border.BorderBrush>
+                    <LinearGradientBrush   EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#577FB2" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+            </Border>
+            <Grid Name="Gpolicysearch" Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>                    
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Last 10 Clients Viewed"  Grid.Row="1" VerticalAlignment="Center"></Label>
+                <ComboBox Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" SelectedIndex="0"  ItemsSource="{Binding LastViewedClients.LastViewClients}" SelectedItem="{Binding LastViewedClients.SelectedLastViewClient}" IsSynchronizedWithCurrentItem="True">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ClientName}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <!--<toolkit1:AutoCompleteBox ItemsSource="{Binding Items}"
+                         Text="{Binding Text, Mode=TwoWay}"
+                         IsTextCompletionEnabled="True" 
+                         FilterMode="None" />-->
+
+
+                <Label Content="Client" Grid.Row="3"  VerticalAlignment="Center"></Label>
+                <TextBox Grid.Row="4" Grid.ColumnSpan="2"  x:Name="txtClient" Text="{Binding txtClientSearch}" />
+
+                <!--<toolkit1:AutoCompleteBox Grid.Row="4" Grid.ColumnSpan="2"  x:Name="txtClient" ItemsSource="{Binding  allclient}" Margin="0,-3,0,0" Height="24" Text="{Binding txtClientSearch,Mode=TwoWay}" />-->
+
+                <Label Content="Insured" Grid.Row="5"  VerticalAlignment="Center"></Label>
+                <TextBox Name="txtInsured" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="{Binding txtInsuredSearch}"></TextBox>
+                <!--<toolkit1:AutoCompleteBox Name="txtInsured" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,-3,0,0" Height="24" Text="{Binding txtInsuredSearch,Mode=TwoWay}" />-->
+
+                <Label Content="Policy Number"  Grid.Row="7" VerticalAlignment="Center"></Label>
+                <TextBox Name="txtPolicyNumberSearch"  Grid.Row="8" Grid.ColumnSpan="2" behaviour:FocusLostBehaviour.FocusLost="{Binding MPolicyNumberFocus}" VerticalAlignment="Center" Text="{Binding PolicyNumberSearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <!--<toolkit1:AutoCompleteBox Name="txtPolicyNumberSearch"  Grid.Row="8" Grid.ColumnSpan="2" Margin="0,-3,0,0" Height="24" behaviour:FocusLostBehaviour.FocusLost="{Binding MPolicyNumberFocus}" VerticalAlignment="Center" Text="{Binding PolicyNumberSearchText,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+
+                <Label Content="Payor" Grid.Row="9"  VerticalAlignment="Center"></Label>
+                <TextBox Name="txtPayorSearch" Grid.Row="10" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="{Binding PayorSearchText}"></TextBox>
+                <!--<toolkit1:AutoCompleteBox Name="txtPayorSearch" Grid.Row="10" Grid.ColumnSpan="2" Margin="0,-3,0,0" Height="24" VerticalAlignment="Center" Text="{Binding PayorSearchText,Mode=TwoWay}" />-->
+
+
+                <Label Content="Carrier" Grid.Row="11"  VerticalAlignment="Center"></Label>
+                <TextBox Name="txtSeachText" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="{Binding CarrierSearchText}"></TextBox>
+                <!--<toolkit1:AutoCompleteBox Name="txtCarrierSeachText" Grid.Row="12" Grid.ColumnSpan="2" Margin="0,-3,0,0" Height="24" VerticalAlignment="Center" Text="{Binding CarrierSearchText,Mode=TwoWay}" />-->
+
+                <Button Content="Search" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Right" Width="80" Command="{Binding OpenPolicySearchedWindow}"></Button>
+                <Button Content="Clear" Grid.Row="14" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" Command="{Binding ClearPolicySearchFields}" vm:EventFocusAttachment.ElementToFocus="{Binding ElementName=txtPolicyNumberSearch}"></Button>
+
+            </Grid>
+            <Grid Name="Gstartuptext" Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>                   
+                </Grid.RowDefinitions>
+               <!--<RichTextBox Height="268" HorizontalAlignment="Left" Margin="-1,0,0,0" Name="richTextBox1" VerticalAlignment="Top" FontFamily="Times New Roman" Grid.RowSpan="2" IsReadOnly="True" FontWeight="Normal" Background="#FFB8D9FF" Foreground="DimGray" />-->
+                <RichTextBox Height="268" HorizontalAlignment="Left" Margin="-1,0,0,0" Name="richTextBox1" VerticalAlignment="Top" Grid.RowSpan="2" Background="#FFB8D9FF" IsReadOnly="True" Foreground="DimGray" />
+              
+            </Grid>
+            <StackPanel VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="2" >
+                <Button Click="btnManager_Click" Height="28" Name="btnPolicyManager" Visibility="{Binding IsPolicyVisible}" Content="Policy Manager" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/cabinet_open.png" IsTabStop="False"/>
+                <Button Height="28" Content="People Manager" Visibility="{Binding IsPeopleVisible}"  Click="btnManager_Click" Style="{StaticResource ImageButton}"  local:EyeCandy.Image="Images/Icons/businesspeople2.png"  Name="btnPeopleManager" IsTabStop="False"/>
+                <Button Visibility="{Binding IsPayorVisible}" IsEnabled="True" Content="Payor Tool" Click="btnManager_Click" Height="28" Name="btnPayorTool" Style="{StaticResource ImageButton}" local:EyeCandy.Image="Images/Icons/toolbox.png"  IsTabStop="False"/>
+                <Button Visibility="{Binding IsStmtVisible}" Content="Statement Manager" Height="28" Name="btnDownloadManager" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/download.png" IsTabStop="False"/>
+                <Button Content="Settings" Visibility="{Binding IsSettingVisible}" Height="28" Name="btnSettings" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/Settings.png" IsTabStop="False"/>
+                <Button Visibility="{Binding IsFollowUpVisible}" Content="Follow Up Manager" Click="btnManager_Click"   Height="28" Name="btnFollowUp" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/FollowUpMgr.png" IsTabStop="False"/>
+                <Button Visibility="{Binding IsHelpUpdateVisible}" Content="Help/Update" Height="28" Name="btnHelpUpdate" Click="btnManager_Click"  Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/help2.png" IsTabStop="False"/>
+                <Button Visibility="{Binding IsCompManagerVisible}"  Content="Comp Manager" Height="28" Name="btnCompManager" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/CompMgr.png" IsTabStop="False"/>
+                <Button Visibility="{Binding IsBillingVisible}" Content="Billing Manager" Height="28" Name="btnBillingManager" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/BillingMgr.png" IsTabStop="False"/>
+                <Button Visibility="{Binding IsDEUVisible}" IsEnabled="True" Content="Data Entry Unit" Height="28" Click="btnManager_Click" Name="btnDEU" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/Deu.png" IsTabStop="False"/>
+                <Button Visibility="{Binding IsReportVisible}" Content="Report Manager" Height="28" Click="btnManager_Click" Name="btnReportManager" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/ReportMgr.png" IsTabStop="False"/>
+                <Button Visibility="{Binding IsConfigurationVisible}" Content="Configuration" Height="28" Command="{Binding ConfigurationCommand}" Name="btnConfiguration" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/ConfigurMgr.png" IsTabStop="False"/>
+                <Button Margin="0,0,0,5" Content="Log Out" Height="28"  VerticalContentAlignment="Center"   Name="btnLogOut" Click="btnManager_Click" Command="{Binding LogoutClicked}" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/exit.png" IsTabStop="False"/>
+            </StackPanel>
+            <!--<Grid VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="4"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Click="btnManager_Click" Height="38" Name="btnPolicyManager" Visibility="{Binding IsPolicyVisible}" Content="Policy Manager" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/cabinet_open.png" IsTabStop="False"></Button>
+                <Button  Height="38" Content="People Manager" Visibility="{Binding IsPeopleVisible}"  Click="btnManager_Click" Style="{StaticResource ImageButton}"  local:EyeCandy.Image="Images/Icons/businesspeople2.png"  Name="btnPeopleManager" IsTabStop="False"></Button>
+                <Button Visibility="{Binding IsPayorVisible}" IsEnabled="True" Content="Payor Tool" Click="btnManager_Click" Height="38" Name="btnPayorTool" Style="{StaticResource ImageButton}" local:EyeCandy.Image="Images/Icons/toolbox.png"  IsTabStop="False"></Button>
+                <Button Visibility="{Binding IsStmtVisible}" Content="Statement Manager" Height="38" Name="btnDownloadManager" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/download.png" IsTabStop="False"></Button>
+                <Button Content="Settings" Visibility="{Binding IsSettingVisible}" Height="38" Name="btnSettings" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/Settings.png" IsTabStop="False"></Button>
+                <Button Visibility="{Binding IsFollowUpVisible}" Content="Follow Up Manager" Click="btnManager_Click"   Height="38" Name="btnFollowUp" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/FollowUpMgr.png" IsTabStop="False"></Button>
+                <Button Visibility="{Binding IsHelpUpdateVisible}" Content="Help/Update" Height="38" Name="btnHelpUpdate" Click="btnManager_Click"  Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/help2.png" IsTabStop="False"></Button>
+                <Button  Visibility="{Binding IsCompManagerVisible}"  Content="Comp Manager" Height="38" Name="btnCompManager" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/CompMgr.png" IsTabStop="False"></Button>
+                <Button Visibility="{Binding IsBillingVisible}" Content="Billing Manager" Height="38" Name="btnBillingManager" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/BillingMgr.png" IsTabStop="False"></Button>
+                <Button Visibility="{Binding IsDEUVisible}" IsEnabled="True" Content="Data Entry Unit" Height="38" Click="btnManager_Click" Name="btnDEU" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/Deu.png" IsTabStop="False"></Button>
+                <Button  Visibility="{Binding IsReportVisible}" Content="Report Manager" Height="38" Click="btnManager_Click" Name="btnReportManager" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/ReportMgr.png" IsTabStop="False"></Button>
+                <Button Visibility="{Binding IsConfigurationVisible}" Content="Configuration" Height="38" Command="{Binding ConfigurationCommand}" Name="btnConfiguration" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/ConfigurMgr.png" IsTabStop="False"></Button>
+                <Button Content="Log Out" Height="38"  VerticalContentAlignment="Center"   Name="btnLogOut" Click="btnManager_Click" Style="{StaticResource ImageButton}"   local:EyeCandy.Image="Images/Icons/exit.png" IsTabStop="False"></Button>
+            </Grid>-->
+            <WrapPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+                <Separator Width="5" Visibility="Hidden"></Separator>
+                <Image x:Name="ImgDynamic" Source="{Binding Path=ImageSource}" VerticalAlignment="Center" Grid.Column="1" Height="18" Width="18" ></Image>
+                <Separator Width="8" Visibility="Hidden"></Separator>
+                <Label  Name="lblScreenName" VerticalAlignment="Center" FontWeight="Normal" FontFamily="Tahoma"  FontSize="12" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">lblScreenName</Label>
+            </WrapPanel>
+            <ContentControl Name="myContent" Height="auto" Width="auto" Background="#B8D9FF" FontWeight="Normal" FontFamily="Tahoma"  FontSize="12"  Content="Content" Grid.Column="4" Grid.RowSpan="3" Grid.Row="0"  VerticalAlignment="Top" HorizontalAlignment="Left"></ContentControl>
+        </Grid>
+    </Grid>
+</Window>

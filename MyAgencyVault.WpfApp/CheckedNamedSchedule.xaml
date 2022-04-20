@@ -1,0 +1,50 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.CheckedNamedSchedule"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyAgencyVault.WinApp"
+        xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+        mc:Ignorable="d"
+        Title="Named Schedule List" Height="239.024" Width="360.667"  Background="#B8D9FF"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Grid Margin="0,14,42,-30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="375*" />
+            <ColumnDefinition Width="17*"/>
+        </Grid.ColumnDefinitions>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="48" Width="316" Margin="31,144,-36,33" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="9" />
+
+            </Grid.RowDefinitions>
+            <Button   Command="{Binding SaveNamedSchedule}"  ToolTipService.ShowOnDisabled="true" Margin="154,16,84,9" Name="button5" Style="{StaticResource SaveButton}"  ToolTip="{Binding ErrorTooltip}" Height="Auto" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Apply"/>
+                </StackPanel>
+            </Button>
+
+            <Button Content="Cancel" Command="{Binding CloseCheckNameScheduleListCmd}"  HorizontalAlignment="Right" Name="button6" Style="{StaticResource ImageButtonSave}" Width="68" Margin="0,16,5,9" Height="Auto" />
+        </Grid>
+        <toolkit:DataGrid IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding CheckedNamedSchedulelst}" SelectedItem="{Binding SelecetdNamedSchedule}" GridLinesVisibility="None" Background="White" Margin="10,-5,-36,73" Grid.ColumnSpan="2" SelectionMode="Single">
+            <toolkit:DataGrid.Columns >
+                <!--<toolkit:DataGridTemplateColumn Header="Select" Width="50" >
+                    <toolkit:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <RadioButton Margin="15,0,0,0"  IsChecked="{Binding Path=Checked, Mode=TwoWay}" GroupName="a" VerticalContentAlignment="Center" />
+                        </DataTemplate>
+                    </toolkit:DataGridTemplateColumn.CellTemplate>
+                </toolkit:DataGridTemplateColumn>-->
+                <!--<toolkit:DataGridTemplateColumn.CellTemplate Header="Select" Width="50" Binding="{Binding IsSelect}"/>-->
+                <toolkit:DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="325" >
+                    <toolkit:DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </toolkit:DataGridTextColumn.ElementStyle>
+                </toolkit:DataGridTextColumn>
+            </toolkit:DataGrid.Columns>
+        </toolkit:DataGrid>
+    </Grid>
+</Window>

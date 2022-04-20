@@ -1,0 +1,1190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E533BF4B-A346-4F50-921A-4AF2200A3F0B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyAgencyVault.WinApp</RootNamespace>
+    <AssemblyName>MyAgencyVault.WinApp</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/MyAgencyVault.WinApp/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\MyAgencyVault.WinApp.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\MyAgencyVault.WinApp.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ActionLogger">
+      <HintPath>..\SharedLib\ActionLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\SharedLib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\MyAgencyVault.BusinessLibrary\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\SharedLib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="NCalc">
+      <HintPath>..\SharedLib\NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\SharedLib\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WcfHttpCompressionEnabler">
+      <HintPath>..\SharedLib\WcfHttpCompressionEnabler.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WpfAutoComplete">
+      <HintPath>..\SharedLib\WpfAutoComplete.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFToolkit">
+      <HintPath>..\SharedLib\WPFToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFToolkit.Design">
+      <HintPath>..\SharedLib\WPFToolkit.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFToolkit.Extended, Version=1.4.0.2, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="AddEditFormula.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AgentPayee.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CheckedNamedSchedule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CircularProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommissionDashBoardEditOutGoingPayment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommissionDashBoardReverse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommissionDashEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommissionDashIssue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommissionDashAdjustment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateClient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateEditJournalDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomSchedule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DownLoadDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditAndDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EmailReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForgotPassword.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmTermDate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImportAgent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImportPolicy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InvoiceDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InvoiceDetailViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InvoiceMonthSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="JournalEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LaunchWebSite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LinkPaymentClientChangeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LinkPolicyToCommissionDashboad.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NewsDetailViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PhraseSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PolicList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PolicySearched.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopUpBlngMgr.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopUpPayor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ReplacePolicy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StatementDate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\BureauBlack.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\BureauBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\BureuSelected.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DesignerItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ExpressionDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ExpressionLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ResizeChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ShinyBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ShinyRed.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Toolbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\WhistlerBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestFormula.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BillingManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ConfigurationManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\CustomDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CustomPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PolicyManagerOptimized.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\DataEntryUnit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\DownloadManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\FollowUpManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\HelpAndUpdatesManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PayorToolManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PeopleManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PolicyManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\RepManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ReportManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ucCompManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WaitDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="AddTemplate.xaml.cs">
+      <DependentUpon>AddTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CheckedNamedSchedule.xaml.cs">
+      <DependentUpon>CheckedNamedSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CircularProgressBar.xaml.cs">
+      <DependentUpon>CircularProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBoxWithCommand.cs" />
+    <Compile Include="CommissionDashBoardEditOutGoingPayment.xaml.cs">
+      <DependentUpon>CommissionDashBoardEditOutGoingPayment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionDashBoardReverse.xaml.cs">
+      <DependentUpon>CommissionDashBoardReverse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomSchedule.xaml.cs">
+      <DependentUpon>CustomSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DatePickerCalendar.cs" />
+    <Compile Include="DownLoadDialog.xaml.cs">
+      <DependentUpon>DownLoadDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditAndDisplay.xaml.cs">
+      <DependentUpon>EditAndDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EmailReport.xaml.cs">
+      <DependentUpon>EmailReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmTermDate.xaml.cs">
+      <DependentUpon>frmTermDate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImportAgent.xaml.cs">
+      <DependentUpon>ImportAgent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImportPolicy.xaml.cs">
+      <DependentUpon>ImportPolicy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetail.xaml.cs">
+      <DependentUpon>InvoiceDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceMonthSelection.xaml.cs">
+      <DependentUpon>InvoiceMonthSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IView.cs" />
+    <Compile Include="JournalEntry.xaml.cs">
+      <DependentUpon>JournalEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LaunchWebSite.xaml.cs">
+      <DependentUpon>LaunchWebSite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LinkPaymentClientChangeDialog.xaml.cs">
+      <DependentUpon>LinkPaymentClientChangeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LinkPolicyToCommissionDashboad.xaml.cs">
+      <DependentUpon>LinkPolicyToCommissionDashboad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PhraseSearch.xaml.cs">
+      <DependentUpon>PhraseSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PolicySearched.xaml.cs">
+      <DependentUpon>PolicySearched.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StatementDate.xaml.cs">
+      <DependentUpon>StatementDate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\BureuSelected.xaml.cs">
+      <DependentUpon>BureuSelected.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestFormula.xaml.cs">
+      <DependentUpon>TestFormula.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BindingProxy.cs" />
+    <Compile Include="UserControls\CustomDialog.xaml.cs">
+      <DependentUpon>CustomDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CustomPrompt.xaml.cs">
+      <DependentUpon>CustomPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PolicyManagerOptimized.xaml.cs">
+      <DependentUpon>PolicyManagerOptimized.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FollowUpManager.xaml.cs">
+      <DependentUpon>FollowUpManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RepManager.xaml.cs">
+      <DependentUpon>RepManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\Validation\Validation.cs" />
+    <Compile Include="VMUserControl.cs" />
+    <Compile Include="WaitDialog.xaml.cs">
+      <DependentUpon>WaitDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddEditFormula.xaml.cs">
+      <DependentUpon>AddEditFormula.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AgentPayee.xaml.cs">
+      <DependentUpon>AgentPayee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionDashEdit.xaml.cs">
+      <DependentUpon>CommissionDashEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionDashIssue.xaml.cs">
+      <DependentUpon>CommissionDashIssue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionDashAdjustment.xaml.cs">
+      <DependentUpon>CommissionDashAdjustment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\EyeCandy.cs" />
+    <Compile Include="Common\LinqToDataTable.cs" />
+    <Compile Include="CreateClient.xaml.cs">
+      <DependentUpon>CreateClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateEditJournalDetail.xaml.cs">
+      <DependentUpon>CreateEditJournalDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.xaml.cs">
+      <DependentUpon>ForgotPassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetailViewer.xaml.cs">
+      <DependentUpon>InvoiceDetailViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewsDetailViewer.xaml.cs">
+      <DependentUpon>NewsDetailViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PolicList.xaml.cs">
+      <DependentUpon>PolicList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopUpBlngMgr.xaml.cs">
+      <DependentUpon>PopUpBlngMgr.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopUpPayor.xaml.cs">
+      <DependentUpon>PopUpPayor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ReplacePolicy.xaml.cs">
+      <DependentUpon>ReplacePolicy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BillingManager.xaml.cs">
+      <DependentUpon>BillingManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ConfigurationManager.xaml.cs">
+      <DependentUpon>ConfigurationManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DataEntryUnit.xaml.cs">
+      <DependentUpon>DataEntryUnit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DownloadManager.xaml.cs">
+      <DependentUpon>DownloadManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HelpAndUpdatesManager.xaml.cs">
+      <DependentUpon>HelpAndUpdatesManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PayorToolManager.xaml.cs">
+      <DependentUpon>PayorToolManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PeopleManager.xaml.cs">
+      <DependentUpon>PeopleManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PolicyManager.xaml.cs">
+      <DependentUpon>PolicyManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReportManager.xaml.cs">
+      <DependentUpon>ReportManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucCompManager.xaml.cs">
+      <DependentUpon>ucCompManager.xaml</DependentUpon>
+    </Compile>
+    <Resource Include="Images\small.png" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="app.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.Carrier.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.ConfigurationManager.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.Contact.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.DataEntryUsers.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.GobalCoverageSheduleDetail.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.HelpUpdateDetails.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.LicenseeDetails.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.LicenseeDetailsData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.MasterFileTypes.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.MasterScheduleTypes.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.PayorDefault.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.PayorInfo.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.PayorSiteDetail.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.PayorStatementDate.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.PeopleManagerDataSet.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.Product.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.RegionsName.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.UserDetails.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.ViewModel.serviceAgencyVault.ZipInfo.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.AdvancedPayee.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Batch.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.BillingLineDetail.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Carrier.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Client.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.ClientAndPayment.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.ComDeptService.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.ComDeptSupport.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.CommissionEntry.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.CompositeType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Coverage.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.FileType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.FollowupIssue.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Formula.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.GlobalIncomingSchedule.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.GlobalPayorContact.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.IncomingPament.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.IncomingSchedule.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Invoice.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Journal.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Licensee.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeNote.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.News.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Note.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.OutgoingPayment.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Payee.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Payor.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorDefaults.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorSiteLoginInfo.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorTool.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolAvailablelFieldType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolField.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolIncomingFieldType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolLearnedlFieldType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PayorUserWebSite.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Policy.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyDetails.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyIncomingPaymentType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyIncomingScheduleType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyLearnedField.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyMode.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyOutgoingScheduleType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicySettings.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyTerminationReason.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Question.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Region.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Statement.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.StatementDates.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.SystemConstant.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.User.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.VM.MyAgencyVaultSvc.Zip.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\backGroundLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Logo\LoginLogo.png" />
+    <Resource Include="Images\Icons\ShortCutControl.ico" />
+    <Resource Include="Images\Icons\wait.gif" />
+    <Content Include="Images\Icons\exc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\small.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Logo\small.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Images\OxfordHealthBlankTemplate.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\OxfordHealthTemplate.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Logo\BillingManager.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\Cancel.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\cancel.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\CompManager.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\Configuration.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\DataEntryUnit.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\Delete.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\DownloadManager.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\FollowUpManager.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\HelpUpdate.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\new.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\PayorTool.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\PeopleManager.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\PolicyManager.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\ReportManager.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\save.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\Save.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\ScreenLogo.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\Setting.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Logo\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Icons\BillingMgr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\briefcase_add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\briefcase_delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\briefcase_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\businesspeople2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\cabinet_open.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\CompMgr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\ConfigurMgr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\Deu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\exit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\floppy_disk_blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\floppy_disk_delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\folder_cubes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\folder_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\folder_gear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\folder_information.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\folder_view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\folder_window.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\FollowUpMgr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\help2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\navigate_cross.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\ReportMgr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\safe_into.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\safe_out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\toolbox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\UserDetail.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\navigate_check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\link_delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\money2_delete1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\money2_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\money2_add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\export.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\flash_yellow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\fax_machine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\notebook_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\nav_refresh_blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\document_view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\businessman_delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\businessman_view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\scroll_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\money_envelope.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\medical_bag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\newspaper_new.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\user_headset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\link_new.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\link_add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\link.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\money_envelope_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\bookkeeper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\chart_gantt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\printer2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\mail_forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\server_mail_download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\earthIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\users4_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\calendar_31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\doctor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\user_telephone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\credit_card.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\data_into.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Icons\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Icons\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Logo\preferences.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Logo\magnifying_glass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Logo\key.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\user_view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Logo\businessman_view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\hand_red_card.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\monitor_preferences.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Logo\safe_out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Logo\floppy_disk_blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyAgencyVault.EmailFax\MyAgencyVault.EmailFax.csproj">
+      <Project>{284093B8-C59A-4274-8446-D7C0C624ED08}</Project>
+      <Name>MyAgencyVault.EmailFax</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAgencyVault.VM\MyAgencyVault.VM.csproj">
+      <Project>{BDDC6452-C31D-47D0-8060-6C67CB970239}</Project>
+      <Name>MyAgencyVault.VM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedLib\Shared.csproj">
+      <Project>{23F563BB-E249-4D76-846D-BE6BE6B8FDA9}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,8 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.CreateEditJournalDetail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Create Edit Journal Detail" Height="300" Width="300">
+    <Grid>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,912 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BDDC6452-C31D-47D0-8060-6C67CB970239}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyAgencyVault.VM</RootNamespace>
+    <AssemblyName>MyAgencyVault.VM</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\MyAgencyVault.VM.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\MyAgencyVault.VM.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ActionLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\ActionLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\SharedLib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>.\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Excel, Version=2.1.2.3, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net20\Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\SharedLib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Outlook.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Outlook.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\Microsoft.Practices.EnterpriseLibrary.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SharedLib\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="NCalc">
+      <HintPath>..\SharedLib\NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\SharedLib\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseVM\BaseCommand.cs" />
+    <Compile Include="Behaviour\AnimatedGifBehaviourTest.cs" />
+    <Compile Include="Behaviour\ButtonClickBehaviour.cs" />
+    <Compile Include="Behaviour\ControlMouseHover.cs" />
+    <Compile Include="Behaviour\FocusExtension.cs" />
+    <Compile Include="Behaviour\FieldType.cs" />
+    <Compile Include="Behaviour\FocusBehaviour.cs" />
+    <Compile Include="Behaviour\MyVisibility.cs" />
+    <Compile Include="Behaviour\SelectionBehavior.cs" />
+    <Compile Include="Behaviour\SingleClickBehaviour.cs" />
+    <Compile Include="Behaviour\DoubleClickBehaviour.cs" />
+    <Compile Include="Behaviour\FocusLostBehaviour.cs" />
+    <Compile Include="Behaviour\TextBoxAutoComplete.cs" />
+    <Compile Include="ClientProxy\ConfigServiceClient.cs" />
+    <Compile Include="ClientProxy\SettingServiceClient.cs" />
+    <Compile Include="CommonItems\AddPayee.cs" />
+    <Compile Include="CommonItems\Application.cs" />
+    <Compile Include="CommonItems\Calander.cs" />
+    <Compile Include="CommonItems\ComboHelper.cs" />
+    <Compile Include="CommonItems\Common.cs" />
+    <Compile Include="CommonItems\ConfigurationContactComman.cs" />
+    <Compile Include="CommonItems\ControlFocus.cs" />
+    <Compile Include="CommonItems\Dispatcher.cs" />
+    <Compile Include="CommonItems\DownloadManager.cs" />
+    <Compile Include="CommonItems\EncriptClass.cs" />
+    <Compile Include="CommonItems\FileUtility.cs" />
+    <Compile Include="CommonItems\GlobalData.cs" />
+    <Compile Include="CommonItems\HelpUpdateVideo.cs" />
+    <Compile Include="CommonItems\IDialogue.cs" />
+    <Compile Include="CommonItems\ImageUploader.cs" />
+    <Compile Include="CommonItems\MaskingHelper.cs" />
+    <Compile Include="CommonItems\OutGoingPaymentTemp.cs" />
+    <Compile Include="CommonItems\PasswordHelper.cs" />
+    <Compile Include="CommonItems\RadioButtonHelper.cs" />
+    <Compile Include="CommonItems\RoleManager.cs" />
+    <Compile Include="CommonItems\SendMail.cs" />
+    <Compile Include="CommonItems\Converters\RdBtnConverter.cs" />
+    <Compile Include="CommonItems\UserPermission.cs" />
+    <Compile Include="CommonItems\WebDevPath.cs" />
+    <Compile Include="Evalutor\Constant.cs" />
+    <Compile Include="Evalutor\Enumerations.cs" />
+    <Compile Include="Evalutor\Expression.cs" />
+    <Compile Include="Evalutor\ExpressionEvaluator.cs" />
+    <Compile Include="Evalutor\ExpressionExecutor.cs" />
+    <Compile Include="Evalutor\ExpressionUtility.cs" />
+    <Compile Include="Evalutor\ExpressionValidator.cs" />
+    <Compile Include="Evalutor\ITokenObject.cs" />
+    <Compile Include="Evalutor\LogEntry.cs" />
+    <Compile Include="Evalutor\LogOperation.cs" />
+    <Compile Include="Evalutor\Operator.cs" />
+    <Compile Include="Evalutor\Token.cs" />
+    <Compile Include="Evalutor\Tokenizer.cs" />
+    <Compile Include="Evalutor\Variable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\MyAgencyVaultSvc\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceClients.cs" />
+    <Compile Include="BaseVM\BaseViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ClientProxy\PolicyServiceClient.cs" />
+    <Compile Include="ServiceExtension.cs" />
+    <Compile Include="SortableCollection\DynamicMethodHandlerFactory.cs" />
+    <Compile Include="SortableCollection\SortableExtensions.cs" />
+    <Compile Include="SortableCollection\SortableObservableCollection.cs" />
+    <Compile Include="SortableCollection\SortDescription.cs" />
+    <Compile Include="UsernameClientBehavior.cs" />
+    <Compile Include="UsernameHeader.cs" />
+    <Compile Include="VMLib\Batch\BaseBatch.cs" />
+    <Compile Include="VMLib\CommissionDashBoardVM.cs" />
+    <Compile Include="VMLib\Configuration\ConfigCarrierCoverages.cs" />
+    <Compile Include="VMLib\Configuration\ConfigPayorCarriers.cs" />
+    <Compile Include="VMLib\Configuration\ConfigPayorContacts.cs" />
+    <Compile Include="VMLib\Configuration\ConfigPayorDefault.cs" />
+    <Compile Include="VMLib\Configuration\ConfigProductSchedule.cs" />
+    <Compile Include="VMLib\Configuration\ConfigSharedData.cs" />
+    <Compile Include="VMLib\DataRefresh.cs" />
+    <Compile Include="VMLib\DEU\DeuFieldCollection.cs" />
+    <Compile Include="VMLib\DEU\DeuFormBuilder.cs" />
+    <Compile Include="VMLib\DEU\DEUFormFields.cs" />
+    <Compile Include="VMLib\DEU\ValidateDeuField.cs" />
+    <Compile Include="VMLib\GenericExcelMapperVM.cs" />
+    <Compile Include="VMLib\PayorForm\AvailableMaskFieldType.cs" />
+    <Compile Include="VMLib\PayorForm\Formula\ImportToolFormula.cs" />
+    <Compile Include="VMLib\PolicyManagerVm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VMLib\PolicyManager\VMPolicyCommission.cs" />
+    <Compile Include="VMLib\PolicyManager\VMPolicyNote.cs" />
+    <Compile Include="VMLib\PolicyManager\VMPolicySchedule.cs" />
+    <Compile Include="VMLib\PolicyManager\VMPolicySmartField.cs" />
+    <Compile Include="VMLib\Setting\CarrierCoverages.cs" />
+    <Compile Include="VMLib\Setting\PayorCarriers.cs" />
+    <Compile Include="VMLib\Setting\SettingSharedData.cs" />
+    <Compile Include="VMLib\ViewValidation.cs" />
+    <Compile Include="VMLib\MainWindowVM.cs" />
+    <Compile Include="VMLib\PayorForm\Adorners\ResizeAdorner.cs" />
+    <Compile Include="VMLib\PayorForm\Adorners\ResizeChrome.cs" />
+    <Compile Include="VMLib\PayorForm\Adorners\RubberbandAdorner.cs" />
+    <Compile Include="VMLib\PayorForm\DesignerCanvas.cs" />
+    <Compile Include="VMLib\PayorForm\DesignerItem.cs" />
+    <Compile Include="VMLib\PayorForm\Formula\Formula.cs" />
+    <Compile Include="VMLib\PayorForm\MoveThumb.cs" />
+    <Compile Include="VMLib\PayorForm\ResizeDecorator.cs" />
+    <Compile Include="VMLib\PayorForm\ResizeThumb.cs" />
+    <Compile Include="VMLib\PayorForm\Toolbox.cs" />
+    <Compile Include="VMLib\PayorForm\ToolboxItem.cs" />
+    <Compile Include="VMLib\PayorToolVM.cs" />
+    <Compile Include="VMLib\PayorToolVMDelegate.cs" />
+    <Compile Include="VMLib\PayorTool\ControlAdder.cs" />
+    <Compile Include="VMLib\PayorTool\DragDropAdviser.cs" />
+    <Compile Include="VMLib\PayorTool\DragDropManager.cs" />
+    <Compile Include="VMLib\PayorTool\DropPreviewAdorner.cs" />
+    <Compile Include="VMLib\PayorTool\HoverAdorner.cs" />
+    <Compile Include="VMLib\PayorTool\HoverInteractor.cs" />
+    <Compile Include="VMLib\PayorTool\IDragSourceAdvisor.cs" />
+    <Compile Include="VMLib\PayorTool\IDropTargetAdvisor.cs" />
+    <Compile Include="VMLib\PayorTool\PayorItems.cs" />
+    <Compile Include="VMLib\PeopleManagerVM.cs" />
+    <Compile Include="VMLib\PolicyClientVm.cs" />
+    <Compile Include="VMLib\SettingsManagerVM.cs" />
+    <Compile Include="VMLib\StatementManagerVM.cs" />
+    <Compile Include="VMLib\VmBillingManager.cs" />
+    <Compile Include="VMLib\VMCompManager.cs" />
+    <Compile Include="VMLib\VMConfigrationManager.cs" />
+    <Compile Include="VMLib\VMConstant.cs" />
+    <Compile Include="VMLib\VMDeu.cs" />
+    <Compile Include="VMLib\VMFollowUpManager.cs" />
+    <Compile Include="VMLib\VMFormulaWindow.cs" />
+    <Compile Include="VMLib\VMHelper.cs" />
+    <Compile Include="VMLib\VMHelpUpdate.cs" />
+    <Compile Include="VMLib\VMInstances.cs" />
+    <Compile Include="VMLib\VMLaunchWebSite.cs" />
+    <Compile Include="VMLib\VMLinkPaymentClientChangeDialog.cs" />
+    <Compile Include="VMLib\VMLoginUser.cs" />
+    <Compile Include="VMLib\VMOptimizePolicyManager.cs" />
+    <Compile Include="VMLib\VMRepManager.cs" />
+    <Compile Include="VMLib\VMReportManager.cs" />
+    <Compile Include="VMLib\VMSharedData.cs" />
+    <Compile Include="VMLib\VMStatementManager.cs" />
+    <Compile Include="VMLib\VMVersionHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\Debug\MyAgencyVault.VM.dll.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="obj\Debug\build.force" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.AdvancedPayee.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Batch.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.BatchAddOutput.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.BatchFiles.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.BatchInsuredRecored.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.BatchStatmentRecords.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.BillingLineDetail.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Carrier.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Client.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ClientAndPayment.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ComDeptService.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.CommissionEntry.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.CompType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ConfigDisplayedPayor.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Coverage.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.CoverageNickName.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DataEntryField.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DEU.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DeuSearchedPolicy.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DisplayBrokerCode.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DisplayedCarrier.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DisplayedCoverage.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DisplayedPayor.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DisplayFollowupIssue.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.DownloadBatch.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ExportCardPayeeInfo.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ExportDate.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ExposedDEU.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.FollowupIncomingPament.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.FollowUPPayorContacts.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Formula.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.GlobalIncomingSchedule.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.GlobalPayorContact.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ImportFileData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ImportToolBrokerSetting.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ImportToolMasterStatementData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ImportToolPaymentDataFieldsSettings.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ImportToolPayorPhrase.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ImportToolSeletedPaymentData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ImportToolStatementDataSettings.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.IncomingPament.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.InsuredPayment.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Invoice.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.InvoiceLine.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.InvoiceLineJournalData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.IssuePolicyDetail.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LastViewPolicy.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LicenseeBalance.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LicenseeDisplayData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LicenseeInvoice.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LicenseeInvoiceJournal.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LicenseeNote.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LicenseeVariableOutputDetail.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LinkedUser.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LinkPaymentPolicies.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.LinkPaymentReciptRecords.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.MaskFieldTypes.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.MasterIssuesOption.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.BatchDownloadStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.ComDeptSupportData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.FileType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.IssueCategory.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.IssueReasons.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.IssueResults.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.IssueStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.LicenseeStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PayorToolAvailablelFieldType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PayorToolIncomingFieldType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PayorToolLearnedlFieldType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PayorToolMaskedFieldType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PolicyDetailMasterData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PolicyIncomingPaymentType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PolicyIncomingScheduleType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PolicyMode.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PolicyOutgoingScheduleType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PolicyStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.PolicyTerminationReason.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.Question.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.Region.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.ServiceChargeType.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.ServiceProduct.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.SystemConstant.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Masters.Zip.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ModifiableStatementData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ModifiyableBatchStatementData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.News.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.OutGoingPayment.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Payee.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Payor.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PayorDefaults.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PayorSiteLoginInfo.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PayorSource.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PayorTemplate.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PayorTool.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyDetailsData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyIncomingSchedule.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyLearnedFieldData.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyNotes.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyOutgoingDistribution.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyOutgoingSchedule.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyPaymentEntriesPost.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicySavedStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicySearched.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicySettings.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PolicyToolIncommingShedule.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PostProcessReturnStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.PrintReportOutput.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Report.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.ReturnStatus.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.SettingDisplayedPayor.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Statement.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.StatementDates.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.Tempalate.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.TranslatorTypes.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.User.datasource" />
+    <None Include="Properties\DataSources\MyAgencyVault.BusinessLibrary.UserPermissions.datasource" />
+    <None Include="Service References\MyAgencyVaultSvc\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\Arrays5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.BusinessLibrary.Masters.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.BusinessLibrary.Masters1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.BusinessLibrary.Masters3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.BusinessLibrary1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.BusinessLibrary3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.EmailFax1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.EmailFax3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.AddUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.AdvancedPayee.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Batch.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.BatchAddOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.BatchDownloadStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.BatchFiles.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.BatchInsuredRecored.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.BatchStatmentRecords.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.BillingLineDetail.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Carrier.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Client.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ClientAndPayment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ComDeptService.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ComDeptSupportData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.CommissionEntry.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.CompType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ConfigDisplayedPayor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Coverage.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.CoverageNickName.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DataEntryField.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DEU.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DeuSearchedPolicy.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DisplayBrokerCode.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DisplayedCarrier.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DisplayedCoverage.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DisplayedPayor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DisplayFollowupIssue.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.DownloadBatch.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ExportCardPayeeInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ExportDate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ExposedDEU.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.FileType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.FollowupIncomingPament.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.FollowUPPayorContacts.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Formula.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.GlobalIncomingSchedule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.GlobalPayorContact.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ImportFileData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ImportToolBrokerSetting.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ImportToolMasterStatementData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ImportToolPaymentDataFieldsSettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ImportToolPayorPhrase.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ImportToolSeletedPaymentData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ImportToolStatementDataSettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.IncomingPament.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.InsuredPayment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Invoice.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.InvoiceLine.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.InvoiceLineJournalData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.IssueCategory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.IssuePolicyDetail.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.IssueReasons.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.IssueResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.IssueStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.JSONResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LastViewPolicy.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeBalance.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeDisplayData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeInvoice.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeInvoiceJournal.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeNote.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LicenseeVariableOutputDetail.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LinkedUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LinkPaymentPolicies.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.LinkPaymentReciptRecords.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.MaskFieldTypes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.MasterIssuesOption.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ModifiableStatementData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ModifiyableBatchStatementData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.News.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.NewVersionInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.OutGoingPayment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Payee.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Payor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorDefaults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorIncomingSchedule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorSiteLoginInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorSource.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorTemplate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorTool.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolAvailablelFieldType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolIncomingFieldType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolLearnedlFieldType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PayorToolMaskedFieldType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyDetailMasterData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyDetailsData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyImportStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyIncomingPaymentType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyIncomingSchedule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyIncomingScheduleType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyLearnedFieldData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyMode.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyNotes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyOutgoingDistribution.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyOutgoingSchedule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyOutgoingScheduleType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyPaymentEntriesPost.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicySavedStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicySearched.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicySettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyTerminationReason.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PolicyToolIncommingShedule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PostProcessReturnStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.PrintReportOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Question.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Region.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Report.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ReportCustomFieldSettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ReturnStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ServiceChargeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.ServiceProduct.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.SettingDisplayedPayor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Statement.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.StatementDates.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.SystemConstant.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Tempalate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.TempFolderDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.TranslatorTypes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.UserPermissions.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.VM.MyAgencyVaultSvc.Zip.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.WcfService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\MyAgencyVault.WcfService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\service1.wsdl" />
+    <None Include="Service References\MyAgencyVaultSvc\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\service3.wsdl" />
+    <None Include="Service References\MyAgencyVaultSvc\service5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\service6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\service7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\System.Data.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\System.Data1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\System.Data2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\itextsharp.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.ServiceLocation.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.Configuration.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.Interception.dll" />
+    <Content Include="bin\Debug\MyAgencyVault.EmailFax.dll" />
+    <Content Include="bin\Debug\MyAgencyVault.EmailFax.pdb" />
+    <Content Include="bin\Debug\MyAgencyVault.VM.dll" />
+    <Content Include="bin\Debug\MyAgencyVault.VM.pdb" />
+    <Content Include="obj\Debug\MyAgencyVault.VM.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\MyAgencyVault.VM.dll" />
+    <Content Include="obj\Debug\TempPE\Service References.MyAgencyVaultSvc.Reference.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Service References.MyAgencyVaultSvc.Reference1.cs.dll" />
+    <None Include="Service References\MyAgencyVaultSvc\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\MyAgencyVaultSvc\configuration.svcinfo" />
+    <None Include="Service References\MyAgencyVaultSvc\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyAgencyVault.BusinessLibrary\MyAgencyVault.BusinessLibrary.csproj">
+      <Project>{EEE1FA9E-FF1E-4E88-87DE-AEC013AC1124}</Project>
+      <Name>MyAgencyVault.BusinessLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyAgencyVault.EmailFax\MyAgencyVault.EmailFax.csproj">
+      <Project>{284093B8-C59A-4274-8446-D7C0C624ED08}</Project>
+      <Name>MyAgencyVault.EmailFax</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\MyAgencyVaultSvc\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

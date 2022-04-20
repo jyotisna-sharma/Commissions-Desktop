@@ -1,0 +1,20 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.InvoiceMonthSelection"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vmlib="clr-namespace:MyAgencyVault.ViewModel.VMLib;assembly=MyAgencyVault.VM"
+        Title="Select Invoice Month" WindowStyle="ToolWindow"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Name="grid" Margin="10" Width="Auto" Height="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="5" Content="Invoice Month" Height="28" ></Label>
+        <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Name="invoiceMonths" Width="100"></ComboBox>
+        <Button Margin="10" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="0"  IsDefault="True" CommandParameter="{Binding ElementName=invoiceMonths,Path=Text}" Command="{Binding ExportCardPayee}" Name="Okbtn" Width="50" Click="Okbtn_Click">OK</Button>
+        <Button Margin="10" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" IsCancel="True" Name="Cancelbtn" Width="50">Cancel</Button>
+    </Grid>
+</Window>

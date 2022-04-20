@@ -1,0 +1,48 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.CreateClient"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+        xmlns:vm="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"
+        xmlns:behaviour="clr-namespace:MyAgencyVault.ViewModel.Behaviour;assembly=MyAgencyVault.VM"
+        xmlns:validation="clr-namespace:MyAgencyVault.WinApp.Validation"
+        xmlns:toolkitExt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+        xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common" 
+    Title="Add Update Client" Height="300" Width="300" WindowStartupLocation="CenterScreen" FocusManager.FocusedElement="{Binding ElementName=txtClientName}">
+    <Border BorderBrush="#577FB2" BorderThickness="1">
+        <Grid Margin="5,5,5,5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition ></RowDefinition>            
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label VerticalAlignment="Center"  Grid.Row="0" Content="Name"></Label>
+        <Label VerticalAlignment="Center" Grid.Row="1" Content="Address"></Label>
+        <Label VerticalAlignment="Center" Grid.Row="2" Content="Zip"></Label>
+        <Label VerticalAlignment="Center" Grid.Row="3" Content="City"></Label>
+        <Label VerticalAlignment="Center" Grid.Row="4" Content="State"></Label>
+        <Label VerticalAlignment="Center" Grid.Row="5" Content="Email"></Label>
+
+            <TextBox validation:FieldDescriptor.GroupName="ClientName" validation:FieldDescriptor.Name="ClientName" TabIndex="0" Name="txtClientName" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" Margin="0,5,0,5" Text="{Binding SelectedClient.Name, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+            <TextBox validation:FieldDescriptor.GroupName="Address" validation:FieldDescriptor.Name="Address" TabIndex="1" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Margin="0,5,0,5" Text="{Binding SelectedClient.Address, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+            <!--<vm:MaskingHelper behaviour:FocusLostBehaviour.FocusLost="{Binding ZipLostFocus}" InputMask="iiiii" TabIndex="2" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Margin="0,5,0,5" Text="{Binding SelectedClient.Zip, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></vm:MaskingHelper>-->
+            <toolkitExt:MaskedTextBox validation:FieldDescriptor.GroupName="ZipCode" TabIndex="2" validation:FieldDescriptor.Name="ZipCode" behaviour:FocusLostBehaviour.FocusLost="{Binding ZipLostFocus}" Mask="00000" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Margin="0,5,0,5" Value="{Binding SelectedClient.Zip, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></toolkitExt:MaskedTextBox>
+            <TextBox validation:FieldDescriptor.GroupName="City" validation:FieldDescriptor.Name="City" TabIndex="3" IsTabStop="False" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" Margin="0,5,0,5" Text="{Binding SelectedClient.City, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+            <TextBox validation:FieldDescriptor.GroupName="State" validation:FieldDescriptor.Name="State" TabIndex="4" IsTabStop="False" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Margin="0,5,0,5" Text="{Binding SelectedClient.State, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+            <TextBox validation:FieldDescriptor.GroupName="E-mail" validation:FieldDescriptor.Name="E-mail" TabIndex="5" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Margin="0,5,0,5" Text="{Binding SelectedClient.Email, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+        <WrapPanel Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right"  Margin="0,5,0,5">
+                <Button TabIndex="6" Content="Save" Style="{StaticResource SaveButton}" Command="{Binding InsertClient}"></Button>
+            <Separator Width=" 10" Visibility="Hidden"></Separator>
+                <Button TabIndex="7" Content="Cancel" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image=".\Images\Icons\navigate_cross.png" Command="{Binding CancelCommand}"></Button>
+            </WrapPanel>        
+    </Grid>
+    </Border>
+</Window>

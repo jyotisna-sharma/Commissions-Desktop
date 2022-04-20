@@ -1,0 +1,19 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.WaitDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+        xmlns:vm="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"
+        xmlns:toolkitExt="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+        xmlns:local="clr-namespace:MyAgencyVault.WinApp"
+    Title="Please Wait..." Height="138" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Loaded="Window_Loaded">
+    <StackPanel>
+        <TextBlock Margin="3" TextWrapping="Wrap" x:Name="txtDialog"/>
+        <local:CircularProgressBar
+            StartupDelay="0"
+            Foreground="CornflowerBlue"
+            Height="50"
+            Margin="5"></local:CircularProgressBar>
+    </StackPanel>
+</Window>
+

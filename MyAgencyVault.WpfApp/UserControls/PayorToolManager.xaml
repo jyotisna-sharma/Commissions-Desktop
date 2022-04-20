@@ -1,0 +1,347 @@
+﻿<UserControl x:Class="MyAgencyVault.WinApp.UserControls.PayorToolManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+             xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common" 
+            xmlns:payorForm="clr-namespace:MyAgencyVault.VM.VMLib.PayorForm;assembly=MyAgencyVault.VM"
+            xmlns:vm="clr-namespace:MyAgencyVault.ViewModel.PayorToolLib;assembly=MyAgencyVault.VM"   
+            xmlns:vmImage="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+      Width="793" VerticalAlignment="Stretch" HorizontalAlignment="Left" >                 
+    <UserControl.Resources>        
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Red" FontSize="10" Text="*" ToolTip="{Binding [0].ErrorContent}" VerticalAlignment="Center"/>
+                <AdornedElementPlaceholder/>
+            </StackPanel>
+        </ControlTemplate>
+        <!-- Changes By Hoshi-->
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorTemplate}" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                   
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type PasswordBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorTemplate}" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+        <Style TargetType="{x:Type toolkit:DatePicker}">
+            <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorTemplate}"/>
+        </Style>
+        <vmImage:BooleanConverter x:Key="ValueConverter" />
+    </UserControl.Resources>      
+           <Grid>
+     <Grid.ColumnDefinitions>
+           <ColumnDefinition Width="1" />
+               <ColumnDefinition Width="5"></ColumnDefinition>
+               <ColumnDefinition Width="*"></ColumnDefinition>
+               <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="1" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+            <RowDefinition Height="2"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="4"></RowDefinition>
+            <RowDefinition Height="500"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="#577FB2" BorderThickness="1"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="8" Grid.RowSpan="2"></Border>
+        <Border BorderBrush="#577FB2" BorderThickness="1"  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="8" Grid.RowSpan="2"></Border>
+        <Grid IsEnabled="{Binding IsPayorPresent}" Grid.Column="2" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="95"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="95"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition  Height="5"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition Height="0.3*"></RowDefinition>
+                <RowDefinition Height="0*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment ="Center" Width="50">Payor</Label>
+
+            <ComboBox  Grid.Column="1" Grid.Row="2" Height="20" ItemsSource="{Binding Path=Payors}" DropDownClosed="ComboBox_DropDownClosed" SelectedItem="{Binding SelectedPayor}" IsSynchronizedWithCurrentItem="True" SelectedIndex="{Binding CurrentIndex}"  VerticalAlignment ="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="{Binding Path=PayorName}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label Grid.Column="2" Grid.Row="2" VerticalAlignment ="Center" Width="50">Template</Label>
+            <ComboBox Grid.Column="3" Grid.Row="2" Height="20" ItemsSource="{Binding Path=PayorTemplate,Mode=TwoWay}"  SelectionChanged="ComboBox_SelectionChanged" SelectedItem="{Binding SelectedPayortempalate}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding TemplateName}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!--<TextBox Grid.Column="3" Grid.Row="4" Name="txtPayor" VerticalAlignment ="Center"></TextBox>-->
+            <WrapPanel  Grid.Column="4" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="8">
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <TextBlock>
+                    <Hyperlink  Command="{Binding btnAddTemplate}"  >Add</Hyperlink>
+                </TextBlock>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <TextBlock>
+                    <Hyperlink Command="{Binding btnDeleteTempalte}">Delete</Hyperlink>
+                    <!--<Hyperlink Command="{Binding DeletePayorTool}">Delete</Hyperlink>-->
+                </TextBlock>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <TextBlock><Hyperlink Name="hyperDulplicate" Command="{Binding ShowDuplicatePayors}">Duplicate</Hyperlink></TextBlock>
+                <Separator Width="10" Visibility="Hidden"></Separator>
+                <WrapPanel Visibility="{Binding IsShowDuplicate}">
+                    <TextBlock   Text="Copy To"></TextBlock>
+                    <Separator Width="10"  Visibility="Hidden"></Separator>
+                    <ComboBox Width="90"   Height="20" ItemsSource="{Binding Path=DuplicatePayors}" SelectedItem="{Binding SelectedDuplicatePayor}" IsSynchronizedWithCurrentItem="True"  VerticalAlignment ="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=PayorName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Separator Width="10" Visibility="Hidden"></Separator>
+                    <ComboBox  Height="20" Width="90" ItemsSource="{Binding Path=DuplicatePayorTemplate,Mode=TwoWay}" SelectedItem="{Binding DuplicateSelectedPayortempalate}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TemplateName}" ></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Separator Width="10" Visibility="Hidden"></Separator>
+                    <Button Width="30" Command="{Binding ClosePanel}" >OK</Button>
+                    <Separator Width="10" Visibility="Hidden"></Separator>
+                    <Button Width="45" Command="{Binding CancelDuplicate}" >Cancel</Button>
+                </WrapPanel>
+            </WrapPanel>
+
+            <!--<payorForm:DesignerCanvas AllowDrop="True" x:Name="dropCanvas" Grid.Column="0" Grid.Row="4" Grid.RowSpan="5" Grid.ColumnSpan="12">
+                <TextBox payorForm:DesignerCanvas.ZIndex = "0" Name="HiddenTextBox" Width="0" Height="0"></TextBox>
+                <Image payorForm:DesignerCanvas.ZIndex = "1"  StretchDirection="Both" Stretch="Fill" x:Name="imgPayor" Source="{Binding Path=ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </Image>
+            </payorForm:DesignerCanvas>-->
+            
+            <payorForm:DesignerCanvas AllowDrop="True" x:Name="dropCanvas" Grid.Column="0" Grid.Row="4" Grid.RowSpan="5" Grid.ColumnSpan="12"  Width="778" Height="130">
+                <TextBox payorForm:DesignerCanvas.ZIndex = "0" Name="HiddenTextBox" Width="0" Height="0"></TextBox>
+                <Image payorForm:DesignerCanvas.ZIndex = "1"  StretchDirection="Both" Stretch="Fill" x:Name="imgPayor" Height="130" Width="778" Source="{Binding Path=ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </Image>
+            </payorForm:DesignerCanvas>
+
+            <WrapPanel  Grid.Column="1" Grid.Row="9"  Grid.ColumnSpan="9" VerticalAlignment="Center">
+                <!--Comment by hoshi Because of errors-->
+                <TextBlock><Hyperlink x:Name="Hypechang" vmImage:ImageUploader.FileName="{Binding ElementName=imgPayor}">Change/Upload Image</Hyperlink></TextBlock>
+                <Separator Width="30" Visibility="Hidden"></Separator>
+                <RadioButton  Name="rdStatementUpload" Command="{Binding StatementUpload}" IsChecked="{Binding Path=DisplayImage,Converter={  StaticResource ValueConverter},ConverterParameter=StatementUpload}" CommandParameter="StatementUpload">Statement Upload</RadioButton>
+                <Separator Width="20" Visibility="Hidden"></Separator>
+                <RadioButton Name="rdAmountUpload" Command="{Binding AmountUpload}" IsChecked="{Binding Path=DisplayImage,Converter={  StaticResource ValueConverter},ConverterParameter=AmountUpload}" CommandParameter="AmountUpload">Check Amount Upload</RadioButton>
+                <Separator Width="40" Visibility="Hidden"></Separator>
+            </WrapPanel>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="0.04*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0,1,0,10">
+                <Label Grid.Column="0" Grid.Row="1" Content="Fields Available" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0.5,2,3">
+                </Label>
+                <Canvas x:Name="dragCanvas" Margin="0,0,0,0" Grid.Column="0" Grid.Row="2" Height="370">
+                    <payorForm:Toolbox DefaultItemSize="365,30" Height="365" Width="272" BorderBrush="#FF577FB2" SelectionMode= "Single"
+                                ItemsSource="{Binding FieldsList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedFieldName}">
+                        <payorForm:Toolbox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FieldName}"></TextBlock>
+                            </DataTemplate>
+                        </payorForm:Toolbox.ItemTemplate>
+                    </payorForm:Toolbox>
+                </Canvas>
+                <WrapPanel VerticalAlignment="Center" Height="30" Margin="0,6,0,0">
+                    <TextBox Width="200" Height="22" MaxLength="20" Text="{Binding Path=AvaiableFieldName,UpdateSourceTrigger=PropertyChanged}"  ></TextBox>
+                    <Separator Visibility="Hidden" Width="10"></Separator>
+                    <Button Margin="5,0,0,0" Width="55" Command="{Binding AddAvailableField}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\floppy_disk_blue.png" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">Add</Button>
+                </WrapPanel>
+                <WrapPanel HorizontalAlignment="Right" Height="30" VerticalAlignment="Center" Margin="0,-1,0,0">
+                    <ComboBox Width="200" Height="22" ItemsSource="{Binding DeletableFieldList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedDeletableFieldName}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FieldName}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Separator Visibility="Hidden" Width="10"></Separator>
+                    <Button  Style="{StaticResource DeleteButton}" Command="{Binding RemoveField}" >Delete</Button>
+                </WrapPanel>
+            </StackPanel>
+            <Grid IsEnabled="{Binding IsFieldPresent}" Margin="0,20,0,5"  Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.90*"></RowDefinition>
+                    <RowDefinition Height="0.15*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+                <Grid Grid.RowSpan="2" Height="445" Margin="0,0,0,25">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="15"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="15"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="35"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Border Margin="0,-5,0,-5" BorderBrush="#577FB2" BorderThickness="1"  Grid.RowSpan="6" Grid.ColumnSpan="2"></Border>
+                    <Border Margin="0,-5,0,-5" BorderBrush="#577FB2" BorderThickness="1"  Grid.Row="7" Grid.RowSpan="6" Grid.ColumnSpan="2"></Border>
+                    <Border Margin="0,-5,0,-5" BorderBrush="#577FB2" BorderThickness="1"  Grid.Row="14" Grid.RowSpan="3" Grid.ColumnSpan="2"></Border>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="0">Label On Image</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="1">Field Status</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0"  VerticalAlignment="Center" Grid.Row="2">Field Order</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0"  VerticalAlignment="Center" Grid.Row="3">Part Of Primary Key</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0"  VerticalAlignment="Center" Grid.Row="4">Populate If Linked</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="5">Tab To Next Field (If Linked)</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="7">Calculated Field</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="8">Allow Override Of Calc</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="9">Mask/Field Type</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="10" Content="{Binding PayToolData.DefaultValueLabel}"></Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="11">Allow 0 Or Blank</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="12">Justify</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="14">Map To Incoming Field</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="15">Map To Learned Field</Label>
+                    <Label Margin="5,0,0,0" Grid.Column="0" VerticalAlignment="Center" Grid.Row="16">Help Text</Label>
+                    <TextBox Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Text="{Binding PayToolData.LabelOnImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                    <!--<WrapPanel IsEnabled="{Binding PayToolData.EnableDisableStatusField}" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan ="2" VerticalAlignment="Center">-->
+                    <WrapPanel  Grid.Column="3" Grid.Row="1" Grid.ColumnSpan ="2" VerticalAlignment="Center">
+                        <RadioButton GroupName="FieldStatus" Command="{Binding PayToolData.FieldStatusChanged}" CommandParameter="Visible"  IsChecked="{Binding Path=PayToolData.VisibleField, Mode=TwoWay}">Required</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="FieldStatus" Command="{Binding PayToolData.FieldStatusChanged}" CommandParameter="NotVisible" IsChecked="{Binding Path=PayToolData.NotVisibleField, Mode=TwoWay}">Invisible</RadioButton>
+                    </WrapPanel>
+
+                    <ComboBox Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" Width="50"  VerticalAlignment="Center"  ItemsSource="{Binding Path=TabOrders}" SelectedIndex="{Binding PayToolData.TabOrder}">
+                    </ComboBox>
+                    <WrapPanel Grid.Column="3" Grid.Row="3" Grid.ColumnSpan ="2" VerticalAlignment="Center">
+                        <!--<WrapPanel IsEnabled="{Binding PayToolData.EnableDisablePartPrimaryKey}" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan ="2" VerticalAlignment="Center">-->
+                        <RadioButton GroupName="PrimaryKey" Command="{Binding PayToolData.PrimaryKeyChanged}" CommandParameter="Yes" IsChecked="{Binding Path=PayToolData.PrimaryKeyYesField,Mode=TwoWay}">Yes</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="PrimaryKey" Command="{Binding PayToolData.PrimaryKeyChanged}" CommandParameter="No" IsChecked="{Binding Path=PayToolData.PrimaryKeyNoField, Mode=TwoWay}">No</RadioButton>
+                    </WrapPanel>
+
+                    <WrapPanel IsEnabled="{Binding PayToolData.EnableDisablePopolatedIfLink}" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan ="2" VerticalAlignment="Center" >
+                        <RadioButton GroupName="PopulateIfLink" Command="{Binding PayToolData.PopulateInLinked}" CommandParameter="Yes" IsChecked="{Binding Path=PayToolData.PopulatedIfLinkYesField, Mode=TwoWay}" >Yes</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="PopulateIfLink" Command="{Binding PayToolData.PopulateInLinked}" CommandParameter="No" IsChecked="{Binding Path=PayToolData.PopulatedIfLinkNoField, Mode=TwoWay}">No</RadioButton>
+                    </WrapPanel>
+
+                    <WrapPanel IsEnabled="{Binding PayToolData.EnableDisableTabToNextIfLinked}" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan ="2" VerticalAlignment="Center" >
+                        <RadioButton GroupName="TabToNextFieldIfLink" Command="{Binding PayToolData.TabToNextField}" CommandParameter="Yes" IsChecked="{Binding Path=PayToolData.TabToNextYesField, Mode=TwoWay}">Yes</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="TabToNextFieldIfLink" Command="{Binding PayToolData.TabToNextField}" CommandParameter="No" IsChecked="{Binding Path=PayToolData.TabToNextNoField,Mode=TwoWay}">No</RadioButton>
+                    </WrapPanel>
+                    <WrapPanel IsEnabled="{Binding PayToolData.EnableDisableCalculatedField}" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan ="2" VerticalAlignment="Center" >
+                        <RadioButton GroupName="CalculatedField" Command="{Binding PayToolData.CalculatedField}" CommandParameter="Yes" IsChecked="{Binding Path=PayToolData.CalculatedYesField, Mode=TwoWay}">Yes</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="CalculatedField" Command="{Binding PayToolData.CalculatedField}" CommandParameter="No" IsChecked="{Binding Path=PayToolData.CalculatedNoField, Mode=TwoWay}">No</RadioButton>
+                        <Separator Width="15" Visibility="Hidden"></Separator>
+                        <Button IsEnabled="{Binding PayToolData.EnableDisableAddFormula}" Command="{Binding OpenWindow}"  Style="{StaticResource ImageButtonSave}" >Add/Modify Formula...</Button>
+                        <Separator Width="10" Visibility="Hidden"></Separator>
+                        <Button IsEnabled="{Binding PayToolData.EnableDisableDeleteFormula}"  Command="{Binding DeleteFormula}" Style="{StaticResource ImageButtonSave}">Delete Formula</Button>
+                    </WrapPanel>
+                    <WrapPanel IsEnabled="{Binding PayToolData.EnableDisableAllowOverrideCalculation}" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan ="2" VerticalAlignment="Center" >
+                        <RadioButton GroupName="AllowOverrideCalc" Command="{Binding PayToolData.OverrideCalculatedField}" CommandParameter="Yes" IsChecked="{Binding Path=PayToolData.OverrideCalculationYesField, Mode=TwoWay}">Yes</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="AllowOverrideCalc" Command="{Binding PayToolData.OverrideCalculatedField}" CommandParameter="No" IsChecked="{Binding Path=PayToolData.OverrideCalculationNoField, Mode=TwoWay}">No</RadioButton>
+                    </WrapPanel>
+                    <ComboBox Grid.Column="3" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding MaskDisplayFields, Mode=TwoWay}" SelectedItem="{Binding SelectedMaskField}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=MaskName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    
+                    <TextBox Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding PayToolData.DefaultValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100"></TextBox>
+                    <WrapPanel Grid.Column="3" Grid.Row="11" Grid.ColumnSpan ="2" VerticalAlignment="Center" IsEnabled="{Binding PayToolData.EnableDisablePrimaryKey}">
+                        <RadioButton GroupName="AllowZeroOrBlank" Command="{Binding PayToolData.AllowZeroOrBlank}" CommandParameter="Yes" IsChecked="{Binding Path=PayToolData.AllowZeroBlankYesField, Mode=TwoWay}">Yes</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="AllowZeroOrBlank" Command="{Binding PayToolData.AllowZeroOrBlank}" CommandParameter="No" IsChecked="{Binding Path=PayToolData.AllowZeroBlankNoField, Mode=TwoWay}">No</RadioButton>
+                    </WrapPanel>
+                    <WrapPanel Grid.Column="3" Grid.Row="12" Grid.ColumnSpan ="2" VerticalAlignment="Center">
+                        <RadioButton GroupName="Justify" Command="{Binding PayToolData.Justify}" CommandParameter="Yes" IsChecked="{Binding Path=PayToolData.JustifyLeftField,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">Left</RadioButton>
+                        <Separator Width="12" Visibility="Hidden"></Separator>
+                        <RadioButton GroupName="Justify" Command="{Binding PayToolData.Justify}" CommandParameter="No" IsChecked="{Binding Path=PayToolData.JustifyRightField,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">Right</RadioButton>
+                    </WrapPanel>
+                    <StackPanel Grid.Column="3" Grid.Row="14" Orientation="Horizontal">
+                        <TextBox Text="{Binding CurrentPayorFieldProperty.EquivalentIncomingField}" IsReadOnly="True" HorizontalAlignment="Left" Width="150" VerticalAlignment="Center"></TextBox>
+                        
+                    </StackPanel>
+                    <TextBox Text="{Binding CurrentPayorFieldProperty.EquivalentLearnedField}" IsReadOnly="True" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Left" Width="150" VerticalAlignment="Top"></TextBox>
+                    
+                    <TextBox Grid.Column="3" Grid.Row="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="335" Text="{Binding PayToolData.HelpText,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
+                    <WrapPanel Margin="0,5,0,0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="17" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button Cursor="Hand" Height="22"   VerticalAlignment="Top" HorizontalAlignment="Right" Content="Save" Command="{Binding SavePayorToolInfo}" CommandParameter="{Binding ElementName=dropCanvas}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images/Icons/floppy_disk_blue.png"></Button>
+                        <Separator Width="10" Visibility="Hidden" ></Separator>
+                        <Button Cursor="Hand" Height="22"   VerticalAlignment="Top" HorizontalAlignment="Right" Content="Cancel" Command="{Binding CancelPayorToolInfo}" Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images/Icons/navigate_cross.png"></Button>
+                    </WrapPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>       
+ 
+</UserControl>

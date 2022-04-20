@@ -1,0 +1,76 @@
+﻿<Window
+    x:Class="MyAgencyVault.WinApp.CommissionDashBoardReverse"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"   
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+    xmlns:vmlib="clr-namespace:MyAgencyVault.VMLib;assembly=MyAgencyVault.VM"
+              xmlns:vmlib1="clr-namespace:MyAgencyVault.ViewModel.VMLib;assembly=MyAgencyVault.VM"    
+     xmlns:behaviour="clr-namespace:MyAgencyVault.ViewModel.Behaviour;assembly=MyAgencyVault.VM"
+     xmlns:Conver="clr-namespace:MyAgencyVault.ViewModel.Converters;assembly=MyAgencyVault.VM" 
+             xmlns:FocusView="clr-namespace:MyAgencyVault.ViewModel.CommonItems;assembly=MyAgencyVault.VM"
+    Title="OutGoing Payment Reverse"
+    Height="171"
+    Width="418"
+    Background="#B8D9FF"
+    WindowStartupLocation="CenterScreen" 
+    WindowStyle="ToolWindow"
+    ResizeMode="NoResize"
+    UseLayoutRounding="True"
+    TextOptions.TextFormattingMode="Display" Loaded="Window_Loaded">
+
+    <Grid Height="131" Width="393">
+        <Grid.Resources>
+            <Conver:PercentageConverter x:Key="percentageConv"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="12*" />
+            <ColumnDefinition Width="200*" />
+            <ColumnDefinition Width="168*" />
+            <ColumnDefinition Width="13*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="31*" />
+            <RowDefinition Height="31*" />
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="24*" />
+            <RowDefinition Height="8*" />
+        </Grid.RowDefinitions>
+        <Button TabIndex="3"
+            Name="btnUpdate"
+            Content="Update"
+            Height="23"
+            Style="{StaticResource SaveButton}"
+            HorizontalAlignment="Center"
+            Margin="6,1,86,0"
+            VerticalAlignment="Center"
+            Width="76" 
+         
+            IsDefault="True"
+            Command="{Binding UpdateReverseCommDashPayee}" Grid.Row="4" Grid.Column="2" />
+
+        <Button TabIndex="4"
+            Name="btnCancel"
+            Content="Cancel" 
+            Height="23" 
+            HorizontalAlignment="Center" 
+            Style="{StaticResource ImageButtonSave}" local:EyeCandy.Image="..\Images\Icons\navigate_cross.png"
+            Margin="86,1,1,0"
+            VerticalAlignment="Center"
+            Width="81" 
+            IsCancel="True" Grid.Row="4" Command="{Binding CancleCommDashPayee}" Grid.Column="2" />
+        <Label Content="{Binding CompensationPaidToAgentA}" Height="28" HorizontalAlignment="Left" Margin="0,3,0,30" Name="label1" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="200" Grid.RowSpan="2" Grid.Column="1" />
+        <Label Content="{Binding ReverseFromAgentA}" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="0,4,0,30" Name="label2" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="200" Grid.RowSpan="2" Grid.Column="1" />
+        <ComboBox Height="23" HorizontalAlignment="Left" TabIndex="2" SelectedIndex="0" ItemsSource="{Binding CommDashPayeeLst}" SelectedItem="{Binding SelectedCommDashPayee}"  Margin="6,7,0,0" Name="cbClient" 
+                  VerticalAlignment="Top" Width="161" Grid.Row="2" Grid.Column="2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding NickName}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Height="28" IsReadOnly="True" behaviour:FocusGotBehaviour.FocusGot="SelectAll" TabIndex="0" Text="{Binding CommissionDashBoardSelecetdOutGoingPaymentLst.PaidAmount,StringFormat=c}" Name="Client" HorizontalAlignment="Left"  Margin="6,3,0,30" VerticalAlignment="Center"  Width="161" HorizontalContentAlignment="Left"  Foreground="Black" Grid.Column="2" Grid.RowSpan="2" />
+        <Label Content="{Binding NewPayeeToPay}"  Height="28" HorizontalAlignment="Left" Margin="0,4,0,6" Name="label3" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="200" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" />
+        <TextBox Height="28" TabIndex="1" behaviour:FocusGotBehaviour.FocusGot="SelectAll" Text="{Binding AmountToReverse,Converter={StaticResource percentageConv},StringFormat=p}" HorizontalAlignment="Left" Margin="6,4,0,30" Name="textBox1" VerticalAlignment="Center" Width="161" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" />
+    </Grid>
+</Window>

@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="MyAgencyVaultInstaller" Language="1033" Version="3.1.0.5" Manufacturer="MyAgencyVault" UpgradeCode="11ca1a0d-9086-45f6-8f34-d03bf4e74596">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
+    <!--<Media Id="1" Cabinet="CabFileName.cab" EmbedCab="yes" />-->
+    <!--Ankit on Dec12,2017 For add folder and file with installer-->
+    <!--for refeerence:http://www.c-sharpcorner.com/UploadFile/cb88b2/getting-started-with-wix-windows-installer-xml-in-vs2012/-->
+    <Feature Id="ProductFeature" Title="MyAgencyVaultInstaller" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ProductImages" />
+      <ComponentGroupRef Id="ProductImagesIcon" />
+      <ComponentGroupRef Id="ProductImagesLogo" />
+      <!--<Component Id="MyExeComponent"/>-->
+
+    </Feature>
+  </Product>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="MyAgencyVaultInstaller">
+          <Directory Id="test1" Name="Images">
+            <Component Id="test1" Guid="11ca1a0d-9086-45f6-8f34-d03bf4e74595"
+              SharedDllRefCount="no" KeyPath="no" NeverOverwrite="no" Permanent="no" Transitive="no"
+              Win64="no" Location="either">
+              <CreateFolder/>
+            </Component>
+            <Directory Id="test2" Name="Icons">
+              <Component Id="test2" Guid="4F9D5939-7011-4D99-A65B-3F0A2130622B"
+                SharedDllRefCount="no" KeyPath="no" NeverOverwrite="no" Permanent="no" Transitive="no"
+                Win64="no" Location="either">
+                <CreateFolder/>
+              </Component>
+            </Directory>
+            <Directory Id="test3" Name="Logo">
+              <Component Id="test3" Guid="90D7B520-4A37-42AC-AB62-F5485A89FCC9"
+                SharedDllRefCount="no" KeyPath="no" NeverOverwrite="no" Permanent="no" Transitive="no"
+                Win64="no" Location="either">
+                <CreateFolder/>
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder"  Name="Desktop" />
+    </Directory>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="MyExeComponent" Guid="b8e6daf9-4693-4846-8c4b-c0b6b07dd125">
+        <Shortcut
+          Id="DesktopShortcut"
+          Target="[INSTALLFOLDER]MyAgencyVault.WinApp.exe"
+          Name="MyAgencyVault"
+          WorkingDirectory="INSTALLFOLDER" >
+          <!--.\Icons\ShortCutControl.ico-->
+          <Icon Id="Mydeskicon" SourceFile="../MyAgencyVault.WpfApp/Images/Icons/ShortCutControl.ico" />
+        </Shortcut>
+        <RegistryValue Root="HKCU" Key="software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <Feature Id="test1" Title="testfolder" Level="1">
+      <ComponentRef Id="test1"/>
+    </Feature>
+    <Feature Id="MergeRedirectFolder" Title="testfolder" Level="1">
+      <ComponentRef Id="MyExeComponent"/>
+    </Feature>
+    <Feature Id="test2" Title="testfolder" Level="1">
+      <ComponentRef Id="test2"/>
+    </Feature>
+    <Feature Id="test3" Title="testfolder" Level="1">
+      <ComponentRef Id="test3"/>
+    </Feature>
+  </Fragment>
+  <Fragment>
+    <!--Source="../MyAgencyVault.WpfApp/bin/Release/Images-->
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER" Source="../MyAgencyVault.WpfApp/bin/Release">
+      <Component Id="CMP_MyAgencyVaultInstaller">
+        <File Id="FILE_MyAgencyVault.WpfApp.exe" Source="$(var.MyAgencyVault.WpfApp.TargetPath)" KeyPath="yes" />
+      </Component>
+      <Component Id="WPFToolkit.dll">
+        <File Name="WPFToolkit.dll" />
+      </Component>
+      <Component Id="small.png">
+        <File Name="small.png"    Source= "../MyAgencyVault.WpfApp/Images/small.png"/>
+      </Component>
+      <Component Id="WPFToolkit.Extended.dll">
+        <File Name="WPFToolkit.Extended.dll" />
+      </Component>
+      <Component Id="WPFToolkit.Design.dll">
+        <File Name="WPFToolkit.Design.dll" />
+      </Component>
+      <Component Id="WcfHttpCompressionEnabler.dll">
+        <File Name="WcfHttpCompressionEnabler.dll" />
+      </Component>
+      <Component Id="System.Windows.Interactivity.dll">
+        <File Name="System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="System.Windows.Controls.Input.Toolkit.dll">
+        <File Name="System.Windows.Controls.Input.Toolkit.dll" />
+      </Component>
+      <Component Id="MyAgencyVault.WinApp.exe.config">
+        <File Name="MyAgencyVault.WinApp.exe.config" />
+      </Component>
+      <Component Id="stdole.dll">
+        <File Name="stdole.dll" />
+      </Component>
+      <Component Id="SharedLib.dll">
+        <File Name="SharedLib.dll" />
+      </Component>
+      <Component Id="office.dll">
+        <File Name="office.dll" />
+      </Component>
+      <Component Id="NCalc.dll">
+        <File Name="NCalc.dll" />
+      </Component>
+      <Component Id="MyAgencyVault.VM.dll">
+        <File Name="MyAgencyVault.VM.dll" />
+      </Component>
+      <Component Id="MyAgencyVault.EmailFax.dll">
+        <File Name="MyAgencyVault.EmailFax.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.Unity.Interception.dll">
+        <File Name="Microsoft.Practices.Unity.Interception.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.Unity.dll">
+        <File Name="Microsoft.Practices.Unity.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.Unity.Configuration.dll">
+        <File Name="Microsoft.Practices.Unity.Configuration.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.ServiceLocation.dll">
+        <File Name="Microsoft.Practices.ServiceLocation.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.EnterpriseLibrary.Validation.dll">
+        <File Name="Microsoft.Practices.EnterpriseLibrary.Validation.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.EnterpriseLibrary.Common.dll">
+        <File Name="Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+      </Component>
+      <Component Id="Microsoft.Office.Interop.Outlook.dll">
+        <File Name="Microsoft.Office.Interop.Outlook.dll" />
+      </Component>
+      <Component Id="itextsharp.dll">
+        <File Name="itextsharp.dll" />
+      </Component>
+      <Component Id="ICSharpCode.SharpZipLib.dll">
+        <File Name="ICSharpCode.SharpZipLib.dll" />
+      </Component>
+      <Component Id="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF.dll">
+        <File Name="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF.dll"  Source= "../MyAgencyVault.VM/bin/debug/Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WPF.dll" />
+      </Component>
+      <Component Id="Excel.dll">
+        <File Name="Excel.dll" />
+      </Component>
+      <Component Id="EPPlus.dll">
+        <File Name="EPPlus.dll" />
+      </Component>
+
+      <Component Id="appt.config">
+        <File Name="app.config" />
+      </Component>
+      <Component Id="Antlr3.Runtime.dll">
+        <File Name="Antlr3.Runtime.dll" />
+      </Component>
+      <Component Id="ActionLogger.dll">
+        <File Name="ActionLogger.dll" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ProductImages" Directory="test1" Source="../MyAgencyVault.WpfApp/bin/Release/Images" >
+      <Component Id="backGroundLogo.png">
+        <File Name="backGroundLogo.png" />
+      </Component>
+      <Component Id="OxfordHealthBlankTemplate.bmp">
+        <File Name="OxfordHealthBlankTemplate.bmp" />
+      </Component>
+      <Component Id="OxfordHealthTemplate.bmp">
+        <File Name="OxfordHealthTemplate.bmp" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ProductImagesIcon" Directory="test2" Source="../MyAgencyVault.WpfApp/bin/Release/Images/Icons" >
+      <Component Id="folder_window.png">
+        <File Name="folder_window.png" />
+      </Component>
+      <Component Id="BillingMgr.png">
+        <File Name="BillingMgr.png" />
+      </Component>
+      <Component Id="bookkeeper.png">
+        <File Name="bookkeeper.png" />
+      </Component>
+      <Component Id="briefcase_add.png">
+        <File Name="briefcase_add.png" />
+      </Component>
+      <Component Id="briefcase_delete.png">
+        <File Name="briefcase_delete.png" />
+      </Component>
+      <Component Id="briefcase_edit.png">
+        <File Name="briefcase_edit.png" />
+      </Component>
+      <Component Id="businessman_delete.png">
+        <File Name="businessman_delete.png" />
+      </Component>
+      <Component Id="businessmancomponent1">
+        <File Id="businessman_view"  Source="../MyAgencyVault.WpfApp/bin/Release/Images/Icons/businessman_view.png"/>
+      </Component>
+      <Component Id="ShortCutControl.ico">
+        <File Id="ShortCutControl.ico"  Source="../MyAgencyVault.WpfApp/Images/Icons/ShortCutControl.ico"/>
+      </Component>
+      <Component Id="businesspeople2.png">
+        <File Name="businesspeople2.png" />
+      </Component>
+      <Component Id="cabinet_open.png">
+        <File Name="cabinet_open.png" />
+      </Component>
+      <Component Id="calendar_31.png">
+        <File Name="calendar_31.png" />
+      </Component>
+      <Component Id="chart_gantt.png">
+        <File Name="chart_gantt.png" />
+      </Component>
+      <Component Id="CompMgr.png">
+        <File Name="CompMgr.png" />
+      </Component>
+      <Component Id="ConfigurMgr.png">
+        <File Name="ConfigurMgr.png" />
+      </Component>
+      <Component Id="credit_card.png">
+        <File Name="credit_card.png" />
+      </Component>
+      <Component Id="data_into.png">
+        <File Name="data_into.png" />
+      </Component>
+      <Component Id="deletecomponent1.png">
+        <File Id="deleteid.png"  Source="../MyAgencyVault.WpfApp/bin/Release/Images/Icons/delete.png"/>
+      </Component>
+      <Component Id="Deu.png">
+        <File Name="Deu.png" />
+      </Component>
+      <Component Id="doctor.png">
+        <File Name="doctor.png" />
+      </Component>
+      <Component Id="document_view.png">
+        <File Name="document_view.png" />
+      </Component>
+      <Component Id="download.png">
+        <File Name="download.png" />
+      </Component>
+      <Component Id="exc.png">
+        <File Name="exc.png" />
+      </Component>
+      <Component Id="exit.png">
+        <File Name="exit.png" />
+      </Component>
+      <Component Id="export.png">
+        <File Name="export.png" />
+      </Component>
+      
+      <Component Id="fax_machine.png">
+        <File Name="fax_machine.png" />
+      </Component>
+      <Component Id="flash_yellow.png">
+        <File Name="flash_yellow.png" />
+      </Component>
+      <Component Id="floppydiskbluecomponent1.png">
+        <File Id="floppydiskblueid1.png" Source="../MyAgencyVault.WpfApp/bin/Release/Images/Icons/floppy_disk_blue.png" />
+      </Component>
+      <Component Id="floppy_disk_delete.png">
+        <File Name="floppy_disk_delete.png" />
+      </Component>
+      <Component Id="folder_cubes.png">
+        <File Name="folder_cubes.png" />
+      </Component>
+      <Component Id="folder_edit.png">
+        <File Name="folder_edit.png" />
+      </Component>
+      <Component Id="folder_gear.png">
+        <File Name="folder_gear.png" />
+      </Component>
+      <Component Id="folder_information.png">
+        <File Name="folder_information.png" />
+      </Component>
+      <Component Id="FollowUpMgr.png">
+        <File Name="FollowUpMgr.png" />
+      </Component>
+      <Component Id="help2.png">
+        <File Name="help2.png" />
+      </Component>
+      <Component Id="link.png">
+        <File Name="link.png" />
+      </Component>
+      <Component Id="link_add.png">
+        <File Name="link_add.png" />
+      </Component>
+      <Component Id="link_delete.png">
+        <File Name="link_delete.png" />
+      </Component>
+      <Component Id="link_new.png">
+        <File Name="link_new.png" />
+      </Component>
+      <Component Id="mail_forward.png">
+        <File Name="mail_forward.png" />
+      </Component>
+      <Component Id="medical_bag.png">
+        <File Name="medical_bag.png" />
+      </Component>
+      <Component Id="money_envelope.png">
+        <File Name="money_envelope.png" />
+      </Component>
+      <Component Id="money_envelope_edit.png">
+        <File Name="money_envelope_edit.png" />
+      </Component>
+      <Component Id="money2_delete1.png">
+        <File Name="money2_delete1.png" />
+      </Component>
+      <Component Id="money2_edit.png">
+        <File Name="money2_edit.png" />
+      </Component>
+      <Component Id="nav_refresh_blue.png">
+        <File Name="nav_refresh_blue.png" />
+      </Component>
+      <Component Id="navigate_check.png">
+        <File Name="navigate_check.png" />
+      </Component>
+      <Component Id="navigate_cross.png">
+        <File Name="navigate_cross.png" />
+      </Component>
+      <Component Id="newspaper_new.png">
+        <File Name="newspaper_new.png" />
+      </Component>
+      <Component Id="notebook_edit.png">
+        <File Name="notebook_edit.png" />
+      </Component>
+      <Component Id="printer2.png">
+        <File Name="printer2.png" />
+      </Component>
+      <Component Id="ReportMgr.png">
+        <File Name="ReportMgr.png" />
+      </Component>
+      <Component Id="safe_into.png">
+        <File Name="safe_into.png" />
+      </Component>
+      <Component Id="safe_outcomponent1.png">
+        <File Id="safe_out.png" Source="../MyAgencyVault.WpfApp/bin/Release/Images/Icons/safe_out.png" />
+      </Component>
+      <Component Id="scroll_edit.png">
+        <File Name="scroll_edit.png" />
+      </Component>
+      <Component Id="server_mail_download.png">
+        <File Name="server_mail_download.png" />
+      </Component>
+      <Component Id="Settings.png">
+        <File Name="Settings.png" />
+      </Component>
+      <Component Id="toolbox.png">
+        <File Name="toolbox.png" />
+      </Component>
+      <Component Id="earthIcon.png">
+        <File Name="earthIcon.png" />
+      </Component>
+      <Component Id="undo.png">
+        <File Name="undo.png" />
+      </Component>
+      <Component Id="folder_view.png">
+        <File Name="folder_view.png" />
+      </Component>
+      <Component Id="money2_add.png">
+        <File Name="money2_add.png" />
+      </Component>
+      <Component Id="user_headset.png">
+        <File Name="user_headset.png" />
+      </Component>
+      <Component Id="user_telephone.png">
+        <File Name="user_telephone.png" />
+      </Component>
+      <Component Id="users4_edit.png">
+        <File Name="users4_edit.png" />
+      </Component>
+      <Component Id="addcomponent1.png">
+        <File Id="add.png" Source="../MyAgencyVault.WpfApp/Images/Icons/add.png" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="ProductImagesLogo" Directory="test3" Source="../MyAgencyVault.WpfApp/bin/Release/Images/Logo" >
+
+      <Component Id="addcomponent2.png" >
+        <File Id="addId2.png"  Source="../MyAgencyVault.WpfApp/bin/Release/Images/Logo/add.png"/>
+      </Component>
+      <Component Id="BillingManager.png">
+        <File Name="BillingManager.png" />
+      </Component>
+      <Component Id="businessmancomponent2">
+        <File Id="businessmanid2"  Source="../MyAgencyVault.WpfApp/bin/Release/Images/Logo/businessman_view.png"/>
+      </Component>
+      <Component Id="Cancel.JPG">
+        <File Name="Cancel.JPG" />
+      </Component>
+
+      <Component Id="LoginLogo.png">
+        <File Id="LoginLogo.png" Source="../MyAgencyVault.WpfApp/Images/Logo/LoginLogo.png" />
+      </Component>
+      <Component Id="cancel.png">
+        <File Name="cancel.png" />
+      </Component>
+      <Component Id="CompManager.png">
+        <File Name="CompManager.png" />
+      </Component>
+      <Component Id="Configuration.png">
+        <File Name="Configuration.png" />
+      </Component>
+      <Component Id="DataEntryUnit.png">
+        <File Name="DataEntryUnit.png" />
+      </Component>
+      <Component Id="Deletecomponent2.png">
+        <File Id="Deleteid2.png"  Source="../MyAgencyVault.WpfApp/bin/Release/Images/Logo/Delete.png"/>
+      </Component>
+      <Component Id="DownloadManager.png">
+        <File Name="DownloadManager.png" />
+      </Component>
+      <Component Id="floppydiskbluecomponent2.png">
+        <File Id="floppydiskblueid2.png" Source="../MyAgencyVault.WpfApp/bin/Release/Images/Logo/floppy_disk_blue.png" />
+      </Component>
+      <Component Id="FollowUpManager.png">
+        <File Name="FollowUpManager.png" />
+      </Component>
+      <Component Id="hand_red_card.png">
+        <File Name="hand_red_card.png" />
+      </Component>
+      <Component Id="HelpUpdate.png">
+        <File Name="HelpUpdate.png" />
+      </Component>
+      <Component Id="key.png">
+        <File Name="key.png" />
+      </Component>
+      <Component Id="magnifying_glass.png">
+        <File Name="magnifying_glass.png" />
+      </Component>
+      <Component Id="monitor_preferences.png">
+        <File Name="monitor_preferences.png" />
+      </Component>
+      <Component Id="new.png">
+        <File Name="new.png" />
+      </Component>
+      <Component Id="PayorTool.png">
+        <File Name="PayorTool.png" />
+      </Component>
+      <Component Id="PeopleManager.png">
+        <File Name="PeopleManager.png" />
+      </Component>
+      <Component Id="PolicyManager.png">
+        <File Name="PolicyManager.png" />
+      </Component>
+      <Component Id="preferences.png">
+        <File Name="preferences.png" />
+      </Component>
+      <Component Id="ReportManager.png">
+        <File Name="ReportManager.png" />
+      </Component>
+      <Component Id="safeoutcomponent2.png">
+        <File Id="safe_outid2.png" Source="../MyAgencyVault.WpfApp/bin/Release/Images/Logo/safe_out.png" />
+      </Component>
+      <Component Id="save.gif">
+        <File Name="save.gif" />
+      </Component>
+      <Component Id="save.png">
+        <File Name="save.png" />
+      </Component>
+      <Component Id="ScreenLogo.png">
+        <File Name="ScreenLogo.png" />
+      </Component>
+      <Component Id="Setting.png">
+        <File Name="Setting.png" />
+      </Component>
+      <Component Id="Thumbs.db">
+        <File Name="Thumbs.db" />
+      </Component>
+      <Component Id="user_view.png">
+        <File Name="user_view.png" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+</Wix>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

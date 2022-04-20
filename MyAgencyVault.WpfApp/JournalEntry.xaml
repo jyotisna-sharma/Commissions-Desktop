@@ -1,0 +1,43 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.JournalEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+        Title="Payment Entry" WindowStyle="ToolWindow"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Grid Name="grid" Margin="10" Width="Auto" Height="Auto">
+        <Grid.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Invoice Id" Height="28" ></Label>
+        <TextBox Text="{Binding InvoiceId}" Name="invoicesCombo" Margin="5" Grid.Row="0" Grid.Column="1" Height="23">
+        </TextBox>
+        <Label Grid.Row="1" Grid.Column="0" Content="Received Date" Height="28" ></Label>
+        <DatePicker SelectedDate="{Binding DateReceived,Mode=TwoWay,StringFormat=c}" Name="datePkr" Margin="5" Height="23" Grid.Row="1" Grid.Column="1"></DatePicker>
+        <Label Grid.Row="2" Grid.Column="0" Content="Received Amount" Height="28" ></Label>
+        <TextBox Text="{Binding Amount,StringFormat=c}" Name="amount" Margin="5" Height="23" Grid.Row="2" Grid.Column="1"></TextBox>
+        
+        <Label Grid.Row="3" Grid.Column="0" Content="Payment Type" Height="28" ></Label>
+        <ComboBox Text="{Binding Paymentype,Mode=TwoWay}" Name="cmbBoxpaymentTypes" Margin="5" Grid.Row="3" Grid.Column="1" Height="23">
+            <ComboBoxItem>Check</ComboBoxItem>
+            <ComboBoxItem>Credit</ComboBoxItem>
+        </ComboBox>
+        <Label Grid.Row="4" Grid.Column="0" Content="Transaction Id" Height="28" ></Label>
+        <TextBox Text="{Binding TransactionId}" Name="txtBoxTransactionID" Margin="4" Grid.Row="4" Grid.Column="1" Height="23">
+        </TextBox>
+        <Button HorizontalAlignment="Right" IsDefault="True" Width="50" Height="23" Margin="5" Grid.Row="5" Grid.Column="0" Content="OK" Click="Button_Click"></Button>
+        <Button HorizontalAlignment="Left" IsCancel="True" Width="50" Height="23" Margin="5" Grid.Row="5" Grid.Column="1" Content="Cancel" Click="Button_Click_1"></Button>
+    </Grid>
+</Window>

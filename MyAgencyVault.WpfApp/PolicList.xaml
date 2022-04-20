@@ -1,0 +1,57 @@
+﻿<Window x:Class="MyAgencyVault.WinApp.PolicList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+              xmlns:local="clr-namespace:MyAgencyVault.WinApp.Common"
+                xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit" 
+    Title="Replace Policy" Height="400" Width="450" Background="#B8D9FF" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+     
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0"></ColumnDefinition>
+        </Grid.ColumnDefinitions>  
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="240"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+        </Grid.RowDefinitions>
+        <toolkit:DataGrid Name="dgPolicies" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="6"  ColumnWidth="60" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding RPolicyList}" SelectedItem="{Binding RSelectedPolicy}" >
+            <toolkit:DataGrid.Columns>
+                <toolkit:DataGridTextColumn Header="Policy#" Binding="{Binding PolicyNumber}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Insured"  Binding="{Binding Insured}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Carrier" Binding="{Binding CarrierName}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Effictive" Binding="{Binding OriginalEffectiveDate}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Product" Binding="{Binding CoverageName}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="Status" Binding="{Binding PolicyStatusName}"></toolkit:DataGridTextColumn>
+                <toolkit:DataGridTextColumn Header="CompType" Binding="{Binding PolicyNumber}"></toolkit:DataGridTextColumn>
+
+            </toolkit:DataGrid.Columns>
+        </toolkit:DataGrid>
+        <Label Content="Policy Term Date" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center"></Label>
+        <Label Content="Term Reason" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center"></Label>
+        <toolkit:DatePicker Name="txtTermDate" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="3"></toolkit:DatePicker>
+        <ComboBox Name="cmbReasons" Grid.Column="3" Grid.Row="4" Height="20" VerticalAlignment="Center">
+            <ComboBoxItem Content="Replaced By New Policy"></ComboBoxItem>
+            <ComboBoxItem Content="Lost To Competitor"></ComboBoxItem>
+            <ComboBoxItem Content="Voluntary"></ComboBoxItem>
+            <ComboBoxItem Content="Out Of Business"></ComboBoxItem>
+            <ComboBoxItem Content="Non Payment"></ComboBoxItem>
+        </ComboBox>
+
+        <WrapPanel Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Content="Save" Command="{Binding RSavePolicy}" Height="20" local:EyeCandy.Image="Images/Logo/Save.png"  Style="{StaticResource ImageButtonSave}"    Name="button5"   />
+            <Separator Visibility="Hidden" Width="20"></Separator>
+            <Button Command="{Binding RCancelPolicy}"  Content="Cancel" Height="20" local:EyeCandy.Image="Images/Logo/Cancel.png"  Style="{StaticResource ImageButtonSave}"   />
+        </WrapPanel>
+    </Grid>
+</Window>

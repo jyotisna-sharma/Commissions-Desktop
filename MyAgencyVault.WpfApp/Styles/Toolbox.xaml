@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:MyAgencyVault.VM.VMLib.PayorForm;assembly=MyAgencyVault.VM">
+
+    <Style TargetType="{x:Type s:ToolboxItem}">
+        <Setter Property="FontFamily" Value="Calibri" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="2"/>
+    </Style>
+    
+</ResourceDictionary>

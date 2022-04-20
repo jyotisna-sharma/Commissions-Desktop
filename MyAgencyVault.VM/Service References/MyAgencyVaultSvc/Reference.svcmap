@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="81bddb36-c017-4832-aa9d-00c6ee0b7d53" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="Microsoft.CSharp" />
+      <ReferencedAssembly AssemblyName="mscorlib" />
+      <ReferencedAssembly AssemblyName="MyAgencyVault.EmailFax" />
+      <ReferencedAssembly AssemblyName="PresentationCore" />
+      <ReferencedAssembly AssemblyName="PresentationFramework" />
+      <ReferencedAssembly AssemblyName="System" />
+      <ReferencedAssembly AssemblyName="System.Configuration" />
+      <ReferencedAssembly AssemblyName="System.Core" />
+      <ReferencedAssembly AssemblyName="System.Data" />
+      <ReferencedAssembly AssemblyName="System.Data.DataSetExtensions" />
+      <ReferencedAssembly AssemblyName="System.Runtime.Serialization" />
+      <ReferencedAssembly AssemblyName="System.ServiceModel" />
+      <ReferencedAssembly AssemblyName="System.ServiceModel.Web" />
+      <ReferencedAssembly AssemblyName="System.Transactions" />
+      <ReferencedAssembly AssemblyName="System.Web" />
+      <ReferencedAssembly AssemblyName="System.Windows.Forms" />
+      <ReferencedAssembly AssemblyName="System.Workflow.ComponentModel" />
+      <ReferencedAssembly AssemblyName="System.Xaml" />
+      <ReferencedAssembly AssemblyName="System.Xml" />
+      <ReferencedAssembly AssemblyName="System.Xml.Linq" />
+      <ReferencedAssembly AssemblyName="WindowsBase" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:5202/MavService.svc/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service3.wsdl" MetadataType="Wsdl" ID="8f1eec96-4f7a-46a1-a418-3ad07b660bb9" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="service5.xsd" MetadataType="Schema" ID="b9319db8-46a9-425b-a2b3-cd700237ee9f" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="service6.xsd" MetadataType="Schema" ID="3bf88944-8363-4de5-b6e5-c269b2fbe2cd" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="service7.xsd" MetadataType="Schema" ID="982c28f7-12ed-4455-ab13-aab7e29b8872" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="MyAgencyVault.BusinessLibrary3.xsd" MetadataType="Schema" ID="1a9c943d-8f6a-4390-994a-f307c583b67f" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="MyAgencyVault.BusinessLibrary.Masters3.xsd" MetadataType="Schema" ID="7d7aeb03-420d-4f3e-8139-909a66cc4c76" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="Arrays5.xsd" MetadataType="Schema" ID="6de205da-8b36-4c9e-8bca-b2f7f0621430" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="MyAgencyVault.WcfService3.xsd" MetadataType="Schema" ID="ed7ad6ac-aee1-4ec3-afbd-1a6a4db8217c" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="System.Data2.xsd" MetadataType="Schema" ID="67e4a9e1-dd85-473d-b502-2c282a73c9e8" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+    <MetadataFile FileName="MyAgencyVault.EmailFax3.xsd" MetadataType="Schema" ID="818bc1e4-3faf-41dc-abde-5ac322f404e9" SourceId="1" SourceUrl="http://localhost:5202/MavService.svc/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
